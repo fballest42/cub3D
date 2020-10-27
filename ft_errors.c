@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 12:15:12 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/21 10:36:10 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/26 18:29:25 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void			ft_printerr(char *str)
 	write(1, str, ft_strlenb(str));
 }
 
-int				ft_duplicateres(int x, int y, t_map *map, t_err *err)
+int				ft_duplicateres(int y, t_map *map, t_err *err)
 {
-	if (map->file[x][y] == 'R' && map->res > 0)
+	if (map->file[y] == 'R' && map->res > 0)
 	{
 		ft_printerr(err->err14);
 		return (-14);

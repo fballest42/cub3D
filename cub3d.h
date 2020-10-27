@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 10:54:44 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/26 19:26:40 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,9 @@ typedef struct	s_map
 	int					px;
 	int					py;
 	char				*name;
-	char				**tmp;
-	char				**file;
+	char				*file;
 	char				**mapa;
 	int					okmap;
-	char				**error;
 	int					save;
 	char				**savmap;
 }				t_map;
@@ -94,15 +92,6 @@ typedef struct	s_tex
 	int					ce;
 	char				*rutace;
 }				t_tex;
-
-typedef struct	s_bar
-{
-	int					x;
-	int					y;
-	char				c;
-	char				*str;
-	char				**line;
-}				t_bar;
 
 typedef struct	s_err
 {
@@ -142,27 +131,27 @@ char			*ft_extfile(char *str);
 
 /*FILES IN FT_READFILE.C*/
 int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv);
-int				ft_getdatafile(int x, t_map *map, t_err *err, t_tex *tex);
-int				ft_getres(int x, t_map *map, t_err *err);
+int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex);
+int				ft_getres(t_map *map, t_err *err);
 int				ft_checkres(t_map *map, t_err *err);
 int				ft_checkall(t_map *map, t_tex *tex);
 
 /*FILES IN FT_GETTEXTURE.C*/
-int				ft_gettex(int x, t_tex *tex, t_err *err, t_map *map);
-int				ft_gettexno(int x, t_tex *tex, t_err *err, t_map *map);
-int				ft_gettexso(int x, t_tex *tex, t_err *err, t_map *map);
-int 			ft_gettexwe(int x, t_tex *tex, t_err *err, t_map *map);
-int				ft_gettexea(int x, t_tex *tex, t_err *err, t_map *map);
+int				ft_gettex(t_tex *tex, t_err *err, t_map *map);
+int				ft_gettexno(t_tex *tex, t_err *err, t_map *map);
+int				ft_gettexso(t_tex *tex, t_err *err, t_map *map);
+int 			ft_gettexwe(t_tex *tex, t_err *err, t_map *map);
+int				ft_gettexea(t_tex *tex, t_err *err, t_map *map);
 
 /*FILES IN FT_GETTEXTUREB.C*/
-int				ft_getsprite(int x, t_tex *tex, t_err *err, t_map *map);
-int				ft_getceilb(int x, int y, t_map *map, t_err *err);
-int				ft_getceil(int x, t_tex *tex, t_err *err, t_map *map);
-int				ft_getflo(int x, t_tex *tex, t_err *err, t_map *map);
+int				ft_getsprite(t_tex *tex, t_err *err, t_map *map);
+int				ft_getceilb(int y, t_map *map, t_err *err);
+int				ft_getceil(t_tex *tex, t_err *err, t_map *map);
+int				ft_getflo(t_tex *tex, t_err *err, t_map *map);
 
 /*FILES IN FT_GETMAP.C*/
 int				ft_openfile(char *str, t_err *err);
-int				ft_getmap(int x, t_map *map, t_err *err);
+int				ft_getmap(t_map *map, t_err *err);
 int				ft_checkmap(t_map *map, t_err *err, t_tex *tex);
 
 /*FILES IN FT_CUBEMAIN.C*/
@@ -175,7 +164,6 @@ void			ft_printerr(char *str);
 /*FILES IN FT_STRUTINIT.C*/
 void			ft_inimap(t_map *map);
 void			ft_initex(t_tex *tex);
-void			ft_inibar(t_bar *bar);
 int				ft_init(t_map *map, t_tex *tex);
 
 /*FILES IN FT_UTILSA.C*/
@@ -190,7 +178,9 @@ char			*ft_substrb(char *s, unsigned int start, size_t len);
 char			*ft_strchrb(char *s, int c);
 int				ft_outspace(int i, char *str);
 int				ft_checkspace(t_map *map);
-int				ft_structmem(t_map *map, t_err *err, t_tex *tex, t_bar *bar);
+void			ft_freemem(t_map *map, t_tex *tex, t_err *err);
+void			ft_freemap(t_map *map);
+void			ft_delerr(t_err *err);
 
 /* FUNCIONES QUE NO SE ESTAN USANDO NI ESTAN CREADAS
 int				ft_initcreate(int i);

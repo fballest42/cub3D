@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:17:25 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 13:31:21 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/26 19:27:27 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,7 @@ int			main(int argc, char **argv)
 	}
 	else
 		return (-1);
-	ft_init(map, tex);
+	ft_freemem(map, tex, err);
 	system("leaks Cub3D");
-	free(map);
-	free(tex);
-
 	return (0);
 }

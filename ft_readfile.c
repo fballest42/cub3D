@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 13:25:07 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/26 18:58:31 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,78 +15,71 @@
 int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv)
 {
 	int		fd;
-	int		x;
 	int		y;
 	char	*line;
 
 	line = NULL;
-	x = 0;
 	y = 0;
 	fd = ft_openfile(argv[1], err);
+	if (fd < 0)
+		return (-1);
 	while ((y = get_next_line(fd, &line)) > 0 || (y = get_next_line(fd, &line)) == EOF)
 	{
-		if (!(map->file = (char **)malloc(sizeof(char*) * x + 1)))
+		y = ft_strlen(line);
+		if (!(map->file = malloc (sizeof(char) * y + 1)))
 			return (-1);
-		map->file[x + 1] = NULL;
-		map->file[x] = ft_strdupb(line);
-		if (map->file[x])
-		{
-			map->file[x][ft_strlenb(line) + 1] = '\0';
-			if (ft_getdatafile(x, map, err, tex) < 0)
-				return (-1);
-		}
+		map->file = ft_strdupb(line);
+		if (ft_getdatafile(map, err, tex) < 0)
+			return (-1);
 		free(line);
 		line = NULL;
-		x++;
+		free(map->file);
+		map->file = NULL;
 	}
-	free(map->file);
-	map->file = NULL;
 	return (0);
 }
 
-int				ft_getdatafile(int x, t_map *map, t_err *err, t_tex *tex)
+int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex)
 {
 	int		y;
 
 	y = 0;
-	y = ft_outspace(y, map->file[x]);
-	if (ft_getres(x, map, err) < 0)
+	y = ft_outspace(y, map->file);
+	if (ft_getres(map, err) < 0)
 		return (-1);
-	else if (ft_gettex(x, tex, err, map) < 0)
+	else if (ft_gettex(tex, err, map) < 0)
 		return (-1);
-	else if (ft_getsprite(x, tex, err, map) < 0)
+	else if (ft_getsprite(tex, err, map) < 0)
 		return (-1);
-	else if (ft_getflo(x, tex, err, map) < 0)
+	else if (ft_getflo(tex, err, map) < 0)
 		return (-1);
-	else if (ft_getceil(x, tex, err, map) < 0)
+	else if (ft_getceil(tex, err, map) < 0)
 		return (-1);
 	else if (ft_checkall(map, tex) == 0)
-		ft_getmap(x, map, err);
-	map->file[x] = NULL;
-	free(map->file[x]);
+		ft_getmap(map, err);
 	return (0);
 }
 
-int				ft_getres(int x, t_map *map, t_err *err)
+int				ft_getres(t_map *map, t_err *err)
 {
 	int		y;
 
 	y = 0;
-	y = ft_outspace(y, map->file[x]);
-	if (map->file[x][y] == 'R')
+	y = ft_outspace(y, map->file);
+	if (map->file[y] == 'R')
 	{
 		map->res = map->res + 1;
 		y++;
-		y = ft_outspace(y, map->file[x]);
-		while (map->file[x][y] >= '0' && map->file[x][y] <= '9')
+		y = ft_outspace(y, map->file);
+		while (map->file[y] >= '0' && map->file[y] <= '9')
 		{
-			map->rx = map->rx * 10 + (map->file[x][y] - 48);
+			map->rx = map->rx * 10 + (map->file[y] - 48);
 			y++;
 		}
-		y = ft_outspace(y, map->file[x]);
-		while (map->file[x][y] >= '0' && map->file[x][y] <= '9')
+		y = ft_outspace(y, map->file);
+		while (map->file[y] >= '0' && map->file[y] <= '9')
 		{
-			map->ry = map->ry * 10 + (map->file[x][y] - 48);
+			map->ry = map->ry * 10 + (map->file[y] - 48);
 			y++;
 		}
 	}

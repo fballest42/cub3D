@@ -6,29 +6,31 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 09:40:49 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/26 19:36:52 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				ft_getmap(int x, t_map *map, t_err *err)
+int				ft_getmap(t_map *map, t_err *err)
 {
 	int		y;
+	int		x;
 
 	y = 0;
-	if (!(map->mapa = (char **)malloc(sizeof(char*) * map->i + 1)))
-		return (-1);
-	map->mapa[map->i] = ft_strdupb(map->file[x]);
-	while (map->file[x][y] != '\0')
+	x = 0;
+	
+	while (map->file[y] != '\0')
 	{
-		if (map->file[x][y] == ' ' || map->file[x][y] == '0'
-			|| map->file[x][y] == '1' || map->file[x][y] == '2'
-			|| map->file[x][y] == 'N' || map->file[x][y] == 'S'
-			|| map->file[x][y] == 'W' || map->file[x][y] == 'E')
+		map->mapa = ft_split(map->file, '\0');
+		map->mapa[x] = ft_strdupb(map->file);
+		if (map->file[y] == ' ' || map->file[y] == '0'
+			|| map->file[y] == '1' || map->file[y] == '2'
+			|| map->file[y] == 'N' || map->file[y] == 'S'
+			|| map->file[y] == 'W' || map->file[y] == 'E')
 		{
-			if (map->file[x][y] == 'N' || map->file[x][y] == 'S'
-				|| map->file[x][y] == 'W' || map->file[x][y] == 'E')
+			if (map->file[y] == 'N' || map->file[y] == 'S'
+				|| map->file[y] == 'W' || map->file[y] == 'E')
 			{
 				map->px = x;
 				map->py = y;
@@ -39,8 +41,8 @@ int				ft_getmap(int x, t_map *map, t_err *err)
 					return (-16);
 				}
 			}
-			map->file[x][y] = map->mapa[map->i][y];
-			y++;
+			map->file[x] = map->mapa[map->i][y];
+			x++;
 		}
 		else
 		{
@@ -53,7 +55,7 @@ int				ft_getmap(int x, t_map *map, t_err *err)
 
 int				ft_checkmap(t_map *map, t_err *err, t_tex *tex)
 {
-	printf("%s\n%s%s%s", "Leyendo y analizando el mapa", map->file[0], err->err24, tex->rutano);
+	printf("%s\n%s%s%s", "Leyendo y analizando el mapa", map->file, err->err24, tex->rutano);
 	return (0);
 }
 

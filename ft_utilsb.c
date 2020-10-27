@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 09:16:03 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 10:51:10 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/26 19:29:27 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int			ft_checkspace(t_map *map)
 	int		i;
 
 	i = 0;
-	while (*map->file[i] != '\0')
+	while (map->file[i] != '\0')
 	{
-		if (*map->file[i] == ' ' || *map->file[i] == '1' || *map->file[i] == '2'
-			|| *map->file[i] == '0' || *map->file[i] == 'N' || *map->file[i] == 'S'
-			|| *map->file[i] == 'W' || *map->file[i] == 'E' || *map->file[i] == '\n')
+		if (map->file[i] == ' ' || map->file[i] == '1' || map->file[i] == '2'
+			|| map->file[i] == '0' || map->file[i] == 'N' || map->file[i] == 'S'
+			|| map->file[i] == 'W' || map->file[i] == 'E' || map->file[i] == '\n')
 		{
 			i++;
 			map->okmap = 1;
@@ -79,6 +79,70 @@ int			ft_checkspace(t_map *map)
 			return (-1);
 	}
 	return (map->okmap);
+}
+
+void		ft_freemem(t_map *map, t_tex *tex, t_err *err)
+{
+	ft_init(map, tex);
+	ft_delerr(err);
+	map->name = NULL;
+	if (map->file)
+		free(map->file);
+	if (map->mapa)
+		ft_freemap(map);
+	if (tex->rutano)
+		free(tex->rutano);
+	if (tex->rutaso)
+		free(tex->rutaso);
+	if (tex->rutawe)
+		free(tex->rutawe);
+	if (tex->rutaea)
+		free(tex->rutaea);
+	if (tex->rutasp)
+		free(tex->rutasp);
+	free(map);
+	free(tex);
+}
+
+void		ft_freemap(t_map *map)
+{
+	int		x;
+
+	x = 0;
+	while(map->mapa[x])
+	{
+		free(map->mapa[x]);
+		x++;
+	}
+	free(map->mapa);	
+}
+
+void		ft_delerr(t_err *err)
+{
+	err->err1 = NULL;
+	err->err2 = NULL;
+	err->err3 = NULL;
+	err->err4 = NULL;
+	err->err5 = NULL;
+	err->err6 = NULL;
+	err->err7 = NULL;
+	err->err8 = NULL;
+	err->err9 = NULL;
+	err->err10 = NULL;
+	err->err11 = NULL;
+	err->err12 = NULL;
+	err->err13 = NULL;
+	err->err14 = NULL;
+	err->err15 = NULL;
+	err->err16 = NULL;
+	err->err17 = NULL;
+	err->err18 = NULL;
+	err->err19 = NULL;
+	err->err20 = NULL;
+	err->err21 = NULL;
+	err->err22 = NULL;
+	err->err23 = NULL;
+	err->err24 = NULL;
 }
 
 /*void		ft_delpointer(char *str)

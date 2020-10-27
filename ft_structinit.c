@@ -6,20 +6,11 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 10:55:26 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/26 19:20:56 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void			ft_inibar(t_bar *bar)
-{
-	bar->x = 0;
-	bar->y = 0;
-	bar->c = '\0';
-	bar->str = NULL;
-	bar->line = NULL;
-}
 
 int				ft_init(t_map *map, t_tex *tex)
 {
@@ -38,8 +29,7 @@ void			ft_inimap(t_map *map)
 	map->px = 0;
 	map->py = 0;
 	map->file = NULL;
-	map->tmp = NULL;
-	map->name = "Cub3d by fballest";
+	map->name = NULL;
 	map->okmap = 0;
 	map->save = 0;
 }
