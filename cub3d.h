@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 19:26:40 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/27 12:09:35 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv);
 int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex);
 int				ft_getres(t_map *map, t_err *err);
 int				ft_checkres(t_map *map, t_err *err);
-int				ft_checkall(t_map *map, t_tex *tex);
+int				ft_checkall(t_map *map, t_tex *tex, t_err *err);
 
 /*FILES IN FT_GETTEXTURE.C*/
 int				ft_gettex(t_tex *tex, t_err *err, t_map *map);
@@ -151,7 +151,7 @@ int				ft_getflo(t_tex *tex, t_err *err, t_map *map);
 
 /*FILES IN FT_GETMAP.C*/
 int				ft_openfile(char *str, t_err *err);
-int				ft_getmap(t_map *map, t_err *err);
+int				ft_getmap(t_map *map, t_err *err, t_tex *tex);
 int				ft_checkmap(t_map *map, t_err *err, t_tex *tex);
 
 /*FILES IN FT_CUBEMAIN.C*/
@@ -164,7 +164,7 @@ void			ft_printerr(char *str);
 /*FILES IN FT_STRUTINIT.C*/
 void			ft_inimap(t_map *map);
 void			ft_initex(t_tex *tex);
-int				ft_init(t_map *map, t_tex *tex);
+int				ft_init(t_map *map, t_tex *tex, t_err *err);
 
 /*FILES IN FT_UTILSA.C*/
 int				ft_strncmpb(const char *s1, const char *s2, size_t n);

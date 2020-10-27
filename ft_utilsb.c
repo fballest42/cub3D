@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 09:16:03 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/27 09:32:27 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/27 14:34:11 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ int			ft_checkspace(t_map *map)
 
 void		ft_freemem(t_map *map, t_tex *tex, t_err *err)
 {
-	ft_init(map, tex);
+	ft_init(map, tex, err);
 	ft_delerr(err);
 	map->name = NULL;
 	if (map->file)
 		free(map->file);
-	if (map->mapa)
-		ft_freemap(map);
+	//if (map->mapa)
+	//	ft_freemap(map);
 	if (tex->rutano)
 		free(tex->rutano);
 	if (tex->rutaso)
@@ -100,8 +100,6 @@ void		ft_freemem(t_map *map, t_tex *tex, t_err *err)
 		free(tex->rutaea);
 	if (tex->rutasp)
 		free(tex->rutasp);
-	free(map);
-	free(tex);
 }
 
 void		ft_freemap(t_map *map)

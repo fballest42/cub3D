@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 12:15:12 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 18:29:25 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/27 12:05:52 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void			ft_inierr(t_err *err)
 	err->err14 = "Error\n14.- Duplicate resolution.\n";
 	err->err15 = "Error\n15.- Not valid map.\n";
 	err->err16 = "Error\n16.- More than one player on map.\n";
-	err->err17 = "Error\n17.- .\n";
-	err->err18 = "Error\n18.- .\n";
+	err->err17 = "Error\n17.- Not valid parameters in the map file.\n";
+	err->err18 = "Error\n18.- Not valid symbols included in the map.\n";
 	err->err19 = "Error\n19.- .\n";
 	err->err20 = "Error\n20.- .\n";
 	err->err21 = "Error\n21.- .\n";

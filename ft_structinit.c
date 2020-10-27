@@ -6,16 +6,17 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 19:20:56 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/27 12:09:01 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				ft_init(t_map *map, t_tex *tex)
+int				ft_init(t_map *map, t_tex *tex, t_err *err)
 {
 	ft_inimap(map);
 	ft_initex(tex);
+	ft_inierr(err);
 	return (1);
 }
 

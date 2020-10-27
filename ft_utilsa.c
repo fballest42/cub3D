@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:23:01 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 10:53:44 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/27 11:48:23 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 int			ft_strlenb(char *str)
 {
 	int		i;
+
 	i = 0;
-	while(str[i] != '\0')
+	while (str[i] != 0)
 		i++;
-	return(i);
+	return (i);
 }
 
 int			ft_strncmpb(const char *s1, const char *s2, size_t n)

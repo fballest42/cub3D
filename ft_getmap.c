@@ -6,51 +6,37 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 19:36:52 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/27 14:33:22 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				ft_getmap(t_map *map, t_err *err)
+int				ft_getmap(t_map *map, t_err *err, t_tex *tex)
 {
 	int		y;
-	int		x;
 
 	y = 0;
-	x = 0;
-	
 	while (map->file[y] != '\0')
 	{
 		map->mapa = ft_split(map->file, '\0');
-		map->mapa[x] = ft_strdupb(map->file);
-		if (map->file[y] == ' ' || map->file[y] == '0'
-			|| map->file[y] == '1' || map->file[y] == '2'
-			|| map->file[y] == 'N' || map->file[y] == 'S'
+		map->mapa[map->okmap] = ft_strdupb(map->file);
+		map->mapa[map->okmap][y] = map->file[y];
+		if (map->file[y] == 'N' || map->file[y] == 'S'
 			|| map->file[y] == 'W' || map->file[y] == 'E')
 		{
-			if (map->file[y] == 'N' || map->file[y] == 'S'
-				|| map->file[y] == 'W' || map->file[y] == 'E')
+			map->px = map->okmap;
+			map->py = y;
+			map->pla = map->pla + 1;
+			if (map->pla > 1)
 			{
-				map->px = x;
-				map->py = y;
-				map->pla = map->pla + 1;
-				if (map->pla > 1)
-				{
-					ft_printerr(err->err16);
-					return (-16);
-				}
+				ft_printerr(err->err16);
+				return (-16);
 			}
-			map->file[x] = map->mapa[map->i][y];
-			x++;
 		}
-		else
-		{
-			ft_printerr(err->err15);
-			return (-15);
-		}
+		y++;
 	}
-	return (0);
+	return (ft_checkmap(map, err, tex));
 }
 
 int				ft_checkmap(t_map *map, t_err *err, t_tex *tex)

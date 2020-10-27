@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:17:25 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 19:27:27 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/27 14:18:50 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int			main(int argc, char **argv)
 	if (!(map = malloc(sizeof(t_map)))
 		|| !(err = malloc(sizeof(t_err)))
 		|| !(tex = malloc(sizeof(t_tex)))
-		|| !(ft_init(map, tex)))
+		|| !(ft_init(map, tex, err)))
 		return (-1);
 	if (ft_checkarg(argc, argv, map, err) == 1)
 	{
