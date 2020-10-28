@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 10:37:59 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/26 18:53:47 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/28 11:42:59 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ int			ft_getceil(t_tex *tex, t_err *err, t_map *map)
 	i = 1;
 	y = 0;
 	y = ft_outspace(y, map->file);
-	if (map->file[y++] == 'C')
+	if (map->file[y] == 'C')
 	{
-		tex->ce = tex->ce + 1;
+		y++;
+		tex->ce++;
 		while (map->file[y] != '\0' && i < 4)
 		{
 			y = ft_outspace(y, map->file);
@@ -65,9 +66,8 @@ int			ft_getceil(t_tex *tex, t_err *err, t_map *map)
 			}
 			y++;
 		}
-		tex->cei[i] = '\0';
 	}
-	return (tex->ce);
+	return (0);
 }
 
 int			ft_getceilb(int y, t_map *map, t_err *err)
@@ -97,9 +97,10 @@ int			ft_getflo(t_tex *tex, t_err *err, t_map *map)
 	i = 1;
 	y = 0;
 	y = ft_outspace(y, map->file);
-	if (map->file[y++] == 'F')
+	if (map->file[y] == 'F')
 	{
-		tex->fl = tex->fl + 1;
+		y++;
+		tex->fl++;
 		while (map->file[y] != '\0' && i < 4)
 		{
 			y = ft_outspace(y, map->file);
@@ -111,7 +112,6 @@ int			ft_getflo(t_tex *tex, t_err *err, t_map *map)
 			}
 			y++;
 		}
-		tex->flo[i] = '\0';
 	}
-	return (tex->fl);
+	return (0);
 }

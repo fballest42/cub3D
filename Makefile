@@ -6,7 +6,7 @@
 #    By: fballest <fballest@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/21 12:11:55 by fballest          #+#    #+#              #
-#    Updated: 2020/10/26 09:09:54 by fballest         ###   ########.fr        #
+#    Updated: 2020/10/28 13:50:29 by fballest         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,14 +45,14 @@ GNL_OBJS = $(SRCGNL:.c=.o)
 
 LIBFT = libft/libft.a
 
-
-MallocCheckHeapStart = 1000
-MallocCheckHeapEach = 100
+#LEAKS = -fsanitize=address
+#MallocCheckHeapStart = 1000
+#MallocCheckHeapEach = 100
 # LEAKS = leaks -atExit -- ./Cub3D testmap.cub
 
 # COMPILER #
 
-CC = gcc -Wall -Wextra -Werror -g
+CC = gcc -Wall -Wextra -Werror -g -fsanitize=address
 
 # COLOUR DEFINITION #
 

@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/27 14:52:51 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/28 11:55:10 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,15 @@ int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex)
 
 	y = 0;
 	y = ft_outspace(y, map->file);
-	if (ft_getres(map, err) < 0 && map->okmap == 0)
+	if (map->res > 0 && tex->ce > 0 && tex->fl > 0 && tex->no > 0
+		&& tex->so > 0 && tex->we > 0 && tex->ea > 0 && tex->sp > 0)
+	{
+		if (ft_checkall(map, err) == 0)
+			ft_getmap(map, err, tex);
+		else
+			return (-1);
+	}
+	else if (ft_getres(map, err) < 0 && map->okmap == 0)
 		return (-1);
 	else if (ft_gettex(tex, err, map) < 0 && map->okmap == 0)
 		return (-1);
@@ -54,10 +62,6 @@ int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex)
 		return (-1);
 	else if (ft_getceil(tex, err, map) < 0 && map->okmap == 0)
 		return (-1);
-	else if (ft_checkall(map, tex, err) == 0)
-	{
-		return (ft_getmap(map, err, tex));
-	}
 	free(map->file);
 	map->file = NULL;
 	return (0);
@@ -110,36 +114,25 @@ int				ft_checkres(t_map *map, t_err *err)
 	return (0);
 }
 
-int				ft_checkall(t_map *map, t_tex *tex, t_err *err)
+int				ft_checkall(t_map *map, t_err *err)
 {
 	int		y;
 
 	y = 0;
-	if (map->res == 1 && tex->ce == 1 && tex->fl == 1
-		&& tex->no == 1 && tex->so == 1 && tex->we == 1
-		&& tex->ea == 1 && tex->sp == 1)
+	map->okmap++;
+	while (map->file[y] != '\0')
 	{
-		if (map->file[y] != ' ' || map->file[y] != '1' || map->file[y] != '0'
-			|| map->file[y] != '2' || map->file[y] != 'N' || map->file[y] != 'S'
-			|| map->file[y] != 'W' || map->file[y] != 'E' || map->file[y] != '\t')
+		if (map->file[y] == ' ' || map->file[y] == '1' || map->file[y] == '0'
+		|| map->file[y] == '2' || map->file[y] == 'N' || map->file[y] == 'S'
+		|| map->file[y] == 'W' || map->file[y] == 'E' || map->file[y] == '\t')
+		{
+			y++;
+		}
+		else
 		{
 			ft_printerr(err->err18);
 			return (-18);
 		}
-		while (map->file[y] != '\0' && (map->file[y] == ' ' || map->file[y] == '1'
-			|| map->file[y] == '0' || map->file[y] == '2' || map->file[y] == 'N'
-			|| map->file[y] == 'S' || map->file[y] == 'W' || map->file[y] == 'E'
-			|| map->file[y] == '\t'))
-		{	
-			map->okmap++;
-			y++;
-		}
-
-	}
-	else
-	{
-		ft_printerr(err->err17);
-		return (-17);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/27 12:09:35 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/28 12:03:38 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct	s_map
 	int					pla;
 	int					px;
 	int					py;
+	char				**tmp;
 	char				*name;
 	char				*file;
 	char				**mapa;
@@ -134,7 +135,7 @@ int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv);
 int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex);
 int				ft_getres(t_map *map, t_err *err);
 int				ft_checkres(t_map *map, t_err *err);
-int				ft_checkall(t_map *map, t_tex *tex, t_err *err);
+int				ft_checkall(t_map *map, t_err *err);
 
 /*FILES IN FT_GETTEXTURE.C*/
 int				ft_gettex(t_tex *tex, t_err *err, t_map *map);
