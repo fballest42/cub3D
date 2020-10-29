@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/28 11:55:10 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/29 10:51:28 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv)
 	line = NULL;
 	y = 0;
 	fd = ft_openfile(argv[1], err);
+	map->fd = fd;
 	if (fd < 0)
 		return (-1);
 	while ((get_next_line(fd, &line)) > 0
@@ -117,22 +118,28 @@ int				ft_checkres(t_map *map, t_err *err)
 int				ft_checkall(t_map *map, t_err *err)
 {
 	int		y;
+	char	*str;
 
-	y = 0;
-	map->okmap++;
-	while (map->file[y] != '\0')
+	str = NULL;
+	while ((get_next_line(map->fd, &str)) > 0
+		|| (get_next_line(map->fd, &str)) == EOF)
 	{
-		if (map->file[y] == ' ' || map->file[y] == '1' || map->file[y] == '0'
-		|| map->file[y] == '2' || map->file[y] == 'N' || map->file[y] == 'S'
-		|| map->file[y] == 'W' || map->file[y] == 'E' || map->file[y] == '\t')
+		y = 0;
+		map->lm++;
+		while (str[y] != '\0')
 		{
-			y++;
+			if (str[y] == ' ' || str[y] == '1' || str[y] == '0' || str[y] == '2'
+				|| str[y] == 'N' || str[y] == 'S' || str[y] == 'W'
+				|| str[y] == 'E' || str[y] == '\t')
+				y++;
+			else
+			{
+				free(str);
+				ft_printerr(err->err18);
+				return (-18);
+			}
 		}
-		else
-		{
-			ft_printerr(err->err18);
-			return (-18);
-		}
+		free(str);
 	}
 	return (0);
 }

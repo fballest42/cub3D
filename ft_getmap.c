@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/28 13:25:31 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/29 12:09:08 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,28 @@
 int				ft_getmap(t_map *map, t_err *err, t_tex *tex)
 {
 	int		y;
+	int		x;
 
 	y = 0;
-	if (map->mapa)
+	x = 0;
+	if (!(map->mapa = (char **)malloc(sizeof(char *) * map->lm + 1)))
+		return (-1);
+	map->mapa[x] = ft_strdupb(map->file);
+	while (map->lm >= 0)
 	{
-		map->tmp = ft_split(*map->mapa, '\0');
-		while (map->okmap <= 0)
-			free(map->mapa[map->okmap--]);
-		free(map->mapa);
-	}
-	map->mapa = ft_split(map->file, '\0');
-	map->mapa[map->okmap] = ft_strdupb(map->file);
-	map->mapa = map->tmp;
-	while (map->file[y] != '\0')
-	{
-		map->mapa[map->okmap][y] = map->file[y];
-		if (map->file[y] == 'N' || map->file[y] == 'S'
-			|| map->file[y] == 'W' || map->file[y] == 'E')
+		y = 0;
+		while (map->file[y] != '\0')
 		{
-			map->px = map->okmap;
-			map->py = y;
-			map->pla = map->pla + 1;
-			if (map->pla > 1)
+			map->mapa[x][y] = map->file[y];
+			if (ft_checkplayer(x, y, map, err) < 0)
 			{
-				ft_printerr(err->err16);
-				return (-16);
+				while (x <= 0)
+					free (map->mapa[x--]);
+				free(map->mapa);
 			}
+			y++;
 		}
-		y++;
+		x++;
 	}
 	return (ft_checkmap(map, err, tex));
 }
@@ -64,4 +58,24 @@ int				ft_openfile(char *str, t_err *err)
 		return (-4);
 	}
 	return (fd);
+}
+
+int				ft_checkplayer(int x, int y, t_map *map, t_err *err)
+{
+	if (map->file[y] == 'N' || map->file[y] == 'S'
+		|| map->file[y] == 'W' || map->file[y] == 'E')
+	{
+		map->px = x;
+		map->py = y;
+		map->pla = map->pla + 1;
+	}
+	if (map->pla > 1)
+	{
+		while (x <= 0)
+			free (map->mapa[x--]);
+		free(map->mapa);
+		ft_printerr(err->err16);
+		return (-16);
+	}
+	return (0);
 }

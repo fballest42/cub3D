@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/28 12:03:38 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/29 12:02:34 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ typedef struct	s_map
 	int					pla;
 	int					px;
 	int					py;
+	int					fd;
+	int					lm;
 	char				**tmp;
 	char				*name;
 	char				*file;
@@ -154,6 +156,7 @@ int				ft_getflo(t_tex *tex, t_err *err, t_map *map);
 int				ft_openfile(char *str, t_err *err);
 int				ft_getmap(t_map *map, t_err *err, t_tex *tex);
 int				ft_checkmap(t_map *map, t_err *err, t_tex *tex);
+int				ft_checkplayer(int x, int y, t_map *map, t_err *err);
 
 /*FILES IN FT_CUBEMAIN.C*/
 int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);

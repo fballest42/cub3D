@@ -6,7 +6,7 @@
 #    By: fballest <fballest@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/21 12:11:55 by fballest          #+#    #+#              #
-#    Updated: 2020/10/28 13:50:29 by fballest         ###   ########.fr        #
+#    Updated: 2020/10/29 10:43:45 by fballest         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ LIBFT = libft/libft.a
 
 # COMPILER #
 
-CC = gcc -Wall -Wextra -Werror -g -fsanitize=address
+CC = gcc -Wall -Wextra -Werror -g # -fsanitize=address
 
 # COLOUR DEFINITION #
 
