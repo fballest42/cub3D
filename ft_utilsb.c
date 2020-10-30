@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 09:16:03 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/27 14:34:11 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:10:13 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,26 @@ void		ft_freemap(t_map *map)
 	int		x;
 
 	x = 0;
-	while(map->mapa)
+	while (map->mapa)
 	{
 		free(map->mapa[x]);
 		x++;
 	}
-	free(map->mapa);	
+	free(map->mapa);
+}
+
+void		ft_freearray(char **str)
+{
+	int		x;
+
+	x = 0;
+	if (*str)
+	{
+		while (*str != NULL)
+			free(*str);
+	}
+	if (str)
+		free(str);
 }
 
 void		ft_delerr(t_err *err)

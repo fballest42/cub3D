@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:17:25 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/27 14:18:50 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/30 10:26:59 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char		*ft_extfile(char *str)
 
 	i = 0;
 	j = 0;
-	ext = (malloc(7));
+	ext = (char *)malloc(sizeof(char) * 7);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '.' && str[i + 1] != '/')

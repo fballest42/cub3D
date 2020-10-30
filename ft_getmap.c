@@ -6,44 +6,43 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/29 12:09:08 by fballest         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:58:30 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				ft_getmap(t_map *map, t_err *err, t_tex *tex)
+int				ft_getmap(t_map *map, t_err *err)
 {
 	int		y;
-	int		x;
 
 	y = 0;
-	x = 0;
+	if (map->mapa)
+	{
+		map->tmp = map->mapa;
+		map->lm++;
+		ft_freearray(map->mapa);
+	}
 	if (!(map->mapa = (char **)malloc(sizeof(char *) * map->lm + 1)))
 		return (-1);
-	map->mapa[x] = ft_strdupb(map->file);
-	while (map->lm >= 0)
+	if (map->tmp)
 	{
-		y = 0;
-		while (map->file[y] != '\0')
+		while (map->tmp[y] != '\0')
 		{
-			map->mapa[x][y] = map->file[y];
-			if (ft_checkplayer(x, y, map, err) < 0)
-			{
-				while (x <= 0)
-					free (map->mapa[x--]);
-				free(map->mapa);
-			}
+			map->mapa[y] = ft_strdupb(map->tmp[y]);
 			y++;
 		}
-		x++;
 	}
-	return (ft_checkmap(map, err, tex));
+	map->mapa[map->lm] = ft_strdupb(map->file);
+	map->mapa[map->lm + 1] = NULL;
+	if (ft_checkplayer(map->im, y, map, err) < 0)
+		return (-1);
+	return (0);
 }
 
-int				ft_checkmap(t_map *map, t_err *err, t_tex *tex)
+int				ft_checkmap(t_map *map, t_err *err)
 {
-	printf("%s\n%s%s%s", "Leyendo y analizando el mapa", map->file, err->err24, tex->rutano);
+	printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n", "Leyendo y analizando el mapa", map->mapa[0], map->mapa[1], map->mapa[2], map->mapa[3], map->mapa[4], err->err1);
 	return (0);
 }
 
