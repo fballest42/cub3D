@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/03 00:50:32 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/03 12:48:55 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex)
 		&& tex->so > 0 && tex->we > 0 && tex->ea > 0 && tex->sp > 0)
 	{
 		if ((ft_checkall(map, err) == 0))
-		{ 
+		{
 			if (ft_getmap(map, err) < 0)
 				return (-1);
 		}
