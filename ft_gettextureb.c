@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 10:37:59 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/28 11:42:59 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/01 22:44:05 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,23 @@ int			ft_getflo(t_tex *tex, t_err *err, t_map *map)
 		}
 	}
 	return (0);
+}
+
+void			ft_countlines(char *argv, t_map *map, t_err *err)
+{
+	int		y;
+	int		fd;
+	char	*mapa;
+
+	mapa = NULL;
+	fd = ft_openfile(argv, err);
+	y = 0;
+	while ((get_next_line(fd, &mapa)) > 0
+		|| (get_next_line(fd, &mapa)) == EOF)
+	{
+		map->fm++;
+		free (mapa);
+		mapa = NULL;
+	}
+	close (fd);
 }

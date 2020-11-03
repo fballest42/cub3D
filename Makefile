@@ -6,7 +6,7 @@
 #    By: fballest <fballest@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/21 12:11:55 by fballest          #+#    #+#              #
-#    Updated: 2020/10/29 10:43:45 by fballest         ###   ########.fr        #
+#    Updated: 2020/11/02 16:51:13 by fballest         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ LIBFT = libft/libft.a
 #LEAKS = -fsanitize=address
 #MallocCheckHeapStart = 1000
 #MallocCheckHeapEach = 100
-# LEAKS = leaks -atExit -- ./Cub3D testmap.cub
+#LEAKS = leaks -atExit -- ./Cub3D testmap.cub
 
 # COMPILER #
 
@@ -79,14 +79,14 @@ $(NAME): $(OBJS) $(GNL_OBJS)
 	@echo "Done"
 	@echo "$(GREEN)==========WELLDONE==========$(RESET)"
 	@echo "Success creating Cub3D file"
-	# @echo "$(BLUE)==========CHECKING LEAKS==========$(RESET)"
-	# @MallocStackLogging=1
-	# @MallocCheckHeapStart=1000
-	# @MallocCheckHeapEach=100
-	# @cd /usr/local/lib
-	# @sudo ln -s /Applications/Xcode.app/Contents/Developer/usr/lib/libLeaksAtExit.dylib
-	# @$(LEAKS)
-	# @echo "The End"
+	#@echo "$(BLUE)==========CHECKING LEAKS==========$(RESET)"
+	#@MallocStackLogging=1
+	#@MallocCheckHeapStart=1000
+	#@MallocCheckHeapEach=100
+	#@cd /usr/local/lib
+	#@sudo ln -s /Applications/Xcode.app/Contents/Developer/usr/lib/libLeaksAtExit.dylib
+	#@$(LEAKS)
+	#@echo "The End"
 
 clean:
 	@$(RM) $(OBJS) $(GNL_OBJS)

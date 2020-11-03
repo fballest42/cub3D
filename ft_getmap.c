@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/30 13:58:30 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/03 00:54:22 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,68 @@
 
 int				ft_getmap(t_map *map, t_err *err)
 {
-	int		y;
-
-	y = 0;
-	if (map->mapa)
+	if (!map->mapa)
 	{
-		map->tmp = map->mapa;
-		map->lm++;
-		ft_freearray(map->mapa);
+		map->lm = map->fm - map->im;
+		map->im = 0;
+		map->mapa = (char **)malloc(sizeof(char *) * (map->lm + 1));
+		map->mapa[map->lm + 1] = NULL;
 	}
-	if (!(map->mapa = (char **)malloc(sizeof(char *) * map->lm + 1)))
+	if (map->im < (map->lm + 1))
+		map->mapa[map->im] = ft_strdupb(map->file);
+	if (ft_checkplayer(map, err) < 0)
 		return (-1);
-	if (map->tmp)
-	{
-		while (map->tmp[y] != '\0')
-		{
-			map->mapa[y] = ft_strdupb(map->tmp[y]);
-			y++;
-		}
-	}
-	map->mapa[map->lm] = ft_strdupb(map->file);
-	map->mapa[map->lm + 1] = NULL;
-	if (ft_checkplayer(map->im, y, map, err) < 0)
-		return (-1);
+	if (map->im == (map->lm + 1))
+		if (ft_checkmap(map, err) < 0)
+			return (-1);
 	return (0);
 }
 
 int				ft_checkmap(t_map *map, t_err *err)
 {
-	printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n", "Leyendo y analizando el mapa", map->mapa[0], map->mapa[1], map->mapa[2], map->mapa[3], map->mapa[4], err->err1);
+	int		x;
+	int		y;
+	char	**val;
+
+	x = 0;
+	y = map->py;
+	val = (char **)malloc(sizeof(char *) * (map->lm + 1));
+	val[map->lm + 1] = NULL;
+	while (map->mapa[x] != NULL)
+	{
+		val[x] = ft_strdupb(map->mapa[x]);
+		x++;
+	}
+	err->x = x;
+	x = map->px;
+	return (ft_checkmap2(x, y, val, err));
+}
+
+int				ft_checkmap2(int x, int y, char **val, t_err *err)
+{
+	if (x == 0 || y == 0 || y == ft_strlenb(val[x]) || x == err->x - 1
+		|| y > ft_strlenb(val[x + 1]))
+	{
+		ft_printerr(err->err15);
+		return (-15);
+	}
+	val[x][y] = '3';
+	if (val[x][y + 1] == '0' || val[x][y + 1] == ' ' || val[x][y + 1] == ' ')
+		ft_checkmap2(x, y, val, err);
+	if (val[x][y - 1] == '0' || val[x][y - 1] == ' ' || val[x][y - 1] == ' ')
+		ft_checkmap2(x, y, val, err);
+	if (val[x + 1][y] == '0' || val[x + 1][y] == ' ' || val[x + 1][y] == ' ')
+		ft_checkmap2(x, y, val, err);
+	if (val[x - 1][y] == '0' || val[x - 1][y] == ' ' || val[x - 1][y] == ' ')
+		ft_checkmap2(x, y, val, err);
+	if (val[x - 1][y + 1] == '0' || val[x - 1][y + 1] == ' ' || val[x - 1][y + 1] == ' ')
+		ft_checkmap2(x, y, val, err);
+	if (val[x + 1][y - 1] == '0' || val[x + 1][y - 1] == ' ' || val[x + 1][y - 1] == ' ')
+		ft_checkmap2(x, y, val, err);
+	if (val[x + 1][y + 1] == '0' || val[x + 1][y + 1] == ' ' || val[x + 1][y + 1] == ' ')
+		ft_checkmap2(x, y, val, err);
+	if (val[x - 1][y - 1] == '0' || val[x - 1][y - 1] == ' ' || val[x - 1][y - 1] == ' ')
+		ft_checkmap2(x, y, val, err);
 	return (0);
 }
 
@@ -59,19 +92,22 @@ int				ft_openfile(char *str, t_err *err)
 	return (fd);
 }
 
-int				ft_checkplayer(int x, int y, t_map *map, t_err *err)
+int				ft_checkplayer(t_map *map, t_err *err)
 {
+	int		y;
+
+	y = 0;
 	if (map->file[y] == 'N' || map->file[y] == 'S'
 		|| map->file[y] == 'W' || map->file[y] == 'E')
 	{
-		map->px = x;
+		map->px = map->im;
 		map->py = y;
 		map->pla = map->pla + 1;
 	}
 	if (map->pla > 1)
 	{
-		while (x <= 0)
-			free (map->mapa[x--]);
+		while (map->im >= 0)
+			free (map->mapa[map->im--]);
 		free(map->mapa);
 		ft_printerr(err->err16);
 		return (-16);

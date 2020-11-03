@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 10:41:39 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/30 12:34:41 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/02 14:57:28 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				ft_gettexno(t_tex *tex, t_err *err, t_map *map)
 		i = y;
 		while (map->file[i] != '\0')
 			i++;
-		if (!(tex->rutano = malloc(i + 1)))
+		if (!(tex->rutano = malloc(sizeof(char) * (i + 1))))
 			return (-1);
 		i = 0;
 		while (map->file[y] != 0)

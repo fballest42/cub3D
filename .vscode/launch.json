@@ -5,7 +5,7 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"preLaunchTask": "build"
+			"preLaunchTask": "build",
 			"name": "(lldb) Adjuntar",
 			"type": "cppdbg",
 			"request": "attach",
@@ -14,7 +14,7 @@
 			"MIMode": "lldb"
 		},
 		{
-			"preLaunchTask": "build"
+			"preLaunchTask": "build",
 			"name": "(lldb) Iniciar",
 			"type": "cppdbg",
 			"request": "launch",

@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 09:16:03 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/30 14:10:13 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/02 16:14:10 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,10 @@ int			ft_checkspace(t_map *map)
 
 void		ft_freemem(t_map *map, t_tex *tex, t_err *err)
 {
-	ft_init(map, tex, err);
-	ft_delerr(err);
-	map->name = NULL;
 	if (map->file)
 		free(map->file);
-	//if (map->mapa)
-	//	ft_freemap(map);
+	if (map->mapa)
+		ft_freemap(map);
 	if (tex->rutano)
 		free(tex->rutano);
 	if (tex->rutaso)
@@ -100,6 +97,12 @@ void		ft_freemem(t_map *map, t_tex *tex, t_err *err)
 		free(tex->rutaea);
 	if (tex->rutasp)
 		free(tex->rutasp);
+	ft_init(map, tex, err);
+	ft_delerr(err);
+	map->name = NULL;
+	free(map);
+	free(err);
+	free(tex);
 }
 
 void		ft_freemap(t_map *map)
@@ -107,12 +110,14 @@ void		ft_freemap(t_map *map)
 	int		x;
 
 	x = 0;
-	while (map->mapa)
+	while (map->mapa[x] != NULL)
 	{
 		free(map->mapa[x]);
+		map->mapa[x] = NULL;
 		x++;
 	}
 	free(map->mapa);
+	map->mapa = NULL;
 }
 
 void		ft_freearray(char **str)
@@ -120,10 +125,14 @@ void		ft_freearray(char **str)
 	int		x;
 
 	x = 0;
-	if (*str)
+	if (str[x])
 	{
-		while (*str != NULL)
-			free(*str);
+		while (str[x])
+		{
+			str[x] = NULL;
+			free(str[x]);
+			x++;
+		}
 	}
 	if (str)
 		free(str);

@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/30 13:57:34 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/03 00:50:32 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,17 @@ int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv)
 
 	line = NULL;
 	y = 0;
+	ft_countlines(argv[1], map, err);
 	fd = ft_openfile(argv[1], err);
 	if (fd < 0)
 		return (-1);
-	map->fd = fd;
 	while ((get_next_line(fd, &line)) > 0
 		|| (get_next_line(fd, &line)) == EOF)
 	{
-		y = ft_strlen(line);
-		if (!(map->file = malloc(sizeof(char) * y + 1)))
-			return (-1);
 		map->file = ft_strdupb(line);
 		free(line);
 		line = NULL;
+		map->im++;
 		if (ft_getdatafile(map, err, tex) < 0)
 			return (-1);
 	}
@@ -48,9 +46,12 @@ int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex)
 	if (map->res > 0 && tex->ce > 0 && tex->fl > 0 && tex->no > 0
 		&& tex->so > 0 && tex->we > 0 && tex->ea > 0 && tex->sp > 0)
 	{
-		if (ft_checkall(map, err) < 0)
-			return (-1);
-		if (ft_getmap(map, err) < 0)
+		if ((ft_checkall(map, err) == 0))
+		{ 
+			if (ft_getmap(map, err) < 0)
+				return (-1);
+		}
+		else
 			return (-1);
 	}
 	else if (ft_getres(map, err) < 0 && map->okmap == 0)

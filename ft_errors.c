@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 12:15:12 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/30 11:03:09 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/02 22:14:18 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void			ft_inierr(t_err *err)
 	err->err22 = "Error\n22.- .\n";
 	err->err23 = "Error\n23.- .\n";
 	err->err24 = "Error\n24.- .\n";
+	err->x = 0;
 }
 
 void			ft_printerr(char *str)

@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/16 12:42:50 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/02 16:06:19 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,17 @@
 
 int			ft_cubemain(t_map *map, t_err *err, t_tex *tex)
 {
+	int		i;
+
+	i = 0;
 	printf("RESOLUCION X %d\nRESOLUCION Y %d\n", map->rx, map->ry);
 	printf("TEXTURA NO %s\nTEXTURA SO %s\nTEXTURA WE %s\nTEXTURA EA %s\nTEXTURA SP %s\n CEILING RGB %d,%d,%d\n FLOOR RGB %d,%d,%d\n", tex->rutano, tex->rutaso, tex->rutawe, tex->rutaea, tex->rutasp, tex->cei[1], tex->cei[2], tex->cei[3], tex->flo[1], tex->flo[2], tex->flo[3]);
-	free(tex->rutano);
-	tex->rutano = NULL;
-	free(tex->rutaso);
-	tex->rutaso = NULL;
-	free(tex->rutawe);
-	tex->rutawe = NULL;
-	free(tex->rutaea);
-	tex->rutaea = NULL;
-	free(tex->rutasp);
-	tex->rutasp = NULL;
-	free(tex);
-	free(map);
-	free(err);
-
-
-
-
+	
+	while (map->mapa[i] != 0 && i <= 13)
+	{
+		printf("%s\n", map->mapa[i]);
+		i++;
+	}
+	printf("ESTE NO ES UN ERROR DE SALIDA %s ", err->err10);
 	return (0);
 }

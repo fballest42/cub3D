@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:17:25 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/30 10:26:59 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/02 16:59:33 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,27 @@ char		*ft_extfile(char *str)
 
 int			ft_checkarg2(char **argv, t_map *map, t_err *err)
 {
-	if ((ft_strncmpb(ft_extfile(argv[1]), ".cub", 5)) == 0
-		&& (ft_strlenb(ft_extfile(argv[1])) == 4))
+	char		*str;
+
+	str = ft_extfile(argv[1]);
+	if ((ft_strncmpb(str, ".cub", 4)) == 0 && (ft_strlenb(str) == 4))
 	{
-		if (argv[2] && ft_strncmpb(argv[2], "--save",
-		ft_strlenb(argv[2])) == 0)
+		if (argv[2] && (ft_strlenb(argv[2]) == 6)
+			&& (ft_strncmpb(argv[2], "--save", 6)) == 0)
 		{
 			map->save = 1;
 			return (1);
 		}
 		else if (!argv[2])
 			return (1);
-		else
+		else if (argv[2] && ((ft_strlenb(argv[2]) != 6)
+			|| (ft_strncmpb(argv[2], "--save", 6) != 0)))
 		{
 			ft_printerr(err->err3);
 			return (-3);
 		}
 	}
-	else if ((ft_strncmpb(ft_extfile(argv[1]), ".cub", 5)) != 0
-		|| (ft_strlenb(ft_extfile(argv[1])) != 4))
+	else if ((ft_strncmpb(str, ".cub", 4)) != 0	|| (ft_strlenb(str) != 4))
 	{
 		ft_printerr(err->err2);
 		return (-2);
@@ -78,7 +80,7 @@ int			ft_checkarg(int argc, char **argv, t_map *map, t_err *err)
 		ft_printerr(err->err1);
 		return (-1);
 	}
-	return (0);
+	return (1);
 }
 
 int			main(int argc, char **argv)
@@ -102,6 +104,5 @@ int			main(int argc, char **argv)
 	else
 		return (-1);
 	ft_freemem(map, tex, err);
-	system("leaks Cub3D");
 	return (0);
 }
