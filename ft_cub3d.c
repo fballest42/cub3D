@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:17:25 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/03 12:36:48 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/04 11:08:15 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int			main(int argc, char **argv)
 		return (-1);
 	if (ft_checkarg(argc, argv, map, err) == 1)
 	{
-		if (ft_checker(map, err, tex, argv) == 0 && ft_checkmap(map, err) == 0)
+		if (ft_checker(map, err, tex, argv) == 0)
 			ft_cubemain(map, err, tex);
 		else
 			return (-1);
