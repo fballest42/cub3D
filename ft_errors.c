@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 12:15:12 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/02 22:14:18 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:07:41 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void			ft_inierr(t_err *err)
 	err->err18 = "Error\n18.- Not valid symbols included in the map.\n";
 	err->err19 = "Error\n19.- Could not open a texture file.\n";
 	err->err20 = "Error\n20.- Not valid texture extension.\n";
-	err->err21 = "Error\n21.- .\n";
+	err->err21 = "Error\n21.- Not a coma between colours.\n";
 	err->err22 = "Error\n22.- .\n";
 	err->err23 = "Error\n23.- .\n";
-	err->err24 = "Error\n24.- .\n";
 	err->x = 0;
+	err->ok = 0;
 }
 
 void			ft_printerr(char *str)

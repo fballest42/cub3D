@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 09:16:03 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/04 13:07:21 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:19:40 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ char		*ft_substrb(char *s, unsigned int start, size_t len)
 	return (dst);
 }
 
-int		ft_outspace(int i, char *str)
+int			ft_outspace(int i, char *str)
 {
-	while ((str[i]) && (str[i] == ' ' || str[i] == ','
-		|| str[i] == '\n'))
+	while ((str[i]) && (str[i] == ' ' || str[i] == '\n'
+		|| str[i] == '\t'))
 		i++;
 	return (i);
 }
@@ -163,7 +163,8 @@ void		ft_delerr(t_err *err)
 	err->err21 = NULL;
 	err->err22 = NULL;
 	err->err23 = NULL;
-	err->err24 = NULL;
+	err->x = 0;
+	err->ok = 0;
 }
 
 /*void		ft_delpointer(char *str)

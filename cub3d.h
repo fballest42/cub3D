@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/04 08:56:49 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:19:20 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,8 @@ typedef struct	s_err
 	char		*err21;
 	char		*err22;
 	char		*err23;
-	char		*err24;
-	char		x;
+	int			x;
+	int			ok;
 }				t_err;
 
 /*LIST OF FUNTIONS AND FILES WHERE YOU CAN FIND EACH FUNTION*/

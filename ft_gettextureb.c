@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 10:37:59 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/01 22:44:05 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:19:04 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int			ft_getsprite(t_tex *tex, t_err *err, t_map *map)
 	y = 0;
 	i = 0;
 	y = ft_outspace(y, map->file);
+
 	if (map->file[y] == 'S' && map->file[y + 1] != 'O')
 	{
 		y = y + 1;
