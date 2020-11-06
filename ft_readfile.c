@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/04 08:54:41 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/06 13:41:15 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv)
 		line = NULL;
 		map->im++;
 		if (ft_getdatafile(map, err, tex) < 0)
+		{
+			ft_freemem(map, tex, err);
 			return (-1);
+		}
 	}
 	return (0);
 }

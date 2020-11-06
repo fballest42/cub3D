@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/05 14:19:20 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/06 11:38:07 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,9 +156,10 @@ void			ft_countlines(char *argv, t_map *map, t_err *err);
 
 /*FILES IN FT_GETMAP.C*/
 int				ft_openfile(char *str, t_err *err);
+int				ft_openfileb(char *str, t_err *err);
 int				ft_getmap(t_map *map, t_err *err);
 int				ft_checkmap(t_map *map, t_err *err);
-int				ft_checkmap2(int x, int y, char **val, t_err *err);
+void			ft_checkmap2(int x, int y, char **val, t_err *err);
 int				ft_checkplayer(int x, t_map *map, t_err *err);
 
 /*FILES IN FT_CUBEMAIN.C*/
@@ -167,6 +168,7 @@ int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);
 /*FILES IN FT_ERRORS.C*/
 void			ft_inierr(t_err *err);
 void			ft_printerr(char *str);
+int				ft_checktexture(char *str, t_err *err);
 
 /*FILES IN FT_STRUTINIT.C*/
 void			ft_inimap(t_map *map);

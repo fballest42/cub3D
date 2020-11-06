@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 12:15:12 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/05 12:07:41 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/06 11:42:22 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void			ft_inierr(t_err *err)
 	err->err3 = "Error\n3.- Invalid arguments.\n";
 	err->err4 = "Error\n4.- Could not open the file.\n";
 	err->err5 = "Error\n5.- Not defined or not valid resolution.\n";
-	err->err6 = "Error\n6.- No such file or directory for NO texture.\n";
-	err->err7 = "Error\n7.- No such file or directory for SO texture.\n";
-	err->err8 = "Error\n8.- No such file or directory for WE texture.\n";
-	err->err9 = "Error\n9.- No such file or directory for EA texture.\n";
+	err->err6 = "Error\n6.- Not a valid texture extension\n";
+	err->err7 = "Error\n7.- .\n";
+	err->err8 = "Error\n8.- .\n";
+	err->err9 = "Error\n9.- .\n";
 	err->err10 = "Error\n10.- No such file or directory for SPRITE texture.\n";
 	err->err11 = "Error\n11.- No ceiling colour defined.\n";
 	err->err12 = "Error\n12.- No floor colour defined.\n";
@@ -48,10 +48,27 @@ void			ft_printerr(char *str)
 
 int				ft_duplicateres(int y, t_map *map, t_err *err)
 {
-	if (map->file[y] == 'R' && map->res > 0)
+	if (map->file[y] == 'R' && map->res > 1)
 	{
 		ft_printerr(err->err14);
 		return (-14);
 	}
 	return (0);
+}
+
+int				ft_checktexture(char *str, t_err *err)
+{
+	char		*ext;
+	int			y;
+
+	y = 0;
+	ext = ft_extfile(str);
+	y = ft_strlenb(ext);
+	if (ft_strncmpb(ext, ".xpm", y) == 0)
+		return (0);
+	else
+	{
+		ft_printerr(err->err6);
+		return (-6);
+	}
 }

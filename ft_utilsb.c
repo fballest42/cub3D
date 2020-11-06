@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 09:16:03 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/05 14:19:40 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/06 14:02:57 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,19 @@ int			ft_checkspace(t_map *map)
 
 void		ft_freemem(t_map *map, t_tex *tex, t_err *err)
 {
-	if (map->file)
+	if (map->file != NULL)
 		free(map->file);
-	if (map->mapa)
+	if (map->mapa != NULL)
 		ft_freemap(map);
-	if (tex->rutano)
+	if (tex->rutano != NULL)
 		free(tex->rutano);
-	if (tex->rutaso)
+	if (tex->rutaso != NULL)
 		free(tex->rutaso);
-	if (tex->rutawe)
+	if (tex->rutawe != NULL)
 		free(tex->rutawe);
-	if (tex->rutaea)
+	if (tex->rutaea != NULL)
 		free(tex->rutaea);
-	if (tex->rutasp)
+	if (tex->rutasp != NULL)
 		free(tex->rutasp);
 	ft_init(map, tex, err);
 	ft_delerr(err);
@@ -125,17 +125,13 @@ void		ft_freearray(char **str)
 	int		x;
 
 	x = 0;
-	if (str[x])
+	while (str[x])
 	{
-		while (str[x])
-		{
-			str[x] = NULL;
-			free(str[x]);
-			x++;
-		}
+		str[x] = NULL;
+		free(str[x]);
+		x++;
 	}
-	if (str)
-		free(str);
+	free(str);
 }
 
 void		ft_delerr(t_err *err)

@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:17:25 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/05 08:52:40 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/06 14:00:18 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char		*ft_extfile(char *str)
 		}
 		i++;
 	}
-	ext[i] = '\0';
+	ext[j] = '\0';
 	str = ext;
 	free(ext);
 	return (str);
@@ -60,7 +60,7 @@ int			ft_checkarg2(char **argv, t_map *map, t_err *err)
 			return (-3);
 		}
 	}
-	else if ((ft_strncmpb(str, ".cub", 4)) != 0	|| (ft_strlenb(str) != 4))
+	else if ((ft_strncmpb(str, ".cub", 4)) != 0 || (ft_strlenb(str) != 4))
 	{
 		ft_printerr(err->err2);
 		return (-2);
@@ -104,5 +104,6 @@ int			main(int argc, char **argv)
 	else
 		return (-1);
 	ft_freemem(map, tex, err);
+	system("leaks Cub3D");
 	return (0);
 }
