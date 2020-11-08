@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/06 13:47:34 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/08 17:57:58 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int				ft_getmap(t_map *map, t_err *err)
 {
 	if (!map->mapa)
 	{
-		map->lm = map->fm - map->im;
+		map->lm = map->fm - (map->im - 1);
 		err->x = map->lm;
 		map->im = 0;
 		map->mapa = (char **)malloc(sizeof(char *) * (map->lm + 1));
-		map->mapa[map->lm + 1] = NULL;
+		map->mapa[map->lm] = NULL;
 	}
-	if (map->im < (map->lm + 1))
+	if (map->im <= map->lm)
 		map->mapa[map->im] = ft_strdupb(map->file);
 	if (ft_checkplayer(map->im, map, err) < 0)
 		return (-1);
@@ -38,8 +38,8 @@ int				ft_checkmap(t_map *map, t_err *err)
 	x = 0;
 	y = map->py;
 	val = (char **)malloc(sizeof(char *) * (map->lm + 1));
-	val[map->lm + 1] = NULL;
-	while (x < (map->lm + 1))
+	val[map->lm] = NULL;
+	while (map->mapa[x] != NULL)
 	{
 		val[x] = ft_strdupb(map->mapa[x]);
 		x++;
@@ -50,24 +50,24 @@ int				ft_checkmap(t_map *map, t_err *err)
 	return (0);
 }
 
-void				ft_checkmap2(int x, int y, char **val, t_err *err)
+void				ft_checkmap2(int x, int y, char **str, t_err *err)
 {
-	val[x][y] = '3';
-	if (x == 0 || y == 0 || y == (ft_strlenb(val[x]) - 1)
-	|| x == err->x || y > ft_strlenb(val[x + 1]) || y > ft_strlenb(val[x - 1]))
+	if (x == 0 || y == 0 || y == (ft_strlenb(str[x]))
+	|| x == err->x - 1 || y > ft_strlenb(str[x + 1]) || y > ft_strlenb(str[x - 1]))
 	{
-		ft_freearray(val);
+		ft_freearray(str);
 		ft_printerr(err->err15);
 		exit(-15);
 	}
-	if (val[x][y + 1] == 48 || val[x][y + 1] == 50 || val[x][y + 1] == 32)
-		ft_checkmap2(x, y + 1, val, err);
-	if (val[x][y - 1] == 48 || val[x][y - 1] == 50 || val[x][y - 1] == 32)
-		ft_checkmap2(x, y - 1, val, err);
-	if (val[x + 1][y] == 48 || val[x + 1][y] == 50 || val[x + 1][y] == 32)
-		ft_checkmap2(x + 1, y, val, err);
-	if (val[x - 1][y] == 48 || val[x - 1][y] == 50 || val[x - 1][y] == 32)
-		ft_checkmap2(x - 1, y, val, err);
+	str[x][y] = '3';
+	if (str[x][y + 1] == 48 || str[x][y + 1] == 50 || str[x][y + 1] == 32)
+		ft_checkmap2(x, y + 1, str, err);
+	if (str[x][y - 1] == 48 || str[x][y - 1] == 50 || str[x][y - 1] == 32)
+		ft_checkmap2(x, y - 1, str, err);
+	if (str[x + 1][y] == 48 || str[x + 1][y] == 50 || str[x + 1][y] == 32)
+		ft_checkmap2(x + 1, y, str, err);
+	if (str[x - 1][y] == 48 || str[x - 1][y] == 50 || str[x - 1][y] == 32)
+		ft_checkmap2(x - 1, y, str, err);
 }
 
 int				ft_openfile(char *str, t_err *err)
@@ -78,7 +78,7 @@ int				ft_openfile(char *str, t_err *err)
 	{
 		close(fd);
 		ft_printerr(err->err4);
-		return (-4);
+		exit (-4);
 	}
 	return (fd);
 }

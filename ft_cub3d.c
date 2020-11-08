@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:17:25 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/06 14:00:18 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/08 17:24:11 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char		*ft_extfile(char *str)
 	ext[j] = '\0';
 	str = ext;
 	free(ext);
+	ext = NULL;
 	return (str);
 }
 

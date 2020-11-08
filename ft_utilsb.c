@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 09:16:03 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/06 14:02:57 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/08 17:26:34 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,11 @@ void		ft_freemem(t_map *map, t_tex *tex, t_err *err)
 	ft_init(map, tex, err);
 	ft_delerr(err);
 	map->name = NULL;
+	map = NULL;
 	free(map);
+	err = NULL;
 	free(err);
+	tex = NULL;
 	free(tex);
 }
 
@@ -120,18 +123,21 @@ void		ft_freemap(t_map *map)
 	map->mapa = NULL;
 }
 
-void		ft_freearray(char **str)
+void		ft_freearray(char **fra)
 {
 	int		x;
 
 	x = 0;
-	while (str[x])
+	while (fra[x] != NULL)
 	{
-		str[x] = NULL;
-		free(str[x]);
+		free(fra[x]);
+		fra[x] = NULL;
 		x++;
 	}
-	free(str);
+	free(fra[x]);
+	fra[x] = NULL;
+	free(fra);
+	fra = NULL;
 }
 
 void		ft_delerr(t_err *err)

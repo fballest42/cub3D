@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/06 13:41:15 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/08 20:33:23 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,19 @@ int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv)
 
 	line = NULL;
 	y = 0;
+	system("leaks Cub3D");
 	ft_countlines(argv[1], map, err);
 	fd = ft_openfile(argv[1], err);
-	if (fd < 0)
-		return (-1);
-	while ((get_next_line(fd, &line)) > 0
-		|| (get_next_line(fd, &line)) == EOF)
+	while ((get_next_line(fd, &line)) > 0)
+		/*|| (get_next_line(fd, &line)) == EOF)*/
 	{
 		map->file = ft_strdupb(line);
+		printf("\nMEMDIR LINE =%p", line);
 		free(line);
 		line = NULL;
 		map->im++;
+		printf("\nMEMDIR FILE%p", map->file);
+		system("leaks Cub3D");
 		if (ft_getdatafile(map, err, tex) < 0)
 		{
 			ft_freemem(map, tex, err);

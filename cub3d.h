@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/06 11:38:07 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/08 16:02:50 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int				ft_openfile(char *str, t_err *err);
 int				ft_openfileb(char *str, t_err *err);
 int				ft_getmap(t_map *map, t_err *err);
 int				ft_checkmap(t_map *map, t_err *err);
-void			ft_checkmap2(int x, int y, char **val, t_err *err);
+void			ft_checkmap2(int x, int y, char **str, t_err *err);
 int				ft_checkplayer(int x, t_map *map, t_err *err);
 
 /*FILES IN FT_CUBEMAIN.C*/
@@ -190,7 +190,7 @@ int				ft_checkspace(t_map *map);
 void			ft_freemem(t_map *map, t_tex *tex, t_err *err);
 void			ft_freemap(t_map *map);
 void			ft_delerr(t_err *err);
-void			ft_freearray(char **str);
+void			ft_freearray(char **fra);
 
 /* FUNCIONES QUE NO SE ESTAN USANDO NI ESTAN CREADAS
 int				ft_initcreate(int i);

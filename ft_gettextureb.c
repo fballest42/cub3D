@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 10:37:59 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/05 14:19:04 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/08 19:51:26 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,17 +121,16 @@ void			ft_countlines(char *argv, t_map *map, t_err *err)
 {
 	int		y;
 	int		fd;
-	char	*mapa;
+	char	*cont;
 
-	mapa = NULL;
+	cont = NULL;
 	fd = ft_openfile(argv, err);
 	y = 0;
-	while ((get_next_line(fd, &mapa)) > 0
-		|| (get_next_line(fd, &mapa)) == EOF)
+	while ((get_next_line(fd, &cont)) > 0)
 	{
 		map->fm++;
-		free (mapa);
-		mapa = NULL;
+		free(cont);
+		cont = NULL;
 	}
 	close (fd);
 }
