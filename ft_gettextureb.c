@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 10:37:59 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/08 19:51:26 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/10 11:45:34 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			ft_getsprite(t_tex *tex, t_err *err, t_map *map)
 		if (tex->rutasp == NULL)
 		{
 			ft_printerr(err->err9);
-			return (-9);
+			exit(-9);
 		}
 	}
 	return (tex->sp);
@@ -63,7 +63,7 @@ int			ft_getceil(t_tex *tex, t_err *err, t_map *map)
 			if (tex->cei[i] < 0 || tex->cei[i] > 255)
 			{
 				ft_printerr(err->err13);
-				return (-13);
+				exit(-13);
 			}
 			y++;
 		}
@@ -85,7 +85,7 @@ int			ft_getceilb(int y, t_map *map, t_err *err)
 	if (i < 0 || i > 255)
 	{
 		ft_printerr(err->err13);
-		return (-13);
+		exit(-13);
 	}
 	return (i);
 }
@@ -109,7 +109,7 @@ int			ft_getflo(t_tex *tex, t_err *err, t_map *map)
 			if (tex->flo[i] < 0 || tex->flo[i] > 255)
 			{
 				ft_printerr(err->err13);
-				return (-13);
+				exit(-13);
 			}
 			y++;
 		}
@@ -132,5 +132,8 @@ void			ft_countlines(char *argv, t_map *map, t_err *err)
 		free(cont);
 		cont = NULL;
 	}
-	close (fd);
+	free(cont);
+	cont = NULL;
+	map->fm++;
+	close(fd);
 }

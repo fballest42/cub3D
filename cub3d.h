@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/08 16:02:50 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/09 10:51:17 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ typedef struct	s_err
 /* FILES IN CUB3D.c*/
 int				ft_checkarg(int argc, char **argv, t_map *map, t_err *err);
 int				ft_checkarg2(char **argv, t_map *map, t_err *err);
+int				ft_checkarg3(char **argv, t_map *map, t_err *err);
 char			*ft_extfile(char *str);
 
 /*FILES IN FT_READFILE.C*/

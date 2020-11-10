@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 12:15:12 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/06 11:42:22 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/09 11:28:04 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void			ft_inierr(t_err *err)
 	err->err4 = "Error\n4.- Could not open the file.\n";
 	err->err5 = "Error\n5.- Not defined or not valid resolution.\n";
 	err->err6 = "Error\n6.- Not a valid texture extension\n";
-	err->err7 = "Error\n7.- .\n";
-	err->err8 = "Error\n8.- .\n";
-	err->err9 = "Error\n9.- .\n";
+	err->err7 = "Error\n7.- .Not only number in Resolution\n";
+	err->err8 = "Error\n8.- .Not only numbers in Ceilng colour\n";
+	err->err9 = "Error\n9.- .Not only numbers in Floor colour\n";
 	err->err10 = "Error\n10.- No such file or directory for SPRITE texture.\n";
 	err->err11 = "Error\n11.- No ceiling colour defined.\n";
 	err->err12 = "Error\n12.- No floor colour defined.\n";
@@ -51,7 +51,7 @@ int				ft_duplicateres(int y, t_map *map, t_err *err)
 	if (map->file[y] == 'R' && map->res > 1)
 	{
 		ft_printerr(err->err14);
-		return (-14);
+		exit(-14);
 	}
 	return (0);
 }
@@ -69,6 +69,6 @@ int				ft_checktexture(char *str, t_err *err)
 	else
 	{
 		ft_printerr(err->err6);
-		return (-6);
+		exit(-6);
 	}
 }

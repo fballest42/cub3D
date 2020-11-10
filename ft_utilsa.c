@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:23:01 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/08 18:31:07 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/10 10:12:07 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ char		*ft_strdupb(char *str)
 
 	i = 0;
 	if (!(dest = malloc(ft_strlenb(str) + 1)))
-		return(0);
+		return (0);
 	while (str[i] != '\0')
 	{
 		dest[i] = str[i];
 		i++;
 	}
 	dest[i] = '\0';
-	return(dest);
+	return (dest);
 }
 
 char		*ft_strjoinb(char *str, char *s2)
@@ -66,8 +66,8 @@ char		*ft_strjoinb(char *str, char *s2)
 	char	*dest;
 
 	j = 0;
-	if(!(dest = malloc(ft_strlenb(str) + ft_strlenb(s2) + 1)))
-		return(0);
+	if (!(dest = malloc(ft_strlenb(str) + ft_strlenb(s2) + 1)))
+		return (0);
 	i = 0;
 	while (str[i] != '\0')
 	{
@@ -78,7 +78,7 @@ char		*ft_strjoinb(char *str, char *s2)
 		dest[i++] = s2[j++];
 	dest[i] = '\0';
 	free(str);
-	return(dest);
+	return (dest);
 }
 
 int			ft_freestruct(t_map *map, t_tex *tex)

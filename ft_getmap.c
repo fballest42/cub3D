@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/08 17:57:58 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/10 11:40:06 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int				ft_checkmap(t_map *map, t_err *err)
 
 void				ft_checkmap2(int x, int y, char **str, t_err *err)
 {
-	if (x == 0 || y == 0 || y == (ft_strlenb(str[x]))
-	|| x == err->x - 1 || y > ft_strlenb(str[x + 1]) || y > ft_strlenb(str[x - 1]))
+	if (x == 0 || y == 0 || y == (ft_strlenb(str[x])) || x == err->x - 1
+		|| y > ft_strlenb(str[x + 1]) || y > ft_strlenb(str[x - 1]))
 	{
 		ft_freearray(str);
 		ft_printerr(err->err15);
@@ -78,7 +78,7 @@ int				ft_openfile(char *str, t_err *err)
 	{
 		close(fd);
 		ft_printerr(err->err4);
-		exit (-4);
+		exit(-4);
 	}
 	return (fd);
 }
@@ -91,7 +91,7 @@ int				ft_openfileb(char *str, t_err *err)
 	{
 		close(fd);
 		ft_printerr(err->err19);
-		return (-19);
+		exit(-19);
 	}
 	return (fd);
 }
@@ -116,7 +116,7 @@ int				ft_checkplayer(int x, t_map *map, t_err *err)
 	if (map->pla > 1)
 	{
 		ft_printerr(err->err16);
-		return (-16);
+		exit(-16);
 	}
 	return (0);
 }

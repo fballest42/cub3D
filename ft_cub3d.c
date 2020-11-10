@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:17:25 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/08 17:24:11 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/10 11:43:51 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,25 @@ char		*ft_extfile(char *str)
 	return (str);
 }
 
+int			ft_checkarg3(char **argv, t_map *map, t_err *err)
+{
+	if (argv[2] && (ft_strlenb(argv[2]) == 6)
+		&& (ft_strncmpb(argv[2], "--save", 6)) == 0)
+	{
+		map->save = 1;
+		return (1);
+	}
+	else if (!argv[2])
+		return (1);
+	else if (argv[2] && ((ft_strlenb(argv[2]) != 6)
+		|| (ft_strncmpb(argv[2], "--save", 6) != 0)))
+	{
+		ft_printerr(err->err3);
+		exit(-3);
+	}
+	return (1);
+}
+
 int			ft_checkarg2(char **argv, t_map *map, t_err *err)
 {
 	char		*str;
@@ -46,20 +65,8 @@ int			ft_checkarg2(char **argv, t_map *map, t_err *err)
 	str = ft_extfile(argv[1]);
 	if ((ft_strncmpb(str, ".cub", 4)) == 0 && (ft_strlenb(str) == 4))
 	{
-		if (argv[2] && (ft_strlenb(argv[2]) == 6)
-			&& (ft_strncmpb(argv[2], "--save", 6)) == 0)
-		{
-			map->save = 1;
-			return (1);
-		}
-		else if (!argv[2])
-			return (1);
-		else if (argv[2] && ((ft_strlenb(argv[2]) != 6)
-			|| (ft_strncmpb(argv[2], "--save", 6) != 0)))
-		{
-			ft_printerr(err->err3);
-			return (-3);
-		}
+		if (ft_checkarg3(argv, map, err) < 0)
+			return (-1);
 	}
 	else if ((ft_strncmpb(str, ".cub", 4)) != 0 || (ft_strlenb(str) != 4))
 	{

@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/08 20:33:23 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/10 11:38:53 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,23 @@ int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv)
 
 	line = NULL;
 	y = 0;
-	system("leaks Cub3D");
 	ft_countlines(argv[1], map, err);
 	fd = ft_openfile(argv[1], err);
 	while ((get_next_line(fd, &line)) > 0)
-		/*|| (get_next_line(fd, &line)) == EOF)*/
 	{
 		map->file = ft_strdupb(line);
-		printf("\nMEMDIR LINE =%p", line);
 		free(line);
 		line = NULL;
 		map->im++;
-		printf("\nMEMDIR FILE%p", map->file);
-		system("leaks Cub3D");
 		if (ft_getdatafile(map, err, tex) < 0)
-		{
-			ft_freemem(map, tex, err);
 			return (-1);
-		}
 	}
+	map->file = ft_strdupb(line);
+	free(line);
+	line = NULL;
+	map->im++;
+	if (map->file && ft_getdatafile(map, err, tex) < 0)
+		return (-1);
 	return (0);
 }
 
@@ -102,12 +100,12 @@ int				ft_checkres(t_map *map, t_err *err)
 	if (map->res > 1)
 	{
 		ft_printerr(err->err14);
-		return (-14);
+		exit(-14);
 	}
 	else if (map->res == 0 || map->rx <= 0 || map->ry <= 0)
 	{
 		ft_printerr(err->err5);
-		return (-5);
+		exit(-5);
 	}
 	else if (map->rx > 2560 || map->ry > 1440)
 	{
@@ -133,7 +131,7 @@ int				ft_checkall(t_map *map, t_err *err)
 		else
 		{
 			ft_printerr(err->err18);
-			return (-18);
+			exit(-18);
 		}
 	}
 	return (0);
