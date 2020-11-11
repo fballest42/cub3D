@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 10:41:39 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/09 09:53:22 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/11 10:20:43 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ int				ft_gettexso(t_tex *tex, t_err *err, t_map *map)
 		tex->rutaso[i] = '\0';
 		if (tex->rutaso == NULL)
 		{
-			ft_printerr(err->err7);
-			exit(-7);
+			ft_printerr(err->err6);
+			exit(-6);
 		}
 	}
 	return (tex->so);
@@ -124,8 +124,8 @@ int				ft_gettexwe(t_tex *tex, t_err *err, t_map *map)
 		tex->rutawe[i] = '\0';
 		if (tex->rutawe == NULL)
 		{
-			ft_printerr(err->err8);
-			exit(-8);
+			ft_printerr(err->err6);
+			exit(-6);
 		}
 	}
 	return (tex->we);
@@ -155,8 +155,8 @@ int				ft_gettexea(t_tex *tex, t_err *err, t_map *map)
 		tex->rutaea[i] = '\0';
 		if (tex->rutaea == NULL)
 		{
-			ft_printerr(err->err9);
-			exit(-9);
+			ft_printerr(err->err6);
+			exit(-6);
 		}
 	}
 	return (tex->ea);

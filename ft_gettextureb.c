@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 10:37:59 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/10 11:45:34 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/11 10:50:23 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int			ft_getsprite(t_tex *tex, t_err *err, t_map *map)
 		tex->rutasp[i] = '\0';
 		if (tex->rutasp == NULL)
 		{
-			ft_printerr(err->err9);
-			exit(-9);
+			ft_printerr(err->err6);
+			exit(-6);
 		}
 	}
 	return (tex->sp);
@@ -51,6 +51,7 @@ int			ft_getceil(t_tex *tex, t_err *err, t_map *map)
 
 	i = 1;
 	y = 0;
+	ft_checknumbers(map, err);
 	y = ft_outspace(y, map->file);
 	if (map->file[y] == 'C')
 	{
@@ -97,20 +98,22 @@ int			ft_getflo(t_tex *tex, t_err *err, t_map *map)
 
 	i = 1;
 	y = 0;
+	ft_checknumbers(map, err);
 	y = ft_outspace(y, map->file);
 	if (map->file[y] == 'F')
 	{
 		y++;
-		tex->fl++;
+		tex->fl = tex->fl + 1;
 		while (map->file[y] != '\0' && i < 4)
 		{
 			y = ft_outspace(y, map->file);
-			tex->flo[i++] = ft_getceilb(y, map, err);
+			tex->flo[i] = ft_getceilb(y, map, err);
 			if (tex->flo[i] < 0 || tex->flo[i] > 255)
 			{
 				ft_printerr(err->err13);
 				exit(-13);
 			}
+			i++;
 			y++;
 		}
 	}
@@ -136,4 +139,29 @@ void			ft_countlines(char *argv, t_map *map, t_err *err)
 	cont = NULL;
 	map->fm++;
 	close(fd);
+}
+
+void			ft_checknumbers(t_map *map, t_err *err)
+{
+	int		y;
+	int		i;
+
+	y = 0;
+	i = 0;
+	y = ft_outspace(y, map->file);
+	if (map->file[y] == 'F' || map->file[y] == 'C' || map->file[y] == 'R')
+	{
+		i = y;
+		y++;
+		while (map->file[y] && ((map->file[y] >= '0'
+			&& map->file[y] <= '9') || map->file[y] == '\t'
+			|| map->file[y] == ' ' || ((map->file[i] == 'F'
+			|| map->file[i] == 'C') && map->file[y] == ',')))
+			y++;
+		if (map->file[y])
+		{
+			ft_printerr(err->err7);
+			exit(-7);
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 12:15:12 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/09 11:28:04 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/11 10:06:39 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void			ft_inierr(t_err *err)
 	err->err3 = "Error\n3.- Invalid arguments.\n";
 	err->err4 = "Error\n4.- Could not open the file.\n";
 	err->err5 = "Error\n5.- Not defined or not valid resolution.\n";
-	err->err6 = "Error\n6.- Not a valid texture extension\n";
-	err->err7 = "Error\n7.- .Not only number in Resolution\n";
-	err->err8 = "Error\n8.- .Not only numbers in Ceilng colour\n";
-	err->err9 = "Error\n9.- .Not only numbers in Floor colour\n";
-	err->err10 = "Error\n10.- No such file or directory for SPRITE texture.\n";
+	err->err6 = "Error\n6.- Not a valid texture extension.\n";
+	err->err7 = "Error\n7.- Not valid info on Resolution, Ceiling or Floor.\n";
+	err->err8 = "Error\n8.- .\n";
+	err->err9 = "Error\n9.- .\n";
+	err->err10 = "Error\n10.- No such file or directory for texture file.\n";
 	err->err11 = "Error\n11.- No ceiling colour defined.\n";
 	err->err12 = "Error\n12.- No floor colour defined.\n";
 	err->err13 = "Error\n13.- Wrong colour for ceiling or floor.\n";
-	err->err14 = "Error\n14.- Duplicate resolution.\n";
+	err->err14 = "Error\n14.- Duplicate parameter.\n";
 	err->err15 = "Error\n15.- Not valid map.\n";
 	err->err16 = "Error\n16.- Wrong number of players on map.\n";
 	err->err17 = "Error\n17.- Not valid parameters in the map file.\n";

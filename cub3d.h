@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/10 19:10:48 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/11 10:10:55 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int				ft_getres(t_map *map, t_err *err);
 int				ft_checkres(t_map *map, t_err *err);
 int				ft_checkall(t_map *map, t_err *err);
 int				ft_outemptylines(t_map *map);
+int				ft_getdatafileb(t_map *map, t_tex *tex, t_err *err);
 
 /*FILES IN FT_GETTEXTURE.C*/
 int				ft_gettex(t_tex *tex, t_err *err, t_map *map);
@@ -155,6 +156,7 @@ int				ft_getceilb(int y, t_map *map, t_err *err);
 int				ft_getceil(t_tex *tex, t_err *err, t_map *map);
 int				ft_getflo(t_tex *tex, t_err *err, t_map *map);
 void			ft_countlines(char *argv, t_map *map, t_err *err);
+void			ft_checknumbers(t_map *map, t_err *err);
 
 /*FILES IN FT_GETMAP.C*/
 int				ft_openfile(char *str, t_err *err);

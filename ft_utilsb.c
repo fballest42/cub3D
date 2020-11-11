@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 09:16:03 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/10 19:07:30 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/11 09:37:11 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ char		*ft_substrb(char *s, unsigned int start, size_t len)
 
 int			ft_outspace(int i, char *str)
 {
-	while ((str[i]) && (str[i] == ' ' || str[i] == '\n'
-		|| str[i] == '\t'))
+	while ((str[i]) && (str[i] == ' ' || str[i] == '\t'))
 		i++;
 	return (i);
 }
