@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/10 11:38:53 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/10 19:10:34 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex)
 	int		y;
 
 	y = 0;
+	if (ft_outemptylines(map) < 0)
+		return (0);
 	y = ft_outspace(y, map->file);
 	if (map->res > 0 && tex->ce > 0 && tex->fl > 0 && tex->no > 0
 		&& tex->so > 0 && tex->we > 0 && tex->ea > 0 && tex->sp > 0)
@@ -135,4 +137,18 @@ int				ft_checkall(t_map *map, t_err *err)
 		}
 	}
 	return (0);
+}
+
+int			ft_outemptylines(t_map *map)
+{
+	int		y;
+
+	y = 0;
+	if (map->file[y] == 0)
+	{
+		free(map->file);
+		map->file = NULL;
+		return (-1);
+	}
+	return (1);
 }

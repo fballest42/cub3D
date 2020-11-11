@@ -1,0 +1,18 @@
+R 768 1068          
+NO ./textures/bluestone.xpm
+SO ./textures/colorstone.xpm
+WE ./textures/greystone.xpm
+EA ./textures/purplestone.xpm
+S ./textures/pillar.xpm
+F 51,51,51
+C 102,204,255
+
+1111111111111111
+1000S00000000001
+1000000001100001
+1000000001 00001
+1000000000000001
+1011200000000001
+1000100N00000001
+1000000000000001
+1111111111111111

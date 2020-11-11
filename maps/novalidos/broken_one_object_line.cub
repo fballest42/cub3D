@@ -1,0 +1,10 @@
+R 800 400
+NO ./textures/bluestone.xpm
+SO ./textures/colorstone.xpm
+WE ./textures/greystone.xpm
+EA ./textures/purplestone.xpm
+S ./textures/pillar.xpm
+
+F 220,100,0
+C 225,30,0
+100N111111000000011111
