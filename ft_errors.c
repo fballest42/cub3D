@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 12:15:12 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/12 11:19:21 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/12 16:05:32 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			ft_inierr(t_err *err)
 	err->err5 = "Error\n5.- Not defined or not valid resolution.\n";
 	err->err6 = "Error\n6.- Not a valid texture extension.\n";
 	err->err7 = "Error\n7.- Not valid info on Resolution, Ceiling or Floor.\n";
-	err->err8 = "Error\n8.- Ceiling or Floor must be separate by one ','.\n";
+	err->err8 = "Error\n8.- Ceiling or Floor must use ',' between values.\n";
 	err->err9 = "Error\n9.- .\n";
 	err->err10 = "Error\n10.- No such file or directory for texture file.\n";
 	err->err11 = "Error\n11.- No ceiling colour defined.\n";

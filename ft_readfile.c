@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/12 13:59:54 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/12 23:21:00 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,25 +148,25 @@ int			ft_outemptylines(t_map *map)
 int				ft_getdatafileb(t_map *map, t_tex *tex, t_err *err)
 {
 	ft_checkduplicates(map, tex, err);
-	if (ft_getres(map, err) < 0)
-		return (-1);
-	else if (ft_gettex(tex, err, map) < 0 && map->okmap == 0)
-		return (-1);
-	else if (ft_getsprite(tex, err, map) < 0 && map->okmap == 0)
-		return (-1);
-	else if (ft_getflo(tex, err, map) < 0 && map->okmap == 0)
-		return (-1);
-	else if (ft_getceil(tex, err, map) < 0 && map->okmap == 0)
-		return (-1);
-	else if (map->res == 1 && tex->ce == 1 && tex->fl == 1 && tex->no == 1
+	if (map->res == 1 && tex->ce == 1 && tex->fl == 1 && tex->no == 1
 		&& tex->so == 1 && tex->we == 1 && tex->ea == 1 && tex->sp == 1
-		&& map->okmap == 0)
+		&& (ft_checkall(map, err) == 0))
 	{
-		if ((ft_checkall(map, err) < 0))
+		if (ft_checkall(map, err) < 0)
 			return (-1);
 		if (ft_getmap(map, err) < 0)
 			return (-1);
 	}
+	else if (ft_getres(map, err) < 0)
+		return (-1);
+	else if (ft_gettex(tex, err, map) < 0)
+		return (-1);
+	else if (ft_getsprite(tex, err, map) < 0)
+		return (-1);
+	else if (ft_getceil(tex, err, map) < 0)
+		return (-1);
+	else if (ft_getflo(tex, err, map) < 0)
+		return (-1);
 	free(map->file);
 	map->file = NULL;
 	return (0);
@@ -174,7 +174,10 @@ int				ft_getdatafileb(t_map *map, t_tex *tex, t_err *err)
 
 void			ft_checkduplicates(t_map *map, t_tex *tex, t_err *err)
 {
-	if (map->res > 1 || tex->ce > 1 || tex->fl > 1 || tex->no > 1
+	if (map->res == 1 && tex->ce == 1 && tex->fl == 1 && tex->no == 1
+		&& tex->so == 1 && tex->we == 1 && tex->ea == 1 && tex->sp == 1)
+		map->okmap = 1;
+	else if (map->res > 1 || tex->ce > 1 || tex->fl > 1 || tex->no > 1
 		|| tex->so > 1 || tex->we > 1 || tex->ea > 1 || tex->sp > 1)
 	{
 		ft_printerr(err->err14);

@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/12 12:45:30 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/12 15:09:32 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int				ft_getmap(t_map *map, t_err *err)
 {
 	if (!map->mapa)
 	{
+		map->okmap = 1;
 		map->lm = map->fm - (map->im - 1);
 		err->x = map->lm;
 		map->im = 0;

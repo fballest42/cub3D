@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 10:37:59 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/12 14:01:04 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/12 22:31:06 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ int			ft_getceil(t_tex *tex, t_err *err, t_map *map)
 	{
 		map->i++;
 		tex->ce = tex->ce + 1;
-		while (map->file[map->i] != '\0' && i < 4)
+		while (map->file[map->i] != '\0' && i <= 4)
 		{
 			map->i = ft_outspace(map->i, map->file);
 			tex->cei[i] = ft_getceilb(map, err);
 			i++;
 			map->i = ft_outspace(map->i, map->file);
-			if (i == 4)
+			if (i == 4 && map->file[map->i] == '\0')
 				return (0);
 			ft_countcomas(map, err);
 		}
@@ -101,13 +101,13 @@ int			ft_getflo(t_tex *tex, t_err *err, t_map *map)
 	{
 		map->i++;
 		tex->fl = tex->fl + 1;
-		while (map->file[map->i] != '\0' && i < 4)
+		while (map->file[map->i] != '\0' && i <= 4)
 		{
 			map->i = ft_outspace(map->i, map->file);
 			tex->flo[i] = ft_getceilb(map, err);
 			i++;
 			map->i = ft_outspace(map->i, map->file);
-			if (i == 4)
+			if (i == 4 && map->file[map->i] == '\0')
 				return (0);
 			ft_countcomas(map, err);
 		}
@@ -163,7 +163,7 @@ void			ft_checknumbers(t_map *map, t_err *err)
 
 void				ft_countcomas(t_map *map, t_err *err)
 {
-	if (map->file[map->i] == ',' && map->file[map->i + 1] != ',')
+	if (map->file[map->i] == ',' && map->file[map->i + 1])
 		map->i++;
 	else
 	{
