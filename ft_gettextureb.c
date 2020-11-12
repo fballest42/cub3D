@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 10:37:59 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/12 22:31:06 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/12 23:52:00 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int			ft_getceil(t_tex *tex, t_err *err, t_map *map)
 	map->i = 0;
 	ft_checknumbers(map, err);
 	map->i = ft_outspace(map->i, map->file);
-	if (map->file[map->i] == 'F')
+	if (map->file[map->i] == 'C')
 	{
 		map->i++;
 		tex->ce = tex->ce + 1;

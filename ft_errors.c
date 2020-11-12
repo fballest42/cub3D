@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 12:15:12 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/12 16:05:32 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/13 00:13:29 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void			ft_inierr(t_err *err)
 	err->err6 = "Error\n6.- Not a valid texture extension.\n";
 	err->err7 = "Error\n7.- Not valid info on Resolution, Ceiling or Floor.\n";
 	err->err8 = "Error\n8.- Ceiling or Floor must use ',' between values.\n";
-	err->err9 = "Error\n9.- .\n";
+	err->err9 = "Error\n9.- Blank line in the middle of the map.\n";
 	err->err10 = "Error\n10.- No such file or directory for texture file.\n";
 	err->err11 = "Error\n11.- No ceiling colour defined.\n";
 	err->err12 = "Error\n12.- No floor colour defined.\n";

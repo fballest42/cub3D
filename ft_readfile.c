@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/12 23:21:00 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/13 00:18:07 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv)
 	fd = ft_openfile(argv[1], err);
 	while ((get_next_line(fd, &line)) > 0)
 	{
-		map->file = ft_strdupb(line);
+		if (line)
+			map->file = ft_strdupb(line);
 		free(line);
 		line = NULL;
 		map->im++;
@@ -44,13 +45,14 @@ int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex)
 {
 	int		y;
 
-	y = 0;
-	if (ft_outemptylines(map) < 0)
+	y = ft_outemptylines(map);
+	if (y < 0 && map->okmap == 1)
 	{
-		free(map->file);
-		map->file = NULL;
-		return (0);
+		ft_printerr(err->err9);
+		exit(-9);
 	}
+	if (y < 0)
+		return (0);
 	y = ft_outspace(y, map->file);
 	if (map->res > 1 || tex->ce > 1 || tex->fl > 1 || tex->no > 1
 		|| tex->so > 1 || tex->we > 1 || tex->ea > 1 || tex->sp > 1)
@@ -149,12 +151,11 @@ int				ft_getdatafileb(t_map *map, t_tex *tex, t_err *err)
 {
 	ft_checkduplicates(map, tex, err);
 	if (map->res == 1 && tex->ce == 1 && tex->fl == 1 && tex->no == 1
-		&& tex->so == 1 && tex->we == 1 && tex->ea == 1 && tex->sp == 1
-		&& (ft_checkall(map, err) == 0))
+		&& tex->so == 1 && tex->we == 1 && tex->ea == 1 && tex->sp == 1)
 	{
-		if (ft_checkall(map, err) < 0)
+		if ((ft_checkall(map, err) < 0) && map->okmap == 1)
 			return (-1);
-		if (ft_getmap(map, err) < 0)
+		if ((ft_getmap(map, err) < 0) && map->okmap == 1)
 			return (-1);
 	}
 	else if (ft_getres(map, err) < 0)
