@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/10 11:40:06 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/12 12:45:30 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int				ft_checkmap(t_map *map, t_err *err)
 	x = map->px;
 	ft_checkmap2(x, y, val, err);
 	ft_freearray(val);
+	map->okmap = 1;
 	return (0);
 }
 

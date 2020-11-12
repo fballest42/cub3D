@@ -4,5 +4,6 @@
 		"__functional_03": "c",
 		"functional": "c",
 		"locale": "c"
-	}
+	},
+	"C_Cpp.errorSquiggles": "Disabled"
 }

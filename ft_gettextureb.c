@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 10:37:59 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/11 10:50:23 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/12 14:01:04 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,41 +47,39 @@ int			ft_getsprite(t_tex *tex, t_err *err, t_map *map)
 int			ft_getceil(t_tex *tex, t_err *err, t_map *map)
 {
 	int		i;
-	int		y;
 
 	i = 1;
-	y = 0;
+	map->i = 0;
 	ft_checknumbers(map, err);
-	y = ft_outspace(y, map->file);
-	if (map->file[y] == 'C')
+	map->i = ft_outspace(map->i, map->file);
+	if (map->file[map->i] == 'F')
 	{
-		y++;
-		tex->ce++;
-		while (map->file[y] != '\0' && i < 4)
+		map->i++;
+		tex->ce = tex->ce + 1;
+		while (map->file[map->i] != '\0' && i < 4)
 		{
-			y = ft_outspace(y, map->file);
-			tex->cei[i++] = ft_getceilb(y, map, err);
-			if (tex->cei[i] < 0 || tex->cei[i] > 255)
-			{
-				ft_printerr(err->err13);
-				exit(-13);
-			}
-			y++;
+			map->i = ft_outspace(map->i, map->file);
+			tex->cei[i] = ft_getceilb(map, err);
+			i++;
+			map->i = ft_outspace(map->i, map->file);
+			if (i == 4)
+				return (0);
+			ft_countcomas(map, err);
 		}
 	}
 	return (0);
 }
 
-int			ft_getceilb(int y, t_map *map, t_err *err)
+int			ft_getceilb(t_map *map, t_err *err)
 {
 	int		i;
 
 	i = 0;
-	y = ft_outspace(y, map->file);
-	while (map->file[y] >= '0' && map->file[y] <= '9')
+	map->i = ft_outspace(map->i, map->file);
+	while (map->file[map->i] >= '0' && map->file[map->i] <= '9')
 	{
-		i = i * 10 + (map->file[y] - 48);
-		y++;
+		i = i * 10 + (map->file[map->i] - 48);
+		map->i++;
 	}
 	if (i < 0 || i > 255)
 	{
@@ -94,27 +92,24 @@ int			ft_getceilb(int y, t_map *map, t_err *err)
 int			ft_getflo(t_tex *tex, t_err *err, t_map *map)
 {
 	int		i;
-	int		y;
 
 	i = 1;
-	y = 0;
+	map->i = 0;
 	ft_checknumbers(map, err);
-	y = ft_outspace(y, map->file);
-	if (map->file[y] == 'F')
+	map->i = ft_outspace(map->i, map->file);
+	if (map->file[map->i] == 'F')
 	{
-		y++;
+		map->i++;
 		tex->fl = tex->fl + 1;
-		while (map->file[y] != '\0' && i < 4)
+		while (map->file[map->i] != '\0' && i < 4)
 		{
-			y = ft_outspace(y, map->file);
-			tex->flo[i] = ft_getceilb(y, map, err);
-			if (tex->flo[i] < 0 || tex->flo[i] > 255)
-			{
-				ft_printerr(err->err13);
-				exit(-13);
-			}
+			map->i = ft_outspace(map->i, map->file);
+			tex->flo[i] = ft_getceilb(map, err);
 			i++;
-			y++;
+			map->i = ft_outspace(map->i, map->file);
+			if (i == 4)
+				return (0);
+			ft_countcomas(map, err);
 		}
 	}
 	return (0);
@@ -163,5 +158,16 @@ void			ft_checknumbers(t_map *map, t_err *err)
 			ft_printerr(err->err7);
 			exit(-7);
 		}
+	}
+}
+
+void				ft_countcomas(t_map *map, t_err *err)
+{
+	if (map->file[map->i] == ',' && map->file[map->i + 1] != ',')
+		map->i++;
+	else
+	{
+		ft_printerr(err->err8);
+		exit(-8);
 	}
 }
