@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:17:25 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/10 11:43:51 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/13 11:30:05 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ char		*ft_extfile(char *str)
 			{
 				ext[j++] = str[i++];
 			}
+			if (str[i] == '\0')
+				break;
 		}
 		i++;
 	}

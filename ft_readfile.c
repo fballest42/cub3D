@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/13 00:18:07 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/13 11:58:16 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,19 @@ int				ft_getres(t_map *map, t_err *err)
 			y++;
 		}
 	}
-	return (ft_checkres(map, err));
+	return(ft_checkres(map, err));
 }
 
 int				ft_checkres(t_map *map, t_err *err)
 {
-	if (map->res > 1)
+	if (map->res == 0)
+		return (0);
+	else if (map->res > 1)
 	{
 		ft_printerr(err->err14);
 		exit(-14);
 	}
-	else if (map->res == 0 || map->rx <= 0 || map->ry <= 0)
+	else if ((map->res == 1 && (map->rx <= 0 || map->ry <= 0)))
 	{
 		ft_printerr(err->err5);
 		exit(-5);
@@ -138,7 +140,7 @@ int			ft_outemptylines(t_map *map)
 	int		y;
 
 	y = 0;
-	if (map->file[y] == 0)
+	if (map->file[y] == 0 && map->okmap == 0)
 	{
 		free(map->file);
 		map->file = NULL;

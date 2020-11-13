@@ -19,7 +19,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/Cub3D",
-			"args": ["testmap.cub", "--save"],
+			"args": ["./maps/validos/valid_lotspacesmap.cub", "--save"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
