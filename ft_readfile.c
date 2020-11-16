@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/13 11:58:16 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/16 13:16:43 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex)
 	if (y < 0)
 		return (0);
 	y = ft_outspace(y, map->file);
+	if (ft_getdatafileb(map, tex, err) < 0)
+		return (-1);
 	if (map->res > 1 || tex->ce > 1 || tex->fl > 1 || tex->no > 1
 		|| tex->so > 1 || tex->we > 1 || tex->ea > 1 || tex->sp > 1)
 	{
 		ft_printerr(err->err14);
 		exit(-14);
 	}
-	if (ft_getdatafileb(map, tex, err) < 0)
-		return (-1);
 	return (0);
 }
 
@@ -100,12 +100,12 @@ int				ft_checkres(t_map *map, t_err *err)
 		ft_printerr(err->err14);
 		exit(-14);
 	}
-	else if ((map->res == 1 && (map->rx <= 0 || map->ry <= 0)))
+	else if (map->res == 1 && (map->rx <= 0 || map->ry <= 0))
 	{
 		ft_printerr(err->err5);
 		exit(-5);
 	}
-	else if (map->rx > 2560 || map->ry > 1440)
+	else if (map->res == 1 && (map->rx > 2560 || map->ry > 1440))
 	{
 		map->rx = 2560; // CAMBIAR POR RESOLUCION MAXIMA
 		map->ry = 1440; // CAMBIAR POR RESOLUCION MAXIMA
@@ -153,7 +153,8 @@ int				ft_getdatafileb(t_map *map, t_tex *tex, t_err *err)
 {
 	ft_checkduplicates(map, tex, err);
 	if (map->res == 1 && tex->ce == 1 && tex->fl == 1 && tex->no == 1
-		&& tex->so == 1 && tex->we == 1 && tex->ea == 1 && tex->sp == 1)
+		&& tex->so == 1 && tex->we == 1 && tex->ea == 1 && tex->sp == 1
+		&& map->okmap == 1)
 	{
 		if ((ft_checkall(map, err) < 0) && map->okmap == 1)
 			return (-1);
@@ -178,9 +179,24 @@ int				ft_getdatafileb(t_map *map, t_tex *tex, t_err *err)
 void			ft_checkduplicates(t_map *map, t_tex *tex, t_err *err)
 {
 	if (map->res == 1 && tex->ce == 1 && tex->fl == 1 && tex->no == 1
-		&& tex->so == 1 && tex->we == 1 && tex->ea == 1 && tex->sp == 1)
+		&& tex->so == 1 && tex->we == 1 && tex->ea == 1 && tex->sp == 1
+		&& map->okmap == 0)
+	{
+		ft_getres(map, err);
+		ft_gettex(tex, err, map);
+		ft_getsprite(tex, err, map);
+		ft_getceil(tex, err, map);
+		ft_getflo(tex, err, map);
 		map->okmap = 1;
-	else if (map->res > 1 || tex->ce > 1 || tex->fl > 1 || tex->no > 1
+	}
+	if (map->okmap == 1 && (map->res == 1 && tex->ce == 1 && tex->fl == 1
+		&& tex->no == 1 && tex->so == 1 && tex->we == 1 && tex->ea == 1
+		&& tex->sp == 1))
+	{
+		ft_printerr(err->err3);
+		exit(-3);
+	}
+	if (map->res > 1 || tex->ce > 1 || tex->fl > 1 || tex->no > 1
 		|| tex->so > 1 || tex->we > 1 || tex->ea > 1 || tex->sp > 1)
 	{
 		ft_printerr(err->err14);

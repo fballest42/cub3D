@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:17:25 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/13 11:30:05 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/16 13:12:55 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			ft_checkarg2(char **argv, t_map *map, t_err *err)
 	else if ((ft_strncmpb(str, ".cub", 4)) != 0 || (ft_strlenb(str) != 4))
 	{
 		ft_printerr(err->err2);
-		return (-2);
+		exit(-2);
 	}
 	return (1);
 }
