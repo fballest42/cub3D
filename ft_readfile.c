@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/16 13:16:43 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/17 10:05:53 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,13 +188,6 @@ void			ft_checkduplicates(t_map *map, t_tex *tex, t_err *err)
 		ft_getceil(tex, err, map);
 		ft_getflo(tex, err, map);
 		map->okmap = 1;
-	}
-	if (map->okmap == 1 && (map->res == 1 && tex->ce == 1 && tex->fl == 1
-		&& tex->no == 1 && tex->so == 1 && tex->we == 1 && tex->ea == 1
-		&& tex->sp == 1))
-	{
-		ft_printerr(err->err3);
-		exit(-3);
 	}
 	if (map->res > 1 || tex->ce > 1 || tex->fl > 1 || tex->no > 1
 		|| tex->so > 1 || tex->we > 1 || tex->ea > 1 || tex->sp > 1)
