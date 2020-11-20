@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/13 11:52:49 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/20 13:11:09 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,9 +140,12 @@ int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex);
 int				ft_getres(t_map *map, t_err *err);
 int				ft_checkres(t_map *map, t_err *err);
 int				ft_checkall(t_map *map, t_err *err);
+
+/*FILES IN FT_READFILEB.C*/
 int				ft_outemptylines(t_map *map);
 int				ft_getdatafileb(t_map *map, t_tex *tex, t_err *err);
 void			ft_checkduplicates(t_map *map, t_tex *tex, t_err *err);
+int				ft_checkokmap(t_map *map, t_tex *tex, t_err *err);
 
 /*FILES IN FT_GETTEXTURE.C*/
 int				ft_gettex(t_tex *tex, t_err *err, t_map *map);
@@ -156,9 +159,14 @@ int				ft_getsprite(t_tex *tex, t_err *err, t_map *map);
 int				ft_getceilb(t_map *map, t_err *err);
 int				ft_getceil(t_tex *tex, t_err *err, t_map *map);
 int				ft_getflo(t_tex *tex, t_err *err, t_map *map);
-void			ft_countlines(char *argv, t_map *map, t_err *err);
+
+
+/*FILES IN FT_GETTEXTUREC.C*/
 void			ft_checknumbers(t_map *map, t_err *err);
 void			ft_countcomas(t_map *map, t_err *err);
+void			ft_countlines(char *argv, t_map *map, t_err *err);
+int				ft_checkplayer(int x, t_map *map, t_err *err);
+int				ft_checktexture(char *str, t_err *err);
 
 /*FILES IN FT_GETMAP.C*/
 int				ft_openfile(char *str, t_err *err);
@@ -166,20 +174,22 @@ int				ft_openfileb(char *str, t_err *err);
 int				ft_getmap(t_map *map, t_err *err);
 int				ft_checkmap(t_map *map, t_err *err);
 void			ft_checkmap2(int x, int y, char **str, t_err *err);
-int				ft_checkplayer(int x, t_map *map, t_err *err);
+
 
 /*FILES IN FT_CUBEMAIN.C*/
 int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);
 
 /*FILES IN FT_ERRORS.C*/
-void			ft_inierr(t_err *err);
-void			ft_printerr(char *str);
-int				ft_checktexture(char *str, t_err *err);
+void			ft_freemap(t_map *map);
+void			ft_delerr(t_err *err);
+void			ft_freearray(char **fra);
 
 /*FILES IN FT_STRUTINIT.C*/
 void			ft_inimap(t_map *map);
 void			ft_initex(t_tex *tex);
 int				ft_init(t_map *map, t_tex *tex, t_err *err);
+void			ft_inierr(t_err *err);
+void			ft_printerr(char *str);
 
 /*FILES IN FT_UTILSA.C*/
 int				ft_strncmpb(const char *s1, const char *s2, size_t n);
@@ -194,9 +204,6 @@ char			*ft_strchrb(char *s, int c);
 int				ft_outspace(int i, char *str);
 int				ft_checkspace(t_map *map);
 void			ft_freemem(t_map *map, t_tex *tex, t_err *err);
-void			ft_freemap(t_map *map);
-void			ft_delerr(t_err *err);
-void			ft_freearray(char **fra);
 
 /* FUNCIONES QUE NO SE ESTAN USANDO NI ESTAN CREADAS
 int				ft_initcreate(int i);

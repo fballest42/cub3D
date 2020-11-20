@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/12 15:09:32 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/20 13:00:27 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int				ft_checkmap(t_map *map, t_err *err)
 void				ft_checkmap2(int x, int y, char **str, t_err *err)
 {
 	if (x == 0 || y == 0 || y == (ft_strlenb(str[x])) || x == err->x - 1
-		|| y > ft_strlenb(str[x + 1]) || y > ft_strlenb(str[x - 1]))
+		|| y >= ft_strlenb(str[x + 1]) || y >= ft_strlenb(str[x - 1]))
 	{
 		ft_freearray(str);
 		ft_printerr(err->err15);
@@ -96,29 +96,4 @@ int				ft_openfileb(char *str, t_err *err)
 		exit(-19);
 	}
 	return (fd);
-}
-
-int				ft_checkplayer(int x, t_map *map, t_err *err)
-{
-	int		y;
-
-	y = 0;
-	x = map->im;
-	while (map->mapa[x][y] != '\0')
-	{
-		if (map->mapa[x][y] == 'N' || map->mapa[x][y] == 'S'
-			|| map->mapa[x][y] == 'W' || map->mapa[x][y] == 'E')
-		{
-			map->px = map->im;
-			map->py = y;
-			map->pla = map->pla + 1;
-		}
-		y++;
-	}
-	if (map->pla > 1)
-	{
-		ft_printerr(err->err16);
-		exit(-16);
-	}
-	return (0);
 }

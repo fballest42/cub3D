@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 10:37:59 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/13 11:18:20 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/20 13:02:37 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,61 +113,4 @@ int			ft_getflo(t_tex *tex, t_err *err, t_map *map)
 		}
 	}
 	return (0);
-}
-
-void			ft_countlines(char *argv, t_map *map, t_err *err)
-{
-	int		y;
-	int		fd;
-	char	*cont;
-
-	cont = NULL;
-	fd = ft_openfile(argv, err);
-	y = 0;
-	while ((get_next_line(fd, &cont)) > 0)
-	{
-		map->fm++;
-		free(cont);
-		cont = NULL;
-	}
-	free(cont);
-	cont = NULL;
-	map->fm++;
-	close(fd);
-}
-
-void			ft_checknumbers(t_map *map, t_err *err)
-{
-	int		y;
-	int		i;
-
-	y = 0;
-	i = 0;
-	y = ft_outspace(y, map->file);
-	if (map->file[y] == 'F' || map->file[y] == 'C' || map->file[y] == 'R')
-	{
-		i = y;
-		y++;
-		while (map->file[y] && ((map->file[y] >= '0'
-			&& map->file[y] <= '9') || map->file[y] == '\t'
-			|| map->file[y] == ' ' || ((map->file[i] == 'F'
-			|| map->file[i] == 'C') && map->file[y] == ',')))
-			y++;
-		if (map->file[y])
-		{
-			ft_printerr(err->err7);
-			exit(-7);
-		}
-	}
-}
-
-void				ft_countcomas(t_map *map, t_err *err)
-{
-	if (map->file[map->i] == ',' && map->file[map->i + 1])
-		map->i++;
-	else
-	{
-		ft_printerr(err->err8);
-		exit(-8);
-	}
 }

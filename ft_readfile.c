@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/17 10:05:53 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/20 13:01:39 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv)
 	free(line);
 	line = NULL;
 	map->im++;
-	if (map->file && ft_getdatafile(map, err, tex) < 0)
+	if (ft_getdatafile(map, err, tex) < 0 || ft_checkokmap(map, tex, err) < 0)
 		return (-1);
 	return (0);
 }
@@ -88,7 +88,7 @@ int				ft_getres(t_map *map, t_err *err)
 			y++;
 		}
 	}
-	return(ft_checkres(map, err));
+	return (ft_checkres(map, err));
 }
 
 int				ft_checkres(t_map *map, t_err *err)
@@ -107,8 +107,8 @@ int				ft_checkres(t_map *map, t_err *err)
 	}
 	else if (map->res == 1 && (map->rx > 2560 || map->ry > 1440))
 	{
-		map->rx = 2560; // CAMBIAR POR RESOLUCION MAXIMA
-		map->ry = 1440; // CAMBIAR POR RESOLUCION MAXIMA
+		map->rx = 2560;
+		map->ry = 1440;
 		return (0);
 	}
 	return (0);
@@ -119,7 +119,7 @@ int				ft_checkall(t_map *map, t_err *err)
 	int		y;
 
 	y = 0;
-	while (map->file[y] != '\0' && map->okmap == 0)
+	while (map->file[y] != '\0')
 	{
 		if (map->file[y] == ' ' || map->file[y] == '1' || map->file[y] == '0'
 			|| map->file[y] == '2' || map->file[y] == 'N' || map->file[y] == 'S'
@@ -133,66 +133,4 @@ int				ft_checkall(t_map *map, t_err *err)
 		}
 	}
 	return (0);
-}
-
-int			ft_outemptylines(t_map *map)
-{
-	int		y;
-
-	y = 0;
-	if (map->file[y] == 0 && map->okmap == 0)
-	{
-		free(map->file);
-		map->file = NULL;
-		return (-1);
-	}
-	return (1);
-}
-
-int				ft_getdatafileb(t_map *map, t_tex *tex, t_err *err)
-{
-	ft_checkduplicates(map, tex, err);
-	if (map->res == 1 && tex->ce == 1 && tex->fl == 1 && tex->no == 1
-		&& tex->so == 1 && tex->we == 1 && tex->ea == 1 && tex->sp == 1
-		&& map->okmap == 1)
-	{
-		if ((ft_checkall(map, err) < 0) && map->okmap == 1)
-			return (-1);
-		if ((ft_getmap(map, err) < 0) && map->okmap == 1)
-			return (-1);
-	}
-	else if (ft_getres(map, err) < 0)
-		return (-1);
-	else if (ft_gettex(tex, err, map) < 0)
-		return (-1);
-	else if (ft_getsprite(tex, err, map) < 0)
-		return (-1);
-	else if (ft_getceil(tex, err, map) < 0)
-		return (-1);
-	else if (ft_getflo(tex, err, map) < 0)
-		return (-1);
-	free(map->file);
-	map->file = NULL;
-	return (0);
-}
-
-void			ft_checkduplicates(t_map *map, t_tex *tex, t_err *err)
-{
-	if (map->res == 1 && tex->ce == 1 && tex->fl == 1 && tex->no == 1
-		&& tex->so == 1 && tex->we == 1 && tex->ea == 1 && tex->sp == 1
-		&& map->okmap == 0)
-	{
-		ft_getres(map, err);
-		ft_gettex(tex, err, map);
-		ft_getsprite(tex, err, map);
-		ft_getceil(tex, err, map);
-		ft_getflo(tex, err, map);
-		map->okmap = 1;
-	}
-	if (map->res > 1 || tex->ce > 1 || tex->fl > 1 || tex->no > 1
-		|| tex->so > 1 || tex->we > 1 || tex->ea > 1 || tex->sp > 1)
-	{
-		ft_printerr(err->err14);
-		exit(-14);
-	}
 }

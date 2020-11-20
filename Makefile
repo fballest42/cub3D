@@ -6,7 +6,7 @@
 #    By: fballest <fballest@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/21 12:11:55 by fballest          #+#    #+#              #
-#    Updated: 2020/11/02 16:51:13 by fballest         ###   ########.fr        #
+#    Updated: 2020/11/20 14:23:38 by fballest         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,9 @@ NAME = Cub3D
 
 # SOURCES #
 
-SRC = 	ft_cub3d ft_checkmap ft_cubemain ft_errors ft_getmap ft_utilsa \
-		ft_gettexture ft_gettextureb ft_readfile ft_structinit \
-		ft_utilsb
+SRC = 	ft_cub3d ft_checkmap ft_cubemain ft_freedom ft_getmap ft_utilsa \
+		ft_gettexture ft_gettextureb ft_gettexturec ft_readfile ft_readfileb \
+		ft_structinit ft_utilsb \
 
 SRCCUB = $(addsuffix .c, $(SRC))
 OBJS = $(SRCCUB:.c=.o)
@@ -44,11 +44,6 @@ SRCGNL = gnl/get_next_line.c gnl/get_next_line_utils.c
 GNL_OBJS = $(SRCGNL:.c=.o)
 
 LIBFT = libft/libft.a
-
-#LEAKS = -fsanitize=address
-#MallocCheckHeapStart = 1000
-#MallocCheckHeapEach = 100
-#LEAKS = leaks -atExit -- ./Cub3D testmap.cub
 
 # COMPILER #
 
