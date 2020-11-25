@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 09:16:03 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/20 13:12:39 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/25 13:43:30 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int			ft_checkspace(t_map *map)
 	{
 		if (map->file[i] == ' ' || map->file[i] == '1' || map->file[i] == '2'
 			|| map->file[i] == '0' || map->file[i] == 'N' || map->file[i] == 'S'
-			|| map->file[i] == 'W' || map->file[i] == 'E' || map->file[i] == '\n')
+			|| map->file[i] == 'W' || map->file[i] == 'E'
+			|| map->file[i] == '\n')
 		{
 			i++;
 			map->okmap = 1;

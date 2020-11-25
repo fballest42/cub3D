@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 10:41:39 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/20 13:05:30 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/25 13:47:42 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,7 @@ int				ft_gettexno(t_tex *tex, t_err *err, t_map *map)
 		while (map->file[y] != 0)
 			tex->rutano[i++] = map->file[y++];
 		tex->rutano[i] = '\0';
-		if (tex->rutano == NULL)
-		{
-			ft_printerr(err->err6);
-			exit(-6);
-		}
+		ft_checknull(map->tex->rutano);
 	}
 	return (tex->no);
 }
@@ -91,11 +87,7 @@ int				ft_gettexso(t_tex *tex, t_err *err, t_map *map)
 		while (map->file[y] != 0)
 			tex->rutaso[i++] = map->file[y++];
 		tex->rutaso[i] = '\0';
-		if (tex->rutaso == NULL)
-		{
-			ft_printerr(err->err6);
-			exit(-6);
-		}
+		ft_checknull(map->tex->rutaso);
 	}
 	return (tex->so);
 }
@@ -122,11 +114,7 @@ int				ft_gettexwe(t_tex *tex, t_err *err, t_map *map)
 		while (map->file[y] != 0)
 			tex->rutawe[i++] = map->file[y++];
 		tex->rutawe[i] = '\0';
-		if (tex->rutawe == NULL)
-		{
-			ft_printerr(err->err6);
-			exit(-6);
-		}
+		ft_checknull(map->tex->rutawe);
 	}
 	return (tex->we);
 }
@@ -153,11 +141,7 @@ int				ft_gettexea(t_tex *tex, t_err *err, t_map *map)
 		while (map->file[y] != 0)
 			tex->rutaea[i++] = map->file[y++];
 		tex->rutaea[i] = '\0';
-		if (tex->rutaea == NULL)
-		{
-			ft_printerr(err->err6);
-			exit(-6);
-		}
+		ft_checknull(map->tex->rutaea);
 	}
 	return (tex->ea);
 }

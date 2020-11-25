@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/21 10:20:08 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/25 13:46:12 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int				ft_getsprite(t_tex *tex, t_err *err, t_map *map);
 int				ft_getceilb(t_map *map, t_err *err);
 int				ft_getceil(t_tex *tex, t_err *err, t_map *map);
 int				ft_getflo(t_tex *tex, t_err *err, t_map *map);
+void			ft_checknull(char *str);
 
 
 /*FILES IN FT_GETTEXTUREC.C*/

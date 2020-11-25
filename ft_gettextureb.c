@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 10:37:59 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/20 13:02:37 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/25 13:47:54 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,7 @@ int			ft_getsprite(t_tex *tex, t_err *err, t_map *map)
 		while (map->file[y] != 0)
 			tex->rutasp[i++] = map->file[y++];
 		tex->rutasp[i] = '\0';
-		if (tex->rutasp == NULL)
-		{
-			ft_printerr(err->err6);
-			exit(-6);
-		}
+		ft_checknull(map->tex->rutasp);
 	}
 	return (tex->sp);
 }
@@ -113,4 +109,13 @@ int			ft_getflo(t_tex *tex, t_err *err, t_map *map)
 		}
 	}
 	return (0);
+}
+
+void			ft_checknull(char *str)
+{
+	if (str == NULL)
+	{
+		ft_printerr(err->err6);
+		exit(-6);
+	}
 }
