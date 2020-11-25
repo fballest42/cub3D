@@ -6,12 +6,11 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/25 13:41:19 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/25 13:54:51 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 int				ft_cubemain(t_map *map, t_err *err, t_tex *tex)
 {
@@ -30,7 +29,7 @@ int				ft_cubemain(t_map *map, t_err *err, t_tex *tex)
 	return (0);
 }
 
-void			ft_getdefres(map)
+void			ft_getdefres(t_map *map)
 {
 	if (map->rx == 2560 && map->ry == 1440)
 	{

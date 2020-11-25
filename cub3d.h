@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/25 13:46:12 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/25 13:58:29 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct	s_map
 	int					res;
 	int					rx;
 	int					ry;
+	int					grx;
+	int					gry;
 	int					pla;
 	int					px;
 	int					py;
@@ -166,7 +168,7 @@ int				ft_getsprite(t_tex *tex, t_err *err, t_map *map);
 int				ft_getceilb(t_map *map, t_err *err);
 int				ft_getceil(t_tex *tex, t_err *err, t_map *map);
 int				ft_getflo(t_tex *tex, t_err *err, t_map *map);
-void			ft_checknull(char *str);
+void			ft_checknull(char *str, t_err *err);
 
 
 /*FILES IN FT_GETTEXTUREC.C*/
@@ -211,5 +213,6 @@ void			ft_freemem(t_map *map, t_tex *tex, t_err *err);
 
 /*FILES IN FT_CUBEMAIN.C*/
 int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);
+void			ft_getdefres(t_map *map);
 
 #endif

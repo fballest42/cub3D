@@ -1,5 +1,5 @@
 
-R 1920 1080
+R 19200000, 10800000
 NO ./textures/bluestone.xpm
 SO ./textures/colorstone.xpm
 

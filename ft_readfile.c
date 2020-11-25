@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/25 13:48:46 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/25 13:51:32 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int				ft_getres(t_map *map, t_err *err)
 		map->res = map->res + 1;
 		y++;
 		y = ft_outspace(y, map->file);
-		
+		ft_checknumbers(map, err);
 		while (map->file[y] >= '0' && map->file[y] <= '9')
 		{
 			map->rx = map->rx * 10 + (map->file[y] - 48);
