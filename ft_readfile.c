@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:18:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/25 13:51:32 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/25 14:09:25 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,9 @@ int				ft_checkres(t_map *map, t_err *err)
 	}
 	else if (map->res == 1 && (map->rx <= 0 || map->ry <= 0))
 	{
-		ft_printerr(err->err5);
-		exit(-5);
+		map->rx = 2560;
+		map->ry = 1440;
+		return (0);
 	}
 	else if (map->res == 1 && (map->rx > 2560 || map->ry > 1440))
 	{
