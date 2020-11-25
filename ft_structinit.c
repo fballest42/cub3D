@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/20 13:10:19 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/21 10:20:31 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void			ft_inimap(t_map *map)
 	map->fm = 0;
 	map->lm = 0;
 	map->im = 0;
+	map->por = 0;
 	map->file = NULL;
 	map->name = NULL;
 	map->mapa = NULL;

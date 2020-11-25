@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/20 13:11:09 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/21 10:20:08 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@
 
 /*WORK STRUCTS: T_MAP = MAP DATA, T_TEXT = TEXTURE DATA, T_VAR = VARIABLES*, T_ERROR = ERRORS*/
 
+typedef struct	s_raycast
+{
+	int					i;
+	int					res;
+}				t_raycast;
+
 typedef struct	s_map
 {
 	int					i;
@@ -68,6 +74,7 @@ typedef struct	s_map
 	int					fm;
 	int					lm;
 	int					im;
+	char				por;
 	char				*name;
 	char				*file;
 	char				**mapa;
@@ -175,11 +182,7 @@ int				ft_getmap(t_map *map, t_err *err);
 int				ft_checkmap(t_map *map, t_err *err);
 void			ft_checkmap2(int x, int y, char **str, t_err *err);
 
-
-/*FILES IN FT_CUBEMAIN.C*/
-int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);
-
-/*FILES IN FT_ERRORS.C*/
+/*FILES IN FT_FREEDOM.C*/
 void			ft_freemap(t_map *map);
 void			ft_delerr(t_err *err);
 void			ft_freearray(char **fra);
@@ -205,12 +208,7 @@ int				ft_outspace(int i, char *str);
 int				ft_checkspace(t_map *map);
 void			ft_freemem(t_map *map, t_tex *tex, t_err *err);
 
-/* FUNCIONES QUE NO SE ESTAN USANDO NI ESTAN CREADAS
-int				ft_initcreate(int i);
-int				ft_checktex(t_map *map, t_err *err);
-int				ft_checksprite(t_map *map, t_err *err);*/
-
-
-
+/*FILES IN FT_CUBEMAIN.C*/
+int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);
 
 #endif
