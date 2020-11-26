@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/25 14:00:55 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/25 18:36:07 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void			ft_inimap(t_map *map)
 	map->mapa = NULL;
 	map->okmap = 0;
 	map->save = 0;
+	map->mlx_ptr = NULL;
+	map->mlx_win = NULL;
 }
 
 void		ft_initex(t_tex *tex)
