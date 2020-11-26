@@ -1,5 +1,5 @@
 
-R 2000000000000 1000000000000
+R 600 400
 NO ./textures/bluestone.xpm
 SO ./textures/colorstone.xpm
 

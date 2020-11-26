@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/25 19:32:37 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/26 12:38:10 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct	s_map
 	int					lm;
 	int					im;
 	char				por;
+	int					cei;
+	int					flo;
 	char				*name;
 	char				*file;
 	char				**mapa;
@@ -85,6 +87,7 @@ typedef struct	s_map
 	char				**savmap;
 	void				*mlx_ptr;
 	void				*mlx_win;
+	int					**mlx_img;
 }				t_map;
 
 typedef struct	s_tex
@@ -214,10 +217,10 @@ int				ft_checkspace(t_map *map);
 void			ft_freemem(t_map *map, t_tex *tex, t_err *err);
 
 /*FILES IN FT_UTILSB.C*/
-void			ft_hexconv(int num);
+int         	ft_rgbtoint(int *hex);
 
 /*FILES IN FT_CUBEMAIN.C*/
 int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);
-void			ft_getdefres(t_map *map);
+void			ft_getdefres(t_map *map, t_tex *tex);
 
 #endif

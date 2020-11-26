@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/26 09:27:08 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/26 12:38:17 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void			ft_inimap(t_map *map)
 	map->lm = 0;
 	map->im = 0;
 	map->por = 0;
+	map->cei = 0;
+	map->flo = 0;
 	map->file = NULL;
 	map->name = "cub3D";
 	map->mapa = NULL;
