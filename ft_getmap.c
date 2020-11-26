@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/20 13:00:27 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/26 09:25:00 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				ft_checkmap(t_map *map, t_err *err)
 	return (0);
 }
 
-void				ft_checkmap2(int x, int y, char **str, t_err *err)
+void			ft_checkmap2(int x, int y, char **str, t_err *err)
 {
 	if (x == 0 || y == 0 || y == (ft_strlenb(str[x])) || x == err->x - 1
 		|| y >= ft_strlenb(str[x + 1]) || y >= ft_strlenb(str[x - 1]))

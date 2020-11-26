@@ -6,13 +6,13 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 19:26:27 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/25 19:43:26 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/26 09:27:54 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		ft_hexconv(int num)
+int		    ft_hexconv(int num)
 {
     int     base_len;
     int     i;

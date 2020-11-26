@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/25 18:36:07 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/26 09:27:08 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void			ft_inimap(t_map *map)
 	map->mlx_win = NULL;
 }
 
-void		ft_initex(t_tex *tex)
+void			ft_initex(t_tex *tex)
 {
 	tex->no = 0;
 	tex->rutano = NULL;
@@ -103,13 +103,3 @@ void			ft_printerr(char *str)
 {
 	write(1, str, ft_strlenb(str));
 }
-
-/*int				ft_duplicateres(int y, t_map *map, t_err *err)
-{
-	if (map->file[y] == 'R' && map->res > 1)
-	{
-		ft_printerr(err->err14);
-		exit(-14);
-	}
-	return (0);
-}*/

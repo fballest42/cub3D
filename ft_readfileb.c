@@ -6,13 +6,13 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 12:55:23 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/20 12:56:00 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/26 09:26:47 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int			ft_outemptylines(t_map *map)
+int				ft_outemptylines(t_map *map)
 {
 	int		y;
 
