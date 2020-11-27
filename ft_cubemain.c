@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/26 12:38:48 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/27 13:46:30 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ int				ft_cubemain(t_map *map, t_err *err, t_tex *tex)
 	map->mlx_ptr = mlx_init();
 	mlx_get_screen_size(map->mlx_ptr, &map->grx, &map->gry);
 	ft_getdefres(map, tex);
-	printf("\n%d\n%d\n", map->cei, map->flo);
 	map->mlx_win = mlx_new_window(map->mlx_ptr, map->rx, map->ry, map->name);
 	map->mlx_img = mlx_new_image(map->mlx_ptr, map->rx, map->ry);
+	map->mlx_imgaddr = mlx_get_data_addr(map->mlx_ptr, &map->mlx_bxp,
+		&map->mlx_sili, &map->mlx_endian);
 	mlx_loop(map->mlx_ptr);
 	return (0);
 }

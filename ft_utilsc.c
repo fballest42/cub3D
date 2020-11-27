@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 19:26:27 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/26 12:37:32 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/27 13:39:45 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,9 @@ int				ft_rgbtoint(int *hex)
 	r = hex[3] * 256 * 256;
 	rgb = b + g + r;
 	return (rgb);
+}
+
+void			ft_printerr(char *str)
+{
+	write(1, str, ft_strlenb(str));
 }

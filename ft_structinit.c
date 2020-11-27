@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/26 12:38:17 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/27 13:39:33 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int				ft_init(t_map *map, t_tex *tex, t_err *err)
 	ft_inimap(map);
 	ft_initex(tex);
 	ft_inierr(err);
+	ft_initmalx(map);
 	return (1);
 }
 
@@ -42,8 +43,17 @@ void			ft_inimap(t_map *map)
 	map->mapa = NULL;
 	map->okmap = 0;
 	map->save = 0;
+}
+
+void			ft_initmlx(t_map *map)
+{
 	map->mlx_ptr = NULL;
 	map->mlx_win = NULL;
+	map->mlx_img = NULL;
+	map->mlx_imgaddr = NULL;
+	map->mlx_bxp = 0;
+	map->mlx_sili = 0;
+	map->mlx_endian = 0;
 }
 
 void			ft_initex(t_tex *tex)
@@ -99,9 +109,4 @@ void			ft_inierr(t_err *err)
 	err->err23 = "Error\n23.- .\n";
 	err->x = 0;
 	err->ok = 0;
-}
-
-void			ft_printerr(char *str)
-{
-	write(1, str, ft_strlenb(str));
 }
