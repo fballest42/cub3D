@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/27 13:39:33 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/29 18:58:25 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int				ft_init(t_map *map, t_tex *tex, t_err *err)
 	ft_inimap(map);
 	ft_initex(tex);
 	ft_inierr(err);
-	ft_initmalx(map);
+	ft_initmlx(map);
 	return (1);
 }
 

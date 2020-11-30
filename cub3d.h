@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/27 13:49:25 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/27 22:25:09 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ typedef struct	s_map
 	void				*mlx_win;
 	void				**mlx_img;
 	char				*mlx_imgaddr;
-	int					*map->mlx_bxp;
-	int					*map->mlx_sili;
-	int					*map->mlx_endian;
+	int					*mlx_bxp;
+	int					*mlx_sili;
+	int					*mlx_endian;
 }				t_map;
 
 typedef struct	s_tex
@@ -203,7 +203,7 @@ void			ft_inimap(t_map *map);
 void			ft_initex(t_tex *tex);
 int				ft_init(t_map *map, t_tex *tex, t_err *err);
 void			ft_inierr(t_err *err);
-void			ft_initmlx(t_map *map)
+void			ft_initmlx(t_map *map);
 
 /*FILES IN FT_UTILSA.C*/
 int				ft_strncmpb(const char *s1, const char *s2, size_t n);
@@ -226,5 +226,7 @@ void			ft_printerr(char *str);
 /*FILES IN FT_CUBEMAIN.C*/
 int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);
 void			ft_getdefres(t_map *map, t_tex *tex);
+void			ft_mlx_pixel_put(t_map *map, int x, int y, int color);
+void			ft_paint_cei_flo(t_map *map);
 
 #endif
