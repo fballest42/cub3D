@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/27 22:25:09 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/30 12:45:24 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ typedef struct	s_map
 	void				*mlx_win;
 	void				**mlx_img;
 	char				*mlx_imgaddr;
-	int					*mlx_bxp;
-	int					*mlx_sili;
-	int					*mlx_endian;
+	int					mlx_bxp;
+	int					mlx_sili;
+	int					mlx_endian;
 }				t_map;
 
 typedef struct	s_tex
@@ -227,6 +227,6 @@ void			ft_printerr(char *str);
 int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);
 void			ft_getdefres(t_map *map, t_tex *tex);
 void			ft_mlx_pixel_put(t_map *map, int x, int y, int color);
-void			ft_paint_cei_flo(t_map *map);
+void			ft_paint_cei_flo(t_map *map, int x, int y);
 
 #endif
