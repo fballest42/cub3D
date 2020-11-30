@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/27 22:24:09 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/30 12:22:22 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void			ft_getdefres(t_map *map, t_tex *tex)
 	map->flo = ft_rgbtoint(tex->flo);
 }
 
-void            ft_mlx_pixel_put(t_map *map, int x, int y, int color)
+void			ft_mlx_pixel_put(t_map *map, int x, int y, int color)
 {
     char    *dst;
 
