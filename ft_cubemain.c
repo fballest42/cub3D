@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/01 10:44:23 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/01 14:29:35 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int				ft_cubemain(t_map *map, t_err *err, t_tex *tex)
 	map->mlx_img = mlx_new_image(map->mlx_ptr, map->rx, map->ry);
 	map->mlx_imgaddr = mlx_get_data_addr(map->mlx_img, &map->mlx_bxp,
 		&map->mlx_sili, &map->mlx_endian);
-	ft_paint_cei_flo(map, 0, 0);
+	mlx_key_hook(map->mlx_win, ft_key_hook, map);
+	ft_raycasting(map);
+	mlx_hook(map->mlx_win, 17, 1L << 17, ft_exit_game, map);
 	mlx_loop(map->mlx_ptr);
 	return (0);
 }
@@ -46,6 +48,11 @@ void			ft_mlx_pixel_put(t_map *map, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+void			ft_raycasting(t_map *map)
+{
+	ft_paint_cei_flo(map, 0, 0);
+}
+
 void			ft_paint_cei_flo(t_map *map, int x, int y)
 {
 	while (x < map->rx)
@@ -62,4 +69,36 @@ void			ft_paint_cei_flo(t_map *map, int x, int y)
 		x++;
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
+}
+
+int				ft_key_hook(int keycode, t_map *map)
+{
+	if (keycode == A_KEY)
+		printf("%s\n", "down");
+	else if (keycode == W_KEY)
+		printf("%s\n", "up");
+	else if (keycode == S_KEY)
+		printf("%s\n", "left");
+	else if (keycode == D_KEY)
+		printf("%s\n", "right");
+	else if (keycode == ESC_KEY)
+		ft_exit_game(map);
+	else if (keycode == LEFT_KEY)
+		printf("%s\n", "rotate left");
+	else if (keycode == RIGHT_KEY)
+		printf("%s\n", "rotate right");
+	else if (keycode == X_BTN)
+		printf("%s\n", "???");
+	else if (keycode == LEFT_SHIFT)
+		printf("%s\n", "faster");
+	map->rx = map->rx + (1 * 0);
+	
+	return (0);
+}
+
+int				ft_exit_game(t_map *map)
+{
+	mlx_destroy_window(map->mlx_ptr, map->mlx_win);
+	exit(0);
+	return (0);
 }

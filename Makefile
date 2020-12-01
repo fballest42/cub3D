@@ -6,7 +6,7 @@
 #    By: fballest <fballest@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/21 12:11:55 by fballest          #+#    #+#              #
-#    Updated: 2020/11/26 10:22:15 by fballest         ###   ########.fr        #
+#    Updated: 2020/12/01 12:35:29 by fballest         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,14 +74,6 @@ $(NAME): $(OBJS) $(GNL_OBJS)
 	@echo "Done"
 	@echo "$(GREEN)==========WELLDONE==========$(RESET)"
 	@echo "Success creating Cub3D file"
-	#@echo "$(BLUE)==========CHECKING LEAKS==========$(RESET)"
-	#@MallocStackLogging=1
-	#@MallocCheckHeapStart=1000
-	#@MallocCheckHeapEach=100
-	#@cd /usr/local/lib
-	#@sudo ln -s /Applications/Xcode.app/Contents/Developer/usr/lib/libLeaksAtExit.dylib
-	#@$(LEAKS)
-	#@echo "The End"
 
 clean:
 	@$(RM) $(OBJS) $(GNL_OBJS)
