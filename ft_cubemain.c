@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/30 23:21:16 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/01 10:44:23 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ void			ft_mlx_pixel_put(t_map *map, int x, int y, int color)
 
 void			ft_paint_cei_flo(t_map *map, int x, int y)
 {
-	while (x <= map->rx)
+	while (x < map->rx)
 	{
 		y = 0;
-		while (y <= map->ry)
+		while (y < map->ry)
 		{
-			if (y <= (map->ry / 2))
+			if (y < (map->ry / 2))
 				ft_mlx_pixel_put(map, x, y, map->cei);
-			else if (y > (map->ry / 2))
+			else if (y >= (map->ry / 2))
 				ft_mlx_pixel_put(map, x, y, map->flo);
 			y++;
 		}
