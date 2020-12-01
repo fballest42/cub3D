@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/30 12:45:48 by fballest         ###   ########.fr       */
+/*   Updated: 2020/11/30 23:21:16 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int				ft_cubemain(t_map *map, t_err *err, t_tex *tex)
 	ft_getdefres(map, tex);
 	map->mlx_win = mlx_new_window(map->mlx_ptr, map->rx, map->ry, map->name);
 	map->mlx_img = mlx_new_image(map->mlx_ptr, map->rx, map->ry);
-	map->mlx_imgaddr = mlx_get_data_addr(map->mlx_ptr, &map->mlx_bxp,
+	map->mlx_imgaddr = mlx_get_data_addr(map->mlx_img, &map->mlx_bxp,
 		&map->mlx_sili, &map->mlx_endian);
 	ft_paint_cei_flo(map, 0, 0);
 	mlx_loop(map->mlx_ptr);
@@ -48,18 +48,18 @@ void			ft_mlx_pixel_put(t_map *map, int x, int y, int color)
 
 void			ft_paint_cei_flo(t_map *map, int x, int y)
 {
-	while (x <= (map->res / 2))
+	while (x <= map->rx)
 	{
-		x = 0;
+		y = 0;
 		while (y <= map->ry)
 		{
-			if (x <= (map->rx / 2))
+			if (y <= (map->ry / 2))
 				ft_mlx_pixel_put(map, x, y, map->cei);
-			else if (x > (map->rx / 2))
+			else if (y > (map->ry / 2))
 				ft_mlx_pixel_put(map, x, y, map->flo);
-			x++;
+			y++;
 		}
-		y++;
+		x++;
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
 }
