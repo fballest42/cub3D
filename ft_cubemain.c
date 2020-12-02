@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/01 14:29:35 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/02 09:16:12 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int				ft_key_hook(int keycode, t_map *map)
 int				ft_exit_game(t_map *map)
 {
 	mlx_destroy_window(map->mlx_ptr, map->mlx_win);
+	free(map->mlx_ptr);
 	exit(0);
 	return (0);
 }
