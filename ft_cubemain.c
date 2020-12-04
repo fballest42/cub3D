@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/04 09:43:43 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/04 12:36:23 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 
 int				ft_cubemain(t_map *map, t_err *err, t_tex *tex)
 {
-	tex->rutano = err->err6;//OJO ELIMINAR SOLO HABILITADO PARA PASAR TEX
+	tex->rutano = err->err6; /*OJO ELIMINAR SOLO HABILITADO PARA PASAR TEX*/
 	map->mlx_ptr = mlx_init();
 	ft_getdefres(map, tex);
 	map->mlx_win = mlx_new_window(map->mlx_ptr, map->rx, map->ry, map->name);
 	map->mlx_img = mlx_new_image(map->mlx_ptr, map->rx, map->ry);
 	map->mlx_imgaddr = mlx_get_data_addr(map->mlx_img, &map->mlx_bxp,
 		&map->mlx_sili, &map->mlx_endian);
-	mlx_key_hook(map->mlx_win, ft_key_hook, map);
+	mlx_hook(map->mlx_win, 17, 1L << 17, ft_exit_game, map);
+	//mlx_hook(map->mlx_win, 2, 1L << 0, ft_keypress, map);
+	//mlx_hook(map->mlx_win, 3, 1L << 1, ft_keyrelease, map);
+	ft_paint_cei_flo(map, 0, 0);
+	//mlx_loop_hook(map->mlx_ptr, ft_paint_cei_flo, map);
 	mlx_loop_hook(map->mlx_ptr, ft_raycasting, map);
+	mlx_key_hook(map->mlx_win, ft_key_hook, map);
+	//mlx_expose_hook(map->mlx_win, ft_raycasting, map);
 	mlx_loop(map->mlx_ptr);
 	return (0);
 }
@@ -49,11 +55,33 @@ void			ft_mlx_pixel_put(t_map *map, int x, int y, int color)
 
 int			ft_raycasting(t_map *map)
 {
-	ft_paint_cei_flo(map, 0, 0);
+	mlx_expose_hook(map->mlx_win, ft_paint_cei_flo, map);
+	ft_paint_player(map, map->px, map->py);
 	return (0);
 }
 
-void			ft_paint_cei_flo(t_map *map, int x, int y)
+int			ft_paint_player(t_map *map, int x, int y)
+{
+	int		px;
+	int		py;
+
+	px = x;
+	py = y;
+	while (px < (x + 10))
+	{
+		py = y;
+		while (py < (y + 10))
+		{
+			ft_mlx_pixel_put(map, px, py, 658956);
+			py++;
+		}
+		px++;
+	}
+	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
+	return (0);
+}
+
+int			ft_paint_cei_flo(t_map *map, int x, int y)
 {
 	while (x < map->rx)
 	{
@@ -69,21 +97,33 @@ void			ft_paint_cei_flo(t_map *map, int x, int y)
 		x++;
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
+	return (0);
 }
 
 int				ft_key_hook(int keycode, t_map *map)
 {
-	mlx_hook(map->mlx_win, 17, 1L << 17, ft_exit_game, map);
-	//mlx_hook(map->mlx_win, 2, 1L << 0, ft_keypress, map);
-	//mlx_hook(map->mlx_win, 3, 1L << 1, ft_keyrelease, map);
 	if (keycode == A_KEY)
-		printf("%s\n", "down");
+	{
+		map->py = map->py + 10;
+	}
 	else if (keycode == W_KEY)
-		printf("%s\n", "up");
+	{
+		if (map->py >= 10)
+			map->py = map->py - 10;
+		else
+			map->py = 0;
+	}
 	else if (keycode == S_KEY)
-		printf("%s\n", "left");
+	{
+		if (map->px >= 10)
+			map->px = map->px - 10;
+		else
+			map->px = 0;
+	}
 	else if (keycode == D_KEY)
-		printf("%s\n", "right");
+	{
+		map->px = map->px + 10;
+	}
 	else if (keycode == ESC_KEY)
 		ft_exit_game(map);
 	else if (keycode == LEFT_KEY)
@@ -96,6 +136,7 @@ int				ft_key_hook(int keycode, t_map *map)
 		printf("%s\n", "faster");
 	map->rx = map->rx + (1 * 0);
 	return (0);
+	ft_raycasting(map);
 }
 
 int				ft_exit_game(t_map *map)
