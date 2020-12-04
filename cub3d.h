@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/01 12:32:45 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/02 10:25:20 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);
 void			ft_getdefres(t_map *map, t_tex *tex);
 void			ft_mlx_pixel_put(t_map *map, int x, int y, int color);
 void			ft_paint_cei_flo(t_map *map, int x, int y);
-void			ft_raycasting(t_map *map);
+int				ft_raycasting(t_map *map);
 int				ft_key_hook(int keycode, t_map *map);
 int				ft_exit_game(t_map *map);
 
