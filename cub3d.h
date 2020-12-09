@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/04 12:01:22 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/09 13:09:00 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 #  define ESC_KEY 53
 #  define LEFT_SHIFT 257
 #  define X_BTN 17
+#  define mspd 0.3
+#  define rspd 0.0872665
 
 # elif defined __unix__
 #  include "mlx_linux/mlx.h"
@@ -92,6 +94,31 @@ typedef struct	s_map
 	int					mlx_bxp;
 	int					mlx_sili;
 	int					mlx_endian;
+	double				posX;
+	double				posY;
+	double				dirX;
+	double				dirY;
+	double				planeX;
+	double				planeY;
+	double				time;
+	double				oldtime;
+	double				cameraX;
+	double				rayDirX;
+	double				rayDirY;
+	double				sideDistX;
+	double				sideDistY;
+	int					mapX;
+	int					mapY;
+	double				deltaDistX;
+	double				deltaDistY;
+	double				perpWallDist;
+	int					stepX;
+	int					stepY;
+	int					hit;
+	int					side;
+	int					lineHeight;
+	int					drawStart;
+	int					drawEnd;
 }				t_map;
 
 typedef struct	s_tex
@@ -204,6 +231,7 @@ void			ft_initex(t_tex *tex);
 int				ft_init(t_map *map, t_tex *tex, t_err *err);
 void			ft_inierr(t_err *err);
 void			ft_initmlx(t_map *map);
+void			ft_initmlxb(t_map *map);
 
 /*FILES IN FT_UTILSA.C*/
 int				ft_strncmpb(const char *s1, const char *s2, size_t n);
@@ -226,9 +254,14 @@ void			ft_printerr(char *str);
 /*FILES IN FT_CUBEMAIN.C*/
 int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);
 void			ft_getdefres(t_map *map, t_tex *tex);
+void			ft_getinfo(t_map *map);
 void			ft_mlx_pixel_put(t_map *map, int x, int y, int color);
 int				ft_paint_cei_flo(t_map *map, int x, int y);
 int				ft_raycasting(t_map *map);
+void			ft_initialstep(t_map *map);
+void			ft_hitwall(t_map *map);
+void			ft_heightdraw(t_map *map);
+void			ft_verLine(int x, t_map *map);
 int				ft_paint_player(t_map *map, int x, int y);
 int				ft_key_hook(int keycode, t_map *map);
 int				ft_exit_game(t_map *map);

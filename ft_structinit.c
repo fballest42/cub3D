@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/29 18:58:25 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/09 11:10:08 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,36 @@ void			ft_initmlx(t_map *map)
 	map->mlx_bxp = 0;
 	map->mlx_sili = 0;
 	map->mlx_endian = 0;
+	map->posX = 0;
+	map->posY = 0;
+	map->dirX = 0;
+	map->dirY = 0;
+	map->planeX = 0;
+	map->planeY = 0;
+	map->time = 0;
+	map->oldtime = 0;
+	map->cameraX = 0;
+	map->rayDirX = 0;
+	map->rayDirY = 0;
+	ft_initmlxb(map);
+}
+
+void			ft_initmlxb(t_map *map)
+{
+	map->sideDistX = 0;
+	map->sideDistY = 0;
+	map->mapX = 0;
+	map->mapY = 0;
+	map->deltaDistX = 0;
+	map->deltaDistY = 0;
+	map->perpWallDist = 0;
+	map->stepX = 0;
+	map->stepY = 0;
+	map->hit = 0;
+	map->side = 0;
+	map->lineHeight = 0;
+	map->drawStart = 0;
+	map->drawEnd = 0;
 }
 
 void			ft_initex(t_tex *tex)
