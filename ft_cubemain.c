@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/10 18:38:22 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/10 19:22:05 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int				ft_cubemain(t_map *map, t_err *err, t_tex *tex)
 	//mlx_loop_hook(map->mlx_ptr, ft_paint_cei_flo, map);
 	mlx_loop_hook(map->mlx_ptr, ft_raycasting, map);
 	mlx_key_hook(map->mlx_win, ft_key_hook, map);
+	//mlx_destroy_image(map->mlx_ptr, map->mlx_imgaddr);
 	mlx_loop(map->mlx_ptr);
 	return (0);
 }
@@ -99,6 +100,10 @@ int				ft_raycasting(t_map *map)
 		ft_verLine(x, map);
 		x++;
 	}
+	map->save = map->save + 1;
+	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
+	//if (map->save == 2)
+	//	ft_copyimage(map);
 	return (0);
 }
 
@@ -182,7 +187,6 @@ void			ft_verLine(int x, t_map *map)
 			ft_mlx_pixel_put(map, x, y, fc);
 		y++;
 	}
-	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
 }
 
 int				ft_paint_player(t_map *map, int x, int y)
@@ -230,37 +234,37 @@ int				ft_key_hook(int keycode, t_map *map)
 	if (keycode == S_KEY)
 	{
 		if (map->mapa[(int)(map->posX - map->dirX * mspd)][(int)(map->posY)]
-			== 0)
+			== 48)
 			map->posX = map->posX - map->dirX * mspd;
 		if (map->mapa[(int)(map->posX)][(int)(map->posY - map->dirY * mspd)]
-			== 0)
+			== 48)
 			map->posY = map->posY - map->dirY * mspd;
 	}
 	else if (keycode == W_KEY)
 	{
 		if (map->mapa[(int)(map->posX + map->dirX * mspd)][(int)(map->posY)]
-			== 0)
+			== 48)
 			map->posX = map->posX + map->dirX * mspd;
 		if (map->mapa[(int)(map->posX)][(int)(map->posY + map->dirY * mspd)]
-			== 0)
+			== 48)
 			map->posY = map->posY + map->dirY * mspd;
 	}
 	else if (keycode == A_KEY)
 	{
 		if (map->mapa[(int)(map->posX - map->planeX * mspd)][(int)(map->posY)]
-			== 0)
+			== 48)
 			map->posX = map->posX - map->planeX * mspd;
 		if (map->mapa[(int)(map->posX)][(int)(map->posY - map->planeY * mspd)]
-			== 0)
+			== 48)
 			map->posY = map->posY - map->planeY * mspd;
 	}
 	else if (keycode == D_KEY)
 	{
 		if (map->mapa[(int)(map->posX + map->planeX * mspd)][(int)(map->posY)]
-			== 0)
+			== 48)
 			map->posX = map->posX + map->planeX * mspd;
 		if (map->mapa[(int)(map->posX)][(int)(map->posY + map->planeY * mspd)]
-			== 0)
+			== 48)
 			map->posY = map->posY + map->planeY * mspd;
 	}
 	else if (keycode == ESC_KEY)
@@ -275,7 +279,6 @@ int				ft_key_hook(int keycode, t_map *map)
 		printf("%s\n", "faster");
 	map->rx = map->rx + (1 * 0);
 	return (0);
-	ft_raycasting(map);
 }
 
 int				ft_exit_game(t_map *map)
