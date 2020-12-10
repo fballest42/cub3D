@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/09 13:57:05 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/10 18:38:22 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void			ft_getdefres(t_map *map, t_tex *tex)
 	}
 	map->cei = ft_rgbtoint(tex->cei);
 	map->flo = ft_rgbtoint(tex->flo);
-	ft_getinfo(map);
 }
 
 void			ft_getinfo(t_map *map)
@@ -84,6 +83,7 @@ int				ft_raycasting(t_map *map)
 	int			x;
 
 	x = 0;
+	ft_getinfo(map);
 	while (x < map->rx)
 	{
 		map->cameraX = 2 * x / (double)(map->rx) - 1;
@@ -104,6 +104,7 @@ int				ft_raycasting(t_map *map)
 
 void			ft_initialstep(t_map *map)
 {
+	map->hit = 0;
 	if (map->rayDirX < 0)
 	{
 		map->stepX = -1;
@@ -142,7 +143,7 @@ void			ft_hitwall(t_map *map)
 			map->mapY = map->mapY + map->stepY;
 			map->side = 1;
 		}
-		if (map->mapa[map->mapX][map->mapY] > 0)
+		if (map->mapa[map->mapX][map->mapY] > 48)
 			map->hit = 1;
 	}
 }
@@ -158,7 +159,7 @@ void			ft_heightdraw(t_map *map)
 	if (map->drawStart < 0)
 		map->drawStart = 0;
 	map->drawEnd = map->lineHeight / 2 + map->ry / 2;
-	if (map->drawEnd <= map->ry)
+	if (map->drawEnd >= map->ry)
 		map->drawEnd = map->ry - 1;
 }
 
@@ -171,19 +172,14 @@ void			ft_verLine(int x, t_map *map)
 	y = 0;
 	cc = map->cei;
 	fc = map->flo;
-	while (y < map->drawStart)
+	while (y < map->ry)
 	{
-		ft_mlx_pixel_put(map, x, y, cc);
-		y++;
-	}
-	while (y < map->drawEnd)
-	{
-		ft_mlx_pixel_put(map, x, y, 16711680);
-		y++;
-	}
-	while (y < map->rx)
-	{
-		ft_mlx_pixel_put(map, x, y, fc);
+		if (y < map->drawStart)
+			ft_mlx_pixel_put(map, x, y, cc);
+		else if (y >= map->drawStart && y <= map->drawEnd)
+			ft_mlx_pixel_put(map, x, y, 16711680);
+		else if (y > map->drawEnd)
+			ft_mlx_pixel_put(map, x, y, fc);
 		y++;
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
