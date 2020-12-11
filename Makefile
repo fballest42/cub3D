@@ -6,11 +6,13 @@
 #    By: fballest <fballest@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/21 12:11:55 by fballest          #+#    #+#              #
-#    Updated: 2020/12/01 12:35:29 by fballest         ###   ########.fr        #
+#    Updated: 2020/12/11 13:46:28 by fballest         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # OS DISCLAIMER #
+
+.DELETE_ON_ERROR:
 
 UNAME_S := $(shell uname -s)
 

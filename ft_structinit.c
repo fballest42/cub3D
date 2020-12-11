@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/09 11:10:08 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/11 12:46:51 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void			ft_initmlx(t_map *map)
 	map->cameraX = 0;
 	map->rayDirX = 0;
 	map->rayDirY = 0;
+	map->olddirX = 0.0;
+	map->oldplaneX = 0.0;
 	ft_initmlxb(map);
 }
 
@@ -84,6 +86,13 @@ void			ft_initmlxb(t_map *map)
 	map->lineHeight = 0;
 	map->drawStart = 0;
 	map->drawEnd = 0;
+	map->keyW = 0;
+	map->keyS = 0;
+	map->keyA = 0;
+	map->keyD = 0;
+	map->keyESC = 0;
+	map->keyLFT = 0;
+	map->keyRGH = 0;
 }
 
 void			ft_initex(t_tex *tex)

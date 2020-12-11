@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/10 19:22:05 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/11 13:47:09 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 int				ft_cubemain(t_map *map, t_err *err, t_tex *tex)
 {
 	tex->rutano = err->err6; /*OJO ELIMINAR SOLO HABILITADO PARA PASAR ERR*/
-	map->mlx_ptr = mlx_init();
 	ft_getdefres(map, tex);
+	map->mlx_ptr = mlx_init();
 	map->mlx_win = mlx_new_window(map->mlx_ptr, map->rx, map->ry, map->name);
 	map->mlx_img = mlx_new_image(map->mlx_ptr, map->rx, map->ry);
 	map->mlx_imgaddr = mlx_get_data_addr(map->mlx_img, &map->mlx_bxp,
 		&map->mlx_sili, &map->mlx_endian);
-	mlx_hook(map->mlx_win, 17, 1L << 17, ft_exit_game, map);
-	//mlx_hook(map->mlx_win, 2, 1L << 0, ft_keypress, map);
-	//mlx_hook(map->mlx_win, 3, 1L << 1, ft_keyrelease, map);
 	//ft_paint_cei_flo(map, 0, 0);
 	//mlx_loop_hook(map->mlx_ptr, ft_paint_cei_flo, map);
+	mlx_hook(map->mlx_win, 17, 1L << 17, ft_exit_game, map);
+	mlx_hook(map->mlx_win, 2, 1L << 0, ft_keypress, map);
+	mlx_hook(map->mlx_win, 3, 1L << 1, ft_keyrelease, map);
 	mlx_loop_hook(map->mlx_ptr, ft_raycasting, map);
-	mlx_key_hook(map->mlx_win, ft_key_hook, map);
+	//mlx_key_hook(map->mlx_win, ft_key_hook, map);
 	//mlx_destroy_image(map->mlx_ptr, map->mlx_imgaddr);
 	mlx_loop(map->mlx_ptr);
 	return (0);
@@ -43,6 +43,7 @@ void			ft_getdefres(t_map *map, t_tex *tex)
 	}
 	map->cei = ft_rgbtoint(tex->cei);
 	map->flo = ft_rgbtoint(tex->flo);
+	ft_getinfo(map);
 }
 
 void			ft_getinfo(t_map *map)
@@ -84,27 +85,33 @@ int				ft_raycasting(t_map *map)
 	int			x;
 
 	x = 0;
-	ft_getinfo(map);
+	ft_key_hook(map);
+	if (map->mlx_img)
+		mlx_destroy_image(map->mlx_ptr, map->mlx_img);
 	while (x < map->rx)
 	{
-		map->cameraX = 2 * x / (double)(map->rx) - 1;
-		map->rayDirX = map->dirX + map->planeX * map->cameraX;
-		map->rayDirY = map->dirY + map->planeY * map->cameraX;
-		map->mapX = (int)map->posX;
-		map->mapY = (int)map->posY;
-		map->deltaDistX = fabs(1 / map->rayDirX);
-		map->deltaDistY = fabs(1 / map->rayDirY);
+		ft_setinfo(x, map);
 		ft_initialstep(map);
 		ft_hitwall(map);
 		ft_heightdraw(map);
 		ft_verLine(x, map);
 		x++;
 	}
-	map->save = map->save + 1;
 	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
-	//if (map->save == 2)
-	//	ft_copyimage(map);
+	map->save = map->save + 1;
+	//ft_copyimage(map);
 	return (0);
+}
+
+void			ft_setinfo(int x, t_map *map)
+{
+	map->cameraX = 2 * x / (double)(map->rx) - 1;
+	map->rayDirX = map->dirX + map->planeX * map->cameraX;
+	map->rayDirY = map->dirY + map->planeY * map->cameraX;
+	map->mapX = (int)map->posX;
+	map->mapY = (int)map->posY;
+	map->deltaDistX = fabs(1 / map->rayDirX);
+	map->deltaDistY = fabs(1 / map->rayDirY);
 }
 
 void			ft_initialstep(t_map *map)
@@ -189,49 +196,45 @@ void			ft_verLine(int x, t_map *map)
 	}
 }
 
-int				ft_paint_player(t_map *map, int x, int y)
+int				ft_keypress(int	key, t_map *map)
 {
-	int		px;
-	int		py;
-
-	px = x;
-	py = y;
-	while (px < (x + 10))
-	{
-		py = y;
-		while (py < (y + 10))
-		{
-			ft_mlx_pixel_put(map, px, py, 658956);
-			py++;
-		}
-		px++;
-	}
-	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
+	if (key == W_KEY)
+		map->keyW = 1;
+	if (key == S_KEY)
+		map->keyS = 1;
+	if (key == A_KEY)
+		map->keyA = 1;
+	if (key == D_KEY)
+		map->keyD = 1;
+	if (key == ESC_KEY)
+		ft_exit_game(map);
+	if (key == LEFT_KEY)
+		map->keyLFT = 1;
+	if (key == RIGHT_KEY)
+		map->keyRGH = 1;
 	return (0);
 }
 
-int			ft_paint_cei_flo(t_map *map, int x, int y)
+int				ft_keyrelease(int	key, t_map *map)
 {
-	while (x < map->rx)
-	{
-		y = 0;
-		while (y < map->ry)
-		{
-			if (y < (map->ry / 2))
-				ft_mlx_pixel_put(map, x, y, map->cei);
-			else if (y >= (map->ry / 2))
-				ft_mlx_pixel_put(map, x, y, map->flo);
-			y++;
-		}
-		x++;
-	}
-	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
+	if (key == W_KEY)
+		map->keyW = 0;
+	if (key == S_KEY)
+		map->keyS = 0;
+	if (key == A_KEY)
+		map->keyA = 0;
+	if (key == D_KEY)
+		map->keyD = 0;
+	if (key == LEFT_KEY)
+		map->keyLFT = 0;
+	if (key == RIGHT_KEY)
+		map->keyRGH = 0;
 	return (0);
 }
 
-int				ft_key_hook(int keycode, t_map *map)
+int				ft_key_hook(t_map *map)
 {
-	if (keycode == S_KEY)
+	if (map->keyS == 1)
 	{
 		if (map->mapa[(int)(map->posX - map->dirX * mspd)][(int)(map->posY)]
 			== 48)
@@ -240,7 +243,7 @@ int				ft_key_hook(int keycode, t_map *map)
 			== 48)
 			map->posY = map->posY - map->dirY * mspd;
 	}
-	else if (keycode == W_KEY)
+	else if (map->keyW == 1)
 	{
 		if (map->mapa[(int)(map->posX + map->dirX * mspd)][(int)(map->posY)]
 			== 48)
@@ -249,7 +252,7 @@ int				ft_key_hook(int keycode, t_map *map)
 			== 48)
 			map->posY = map->posY + map->dirY * mspd;
 	}
-	else if (keycode == A_KEY)
+	else if (map->keyA == 1)
 	{
 		if (map->mapa[(int)(map->posX - map->planeX * mspd)][(int)(map->posY)]
 			== 48)
@@ -258,7 +261,7 @@ int				ft_key_hook(int keycode, t_map *map)
 			== 48)
 			map->posY = map->posY - map->planeY * mspd;
 	}
-	else if (keycode == D_KEY)
+	else if (map->keyD == 1)
 	{
 		if (map->mapa[(int)(map->posX + map->planeX * mspd)][(int)(map->posY)]
 			== 48)
@@ -267,17 +270,24 @@ int				ft_key_hook(int keycode, t_map *map)
 			== 48)
 			map->posY = map->posY + map->planeY * mspd;
 	}
-	else if (keycode == ESC_KEY)
-		ft_exit_game(map);
-	else if (keycode == LEFT_KEY)
-		printf("%s\n", "rotate left");
-	else if (keycode == RIGHT_KEY)
-		printf("%s\n", "rotate right");
-	else if (keycode == X_BTN)
-		printf("%s\n", "???");
-	else if (keycode == LEFT_SHIFT)
-		printf("%s\n", "faster");
-	map->rx = map->rx + (1 * 0);
+	else if (map->keyRGH == 1)
+	{
+		map->olddirX = map->dirX;
+		map->dirX = map->dirX * cos(-rspd) - map->dirY * sin(-rspd);
+		map->dirY = map->olddirX * sin(-rspd) + map->dirY * cos(-rspd);
+		map->oldplaneX = map->planeX;
+		map->planeX = map->planeX * cos(-rspd) - map->planeY * sin(-rspd);
+		map->planeY = map->oldplaneX * sin(-rspd) + map->planeY * cos(-rspd);
+	}
+	else if (map->keyLFT == 1)
+	{
+		map->olddirX = map->dirX;
+		map->dirX = map->dirX * cos(rspd) - map->dirY * sin(rspd);
+		map->dirY = map->olddirX * sin(rspd) + map->dirY * cos(rspd);
+		map->oldplaneX = map->planeX;
+		map->planeX = map->planeX * cos(rspd) - map->planeY * sin(rspd);
+		map->planeY = map->oldplaneX * sin(rspd) + map->planeY * cos(rspd);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/09 13:09:00 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/11 12:52:01 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 #  define ESC_KEY 53
 #  define LEFT_SHIFT 257
 #  define X_BTN 17
-#  define mspd 0.3
-#  define rspd 0.0872665
+#  define mspd 0.05
+#  define rspd (0.0872665 / 2)
 
 # elif defined __unix__
 #  include "mlx_linux/mlx.h"
@@ -119,6 +119,15 @@ typedef struct	s_map
 	int					lineHeight;
 	int					drawStart;
 	int					drawEnd;
+	int					keyW;
+	int					keyS;
+	int					keyA;
+	int					keyD;
+	int					keyESC;
+	int					keyLFT;
+	int					keyRGH;
+	double				olddirX;
+	double				oldplaneX;
 }				t_map;
 
 typedef struct	s_tex
@@ -255,15 +264,16 @@ void			ft_printerr(char *str);
 int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);
 void			ft_getdefres(t_map *map, t_tex *tex);
 void			ft_getinfo(t_map *map);
+void			ft_setinfo(int x, t_map *map);
 void			ft_mlx_pixel_put(t_map *map, int x, int y, int color);
-int				ft_paint_cei_flo(t_map *map, int x, int y);
 int				ft_raycasting(t_map *map);
 void			ft_initialstep(t_map *map);
 void			ft_hitwall(t_map *map);
 void			ft_heightdraw(t_map *map);
 void			ft_verLine(int x, t_map *map);
-int				ft_paint_player(t_map *map, int x, int y);
-int				ft_key_hook(int keycode, t_map *map);
+int				ft_keypress(int key, t_map *map);
+int				ft_keyrelease(int key, t_map *map);
+int				ft_key_hook(t_map *map);
 int				ft_exit_game(t_map *map);
 
 #endif
