@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/11 12:46:51 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/11 17:35:13 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void			ft_initmlx(t_map *map)
 	map->rayDirY = 0;
 	map->olddirX = 0.0;
 	map->oldplaneX = 0.0;
+	map->wcol = 16711680;
 	ft_initmlxb(map);
 }
 

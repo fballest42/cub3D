@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 13:01:08 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/03 17:23:47 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/14 10:37:43 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,15 @@ int				ft_checkplayer(int x, t_map *map, t_err *err)
 	x = map->im;
 	while (map->mapa[x][y] != '\0')
 	{
+		if (map->mapa[x][y] == ' ')
+			map->mapa[x][y] = '0';
 		if (map->mapa[x][y] == 'N' || map->mapa[x][y] == 'S'
 			|| map->mapa[x][y] == 'W' || map->mapa[x][y] == 'E')
 		{
 			map->px = map->im;
 			map->py = y;
 			map->por = map->mapa[x][y];
+			map->mapa[x][y] = '0';
 			map->pla = map->pla + 1;
 		}
 		y++;

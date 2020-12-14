@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/11 13:47:09 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/14 10:25:07 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ int				ft_raycasting(t_map *map)
 
 	x = 0;
 	ft_key_hook(map);
-	if (map->mlx_img)
-		mlx_destroy_image(map->mlx_ptr, map->mlx_img);
+	//if (map->mlx_img)
+	//	mlx_destroy_image(map->mlx_ptr, map->mlx_img);
 	while (x < map->rx)
 	{
 		ft_setinfo(x, map);
@@ -184,16 +184,30 @@ void			ft_verLine(int x, t_map *map)
 	y = 0;
 	cc = map->cei;
 	fc = map->flo;
+	map->wcol = ft_wallident(map);
 	while (y < map->ry)
 	{
 		if (y < map->drawStart)
 			ft_mlx_pixel_put(map, x, y, cc);
 		else if (y >= map->drawStart && y <= map->drawEnd)
-			ft_mlx_pixel_put(map, x, y, 16711680);
+			ft_mlx_pixel_put(map, x, y, map->wcol);
 		else if (y > map->drawEnd)
 			ft_mlx_pixel_put(map, x, y, fc);
 		y++;
 	}
+}
+
+int				ft_wallident(t_map *map)
+{
+	if (map->planeY > 0 && map->dirX < 0)//NO Texture
+		return (16776960); //AMARILLO
+	if (map->planeY < 0 && map->dirX > 0)//SO Texture
+		return (16777215); //BLANCO
+	if (map->planeX < 0 && map->dirY < 0)//WE Texture
+		return (16757504); //NARANJA
+	if (map->planeX > 0 && map->dirY > 0)//EA Texture
+		return (16719080); //ROSA
+	return (0);
 }
 
 int				ft_keypress(int	key, t_map *map)
@@ -252,7 +266,14 @@ int				ft_key_hook(t_map *map)
 			== 48)
 			map->posY = map->posY + map->dirY * mspd;
 	}
-	else if (map->keyA == 1)
+	ft_key_hook2(map);
+	ft_key_hook3(map);
+	return (0);
+}
+
+void			ft_key_hook2(t_map *map)
+{
+	if (map->keyA == 1)
 	{
 		if (map->mapa[(int)(map->posX - map->planeX * mspd)][(int)(map->posY)]
 			== 48)
@@ -270,7 +291,11 @@ int				ft_key_hook(t_map *map)
 			== 48)
 			map->posY = map->posY + map->planeY * mspd;
 	}
-	else if (map->keyRGH == 1)
+}
+
+void			ft_key_hook3(t_map *map)
+{
+	if (map->keyRGH == 1)
 	{
 		map->olddirX = map->dirX;
 		map->dirX = map->dirX * cos(-rspd) - map->dirY * sin(-rspd);
@@ -288,7 +313,6 @@ int				ft_key_hook(t_map *map)
 		map->planeX = map->planeX * cos(rspd) - map->planeY * sin(rspd);
 		map->planeY = map->oldplaneX * sin(rspd) + map->planeY * cos(rspd);
 	}
-	return (0);
 }
 
 int				ft_exit_game(t_map *map)
