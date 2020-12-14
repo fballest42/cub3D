@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/14 10:25:07 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/14 11:20:22 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,13 +199,13 @@ void			ft_verLine(int x, t_map *map)
 
 int				ft_wallident(t_map *map)
 {
-	if (map->planeY > 0 && map->dirX < 0)//NO Texture
+	if (map->side == 0 && map->rayDirX > 0)//NO Texture
 		return (16776960); //AMARILLO
-	if (map->planeY < 0 && map->dirX > 0)//SO Texture
+	if (map->side == 0 && map->rayDirX < 0)//SO Texture
 		return (16777215); //BLANCO
-	if (map->planeX < 0 && map->dirY < 0)//WE Texture
+	if (map->side == 1 && map->rayDirY > 0)//WE Texture
 		return (16757504); //NARANJA
-	if (map->planeX > 0 && map->dirY > 0)//EA Texture
+	if (map->side == 1 && map->rayDirY < 0)//EA Texture
 		return (16719080); //ROSA
 	return (0);
 }
