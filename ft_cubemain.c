@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/14 13:26:28 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/15 12:36:57 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ int				ft_cubemain(t_map *map, t_err *err, t_tex *tex)
 	ft_getdefres(map, tex);
 	map->mlx_ptr = mlx_init();
 	map->mlx_win = mlx_new_window(map->mlx_ptr, map->rx, map->ry, map->name);
-	map->mlx_img = mlx_new_image(map->mlx_ptr, map->rx, map->ry);
-	map->mlx_imgaddr = mlx_get_data_addr(map->mlx_img, &map->mlx_bxp,
-		&map->mlx_sili, &map->mlx_endian);
 	//ft_paint_cei_flo(map, 0, 0);
 	//mlx_loop_hook(map->mlx_ptr, ft_paint_cei_flo, map);
 	mlx_hook(map->mlx_win, 17, 1L << 17, ft_exit_game, map);
@@ -28,7 +25,7 @@ int				ft_cubemain(t_map *map, t_err *err, t_tex *tex)
 	mlx_hook(map->mlx_win, 3, 1L << 1, ft_keyrelease, map);
 	mlx_loop_hook(map->mlx_ptr, ft_raycasting, map);
 	//mlx_key_hook(map->mlx_win, ft_key_hook, map);
-	//mlx_destroy_image(map->mlx_ptr, map->mlx_imgaddr);
+	
 	mlx_loop(map->mlx_ptr);
 	return (0);
 }
@@ -48,27 +45,27 @@ void			ft_getdefres(t_map *map, t_tex *tex)
 
 void			ft_getinfo(t_map *map)
 {
-	map->posX = map->px;
-	map->posY = map->py;
+	map->posx = map->px;
+	map->posy = map->py;
 	if (map->por == 'N')
 	{
-		map->dirX = -1;
-		map->planeY = 0.66;
+		map->dirx = -1;
+		map->planey = 0.66;
 	}
 	else if (map->por == 'S')
 	{
-		map->dirX = 1;
-		map->planeY = -0.66;
+		map->dirx = 1;
+		map->planey = -0.66;
 	}
 	else if (map->por == 'W')
 	{
-		map->dirY = -1;
-		map->planeX = -0.66;
+		map->diry = -1;
+		map->planex = -0.66;
 	}
 	else if (map->por == 'E')
 	{
-		map->dirY = 1;
-		map->planeX = 0.66;
+		map->diry = 1;
+		map->planex = 0.66;
 	}
 }
 
@@ -86,18 +83,20 @@ int				ft_raycasting(t_map *map)
 
 	x = 0;
 	ft_key_hook(map);
-	//if (map->mlx_img)
-	//	mlx_destroy_image(map->mlx_ptr, map->mlx_img);
+	map->mlx_img = mlx_new_image(map->mlx_ptr, map->rx, map->ry);
+	map->mlx_imgaddr = mlx_get_data_addr(map->mlx_img, &map->mlx_bxp,
+		&map->mlx_sili, &map->mlx_endian);
 	while (x < map->rx)
 	{
 		ft_setinfo(x, map);
 		ft_initialstep(map);
 		ft_hitwall(map);
 		ft_heightdraw(map);
-		ft_verLine(x, map);
+		ft_verline(x, map);
 		x++;
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
+	mlx_destroy_image(map->mlx_ptr, map->mlx_img);
 	map->save = map->save + 1;
 	//ft_copyimage(map);
 	return (0);
@@ -105,37 +104,37 @@ int				ft_raycasting(t_map *map)
 
 void			ft_setinfo(int x, t_map *map)
 {
-	map->cameraX = 2 * x / (double)(map->rx) - 1;
-	map->rayDirX = map->dirX + map->planeX * map->cameraX;
-	map->rayDirY = map->dirY + map->planeY * map->cameraX;
-	map->mapX = (int)map->posX;
-	map->mapY = (int)map->posY;
-	map->deltaDistX = fabs(1 / map->rayDirX);
-	map->deltaDistY = fabs(1 / map->rayDirY);
+	map->camerax = 2 * x / (double)(map->rx) - 1;
+	map->raydirx = map->dirx + map->planex * map->camerax;
+	map->raydiry = map->diry + map->planey * map->camerax;
+	map->mapx = (int)map->posx;
+	map->mapy = (int)map->posy;
+	map->deltadistx = fabs(1 / map->raydirx);
+	map->deltadisty = fabs(1 / map->raydiry);
 }
 
 void			ft_initialstep(t_map *map)
 {
 	map->hit = 0;
-	if (map->rayDirX < 0)
+	if (map->raydirx < 0)
 	{
-		map->stepX = -1;
-		map->sideDistX = (map->posX - map->mapX) * map->deltaDistX;
+		map->stepx = -1;
+		map->sidedistx = (map->posx - map->mapx) * map->deltadistx;
 	}
 	else
 	{
-		map->stepX = 1;
-		map->sideDistX = (map->mapX + 1.0 - map->posX) * map->deltaDistX;
+		map->stepx = 1;
+		map->sidedistx = (map->mapx + 1.0 - map->posx) * map->deltadistx;
 	}
-	if (map->rayDirY < 0)
+	if (map->raydiry < 0)
 	{
-		map->stepY = -1;
-		map->sideDistY = (map->posY - map->mapY) * map->deltaDistY;
+		map->stepy = -1;
+		map->sidedisty = (map->posy - map->mapy) * map->deltadisty;
 	}
 	else
 	{
-		map->stepY = 1;
-		map->sideDistY = (map->mapY + 1.0 - map->posY) * map->deltaDistY;
+		map->stepy = 1;
+		map->sidedisty = (map->mapy + 1.0 - map->posy) * map->deltadisty;
 	}
 }
 
@@ -143,19 +142,19 @@ void			ft_hitwall(t_map *map)
 {
 	while (map->hit == 0)
 	{
-		if (map->sideDistX < map->sideDistY)
+		if (map->sidedistx < map->sidedisty)
 		{
-			map->sideDistX = map->sideDistX + map->deltaDistX;
-			map->mapX = map->mapX + map->stepX;
+			map->sidedistx = map->sidedistx + map->deltadistx;
+			map->mapx = map->mapx + map->stepx;
 			map->side = 0;
 		}
 		else
 		{
-			map->sideDistY = map->sideDistY + map->deltaDistY;
-			map->mapY = map->mapY + map->stepY;
+			map->sidedisty = map->sidedisty + map->deltadisty;
+			map->mapy = map->mapy + map->stepy;
 			map->side = 1;
 		}
-		if (map->mapa[map->mapX][map->mapY] > 48)
+		if (map->mapa[map->mapx][map->mapy] > 48)
 			map->hit = 1;
 	}
 }
@@ -163,19 +162,19 @@ void			ft_hitwall(t_map *map)
 void			ft_heightdraw(t_map *map)
 {
 	if (map->side == 0)
-		map->perpWallDist = (map->mapX - map->posX + (1 - map->stepX) / 2) / map->rayDirX;
+		map->perpwalldist = (map->mapx - map->posx + (1 - map->stepx) / 2) / map->raydirx;
 	else
-		map->perpWallDist = (map->mapY - map->posY + (1 - map->stepY) / 2) / map->rayDirY;
-	map->lineHeight = (int)(map->ry / map->perpWallDist);
-	map->drawStart = -map->lineHeight / 2 + map->ry / 2;
-	if (map->drawStart < 0)
-		map->drawStart = 0;
-	map->drawEnd = map->lineHeight / 2 + map->ry / 2;
-	if (map->drawEnd >= map->ry)
-		map->drawEnd = map->ry - 1;
+		map->perpwalldist = (map->mapy - map->posy + (1 - map->stepy) / 2) / map->raydiry;
+	map->lineheight = (int)(map->ry / map->perpwalldist);
+	map->drawstart = -map->lineheight / 2 + map->ry / 2;
+	if (map->drawstart < 0)
+		map->drawstart = 0;
+	map->drawend = map->lineheight / 2 + map->ry / 2;
+	if (map->drawend >= map->ry)
+		map->drawend = map->ry - 1;
 }
 
-void			ft_verLine(int x, t_map *map)
+void			ft_verline(int x, t_map *map)
 {
 	int		cc;
 	int		fc;
@@ -187,11 +186,11 @@ void			ft_verLine(int x, t_map *map)
 	map->wcol = ft_wallident(map);
 	while (y < map->ry)
 	{
-		if (y < map->drawStart)
+		if (y < map->drawstart)
 			ft_mlx_pixel_put(map, x, y, cc);
-		else if (y >= map->drawStart && y <= map->drawEnd)
+		else if (y >= map->drawstart && y <= map->drawend)
 			ft_mlx_pixel_put(map, x, y, map->wcol);
-		else if (y > map->drawEnd)
+		else if (y > map->drawend)
 			ft_mlx_pixel_put(map, x, y, fc);
 		y++;
 	}
@@ -199,14 +198,14 @@ void			ft_verLine(int x, t_map *map)
 
 int				ft_wallident(t_map *map)
 {
-	if (map->side == 0 && map->rayDirX > 0)//NO Texture
-		//return (16776960); //AMARILLO
-		mlx_xpm_file_to_image(map->mlx_ptr, map->texno, 64, 64);
-	if (map->side == 0 && map->rayDirX <= 0)//SO Texture
+	if (map->side == 0 && map->raydirx > 0)//NO Texture
+		return (16776960); //AMARILLO
+		//mlx_xpm_file_to_image(map->mlx_ptr, map->texno, 64, 64);
+	if (map->side == 0 && map->raydirx <= 0)//SO Texture
 		return (16777215); //BLANCO
-	if (map->side == 1 && map->rayDirY > 0)//WE Texture
+	if (map->side == 1 && map->raydiry > 0)//WE Texture
 		return (16757504); //NARANJA
-	if (map->side == 1 && map->rayDirY <= 0)//EA Texture
+	if (map->side == 1 && map->raydiry <= 0)//EA Texture
 		return (16719080); //ROSA
 	return (0);
 }
@@ -214,58 +213,58 @@ int				ft_wallident(t_map *map)
 int				ft_keypress(int	key, t_map *map)
 {
 	if (key == W_KEY)
-		map->keyW = 1;
+		map->keyw = 1;
 	if (key == S_KEY)
-		map->keyS = 1;
+		map->keys = 1;
 	if (key == A_KEY)
-		map->keyA = 1;
+		map->keya = 1;
 	if (key == D_KEY)
-		map->keyD = 1;
+		map->keyd = 1;
 	if (key == ESC_KEY)
 		ft_exit_game(map);
 	if (key == LEFT_KEY)
-		map->keyLFT = 1;
+		map->keylft = 1;
 	if (key == RIGHT_KEY)
-		map->keyRGH = 1;
+		map->keyrgh = 1;
 	return (0);
 }
 
 int				ft_keyrelease(int	key, t_map *map)
 {
 	if (key == W_KEY)
-		map->keyW = 0;
+		map->keyw = 0;
 	if (key == S_KEY)
-		map->keyS = 0;
+		map->keys = 0;
 	if (key == A_KEY)
-		map->keyA = 0;
+		map->keya = 0;
 	if (key == D_KEY)
-		map->keyD = 0;
+		map->keyd = 0;
 	if (key == LEFT_KEY)
-		map->keyLFT = 0;
+		map->keylft = 0;
 	if (key == RIGHT_KEY)
-		map->keyRGH = 0;
+		map->keyrgh = 0;
 	return (0);
 }
 
 int				ft_key_hook(t_map *map)
 {
-	if (map->keyS == 1)
+	if (map->keys == 1)
 	{
-		if (map->mapa[(int)(map->posX - map->dirX * mspd)][(int)(map->posY)]
+		if (map->mapa[(int)(map->posx - map->dirx * MSPD)][(int)(map->posy)]
 			== 48)
-			map->posX = map->posX - map->dirX * mspd;
-		if (map->mapa[(int)(map->posX)][(int)(map->posY - map->dirY * mspd)]
+			map->posx = map->posx - map->dirx * MSPD;
+		if (map->mapa[(int)(map->posx)][(int)(map->posy - map->diry * MSPD)]
 			== 48)
-			map->posY = map->posY - map->dirY * mspd;
+			map->posy = map->posy - map->diry * MSPD;
 	}
-	else if (map->keyW == 1)
+	else if (map->keyw == 1)
 	{
-		if (map->mapa[(int)(map->posX + map->dirX * mspd)][(int)(map->posY)]
+		if (map->mapa[(int)(map->posx + map->dirx * MSPD)][(int)(map->posy)]
 			== 48)
-			map->posX = map->posX + map->dirX * mspd;
-		if (map->mapa[(int)(map->posX)][(int)(map->posY + map->dirY * mspd)]
+			map->posx = map->posx + map->dirx * MSPD;
+		if (map->mapa[(int)(map->posx)][(int)(map->posy + map->diry * MSPD)]
 			== 48)
-			map->posY = map->posY + map->dirY * mspd;
+			map->posy = map->posy + map->diry * MSPD;
 	}
 	ft_key_hook2(map);
 	ft_key_hook3(map);
@@ -274,45 +273,45 @@ int				ft_key_hook(t_map *map)
 
 void			ft_key_hook2(t_map *map)
 {
-	if (map->keyA == 1)
+	if (map->keya == 1)
 	{
-		if (map->mapa[(int)(map->posX - map->planeX * mspd)][(int)(map->posY)]
+		if (map->mapa[(int)(map->posx - map->planex * MSPD)][(int)(map->posy)]
 			== 48)
-			map->posX = map->posX - map->planeX * mspd;
-		if (map->mapa[(int)(map->posX)][(int)(map->posY - map->planeY * mspd)]
+			map->posx = map->posx - map->planex * MSPD;
+		if (map->mapa[(int)(map->posx)][(int)(map->posy - map->planey * MSPD)]
 			== 48)
-			map->posY = map->posY - map->planeY * mspd;
+			map->posy = map->posy - map->planey * MSPD;
 	}
-	else if (map->keyD == 1)
+	else if (map->keyd == 1)
 	{
-		if (map->mapa[(int)(map->posX + map->planeX * mspd)][(int)(map->posY)]
+		if (map->mapa[(int)(map->posx + map->planex * MSPD)][(int)(map->posy)]
 			== 48)
-			map->posX = map->posX + map->planeX * mspd;
-		if (map->mapa[(int)(map->posX)][(int)(map->posY + map->planeY * mspd)]
+			map->posx = map->posx + map->planex * MSPD;
+		if (map->mapa[(int)(map->posx)][(int)(map->posy + map->planey * MSPD)]
 			== 48)
-			map->posY = map->posY + map->planeY * mspd;
+			map->posy = map->posy + map->planey * MSPD;
 	}
 }
 
 void			ft_key_hook3(t_map *map)
 {
-	if (map->keyRGH == 1)
+	if (map->keyrgh == 1)
 	{
-		map->olddirX = map->dirX;
-		map->dirX = map->dirX * cos(-rspd) - map->dirY * sin(-rspd);
-		map->dirY = map->olddirX * sin(-rspd) + map->dirY * cos(-rspd);
-		map->oldplaneX = map->planeX;
-		map->planeX = map->planeX * cos(-rspd) - map->planeY * sin(-rspd);
-		map->planeY = map->oldplaneX * sin(-rspd) + map->planeY * cos(-rspd);
+		map->olddirx = map->dirx;
+		map->dirx = map->dirx * cos(-RSPD) - map->diry * sin(-RSPD);
+		map->diry = map->olddirx * sin(-RSPD) + map->diry * cos(-RSPD);
+		map->oldplanex = map->planex;
+		map->planex = map->planex * cos(-RSPD) - map->planey * sin(-RSPD);
+		map->planey = map->oldplanex * sin(-RSPD) + map->planey * cos(-RSPD);
 	}
-	else if (map->keyLFT == 1)
+	else if (map->keylft == 1)
 	{
-		map->olddirX = map->dirX;
-		map->dirX = map->dirX * cos(rspd) - map->dirY * sin(rspd);
-		map->dirY = map->olddirX * sin(rspd) + map->dirY * cos(rspd);
-		map->oldplaneX = map->planeX;
-		map->planeX = map->planeX * cos(rspd) - map->planeY * sin(rspd);
-		map->planeY = map->oldplaneX * sin(rspd) + map->planeY * cos(rspd);
+		map->olddirx = map->dirx;
+		map->dirx = map->dirx * cos(RSPD) - map->diry * sin(RSPD);
+		map->diry = map->olddirx * sin(RSPD) + map->diry * cos(RSPD);
+		map->oldplanex = map->planex;
+		map->planex = map->planex * cos(RSPD) - map->planey * sin(RSPD);
+		map->planey = map->oldplanex * sin(RSPD) + map->planey * cos(RSPD);
 	}
 }
 
@@ -321,7 +320,6 @@ int				ft_exit_game(t_map *map)
 	mlx_destroy_window(map->mlx_ptr, map->mlx_win);
 	map->mlx_ptr = NULL;
 	free(map->mlx_ptr);
-	free(map->mlx_img);
 	exit(0);
 	return (0);
 }

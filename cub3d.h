@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/11 17:37:52 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/15 11:59:18 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 #  define ESC_KEY 53
 #  define LEFT_SHIFT 257
 #  define X_BTN 17
-#  define mspd 0.05
-#  define rspd (0.0872665 / 2)
+#  define MSPD 0.05
+#  define RSPD 0.04363325
 
 # elif defined __unix__
 #  include "mlx_linux/mlx.h"
@@ -94,40 +94,40 @@ typedef struct	s_map
 	int					mlx_bxp;
 	int					mlx_sili;
 	int					mlx_endian;
-	double				posX;
-	double				posY;
-	double				dirX;
-	double				dirY;
-	double				planeX;
-	double				planeY;
+	double				posx;
+	double				posy;
+	double				dirx;
+	double				diry;
+	double				planex;
+	double				planey;
 	double				time;
 	double				oldtime;
-	double				cameraX;
-	double				rayDirX;
-	double				rayDirY;
-	double				sideDistX;
-	double				sideDistY;
-	int					mapX;
-	int					mapY;
-	double				deltaDistX;
-	double				deltaDistY;
-	double				perpWallDist;
-	int					stepX;
-	int					stepY;
+	double				camerax;
+	double				raydirx;
+	double				raydiry;
+	double				sidedistx;
+	double				sidedisty;
+	int					mapx;
+	int					mapy;
+	double				deltadistx;
+	double				deltadisty;
+	double				perpwalldist;
+	int					stepx;
+	int					stepy;
 	int					hit;
 	int					side;
-	int					lineHeight;
-	int					drawStart;
-	int					drawEnd;
-	int					keyW;
-	int					keyS;
-	int					keyA;
-	int					keyD;
-	int					keyESC;
-	int					keyLFT;
-	int					keyRGH;
-	double				olddirX;
-	double				oldplaneX;
+	int					lineheight;
+	int					drawstart;
+	int					drawend;
+	int					keyw;
+	int					keys;
+	int					keya;
+	int					keyd;
+	int					keyesc;
+	int					keylft;
+	int					keyrgh;
+	double				olddirx;
+	double				oldplanex;
 	int					wcol;
 }				t_map;
 
@@ -271,7 +271,7 @@ int				ft_raycasting(t_map *map);
 void			ft_initialstep(t_map *map);
 void			ft_hitwall(t_map *map);
 void			ft_heightdraw(t_map *map);
-void			ft_verLine(int x, t_map *map);
+void			ft_verline(int x, t_map *map);
 int				ft_wallident(t_map *map);
 int				ft_keypress(int key, t_map *map);
 int				ft_keyrelease(int key, t_map *map);

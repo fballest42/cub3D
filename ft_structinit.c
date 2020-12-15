@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/11 17:35:13 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/15 12:36:00 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,46 +54,46 @@ void			ft_initmlx(t_map *map)
 	map->mlx_bxp = 0;
 	map->mlx_sili = 0;
 	map->mlx_endian = 0;
-	map->posX = 0;
-	map->posY = 0;
-	map->dirX = 0;
-	map->dirY = 0;
-	map->planeX = 0;
-	map->planeY = 0;
+	map->posx = 0;
+	map->posy = 0;
+	map->dirx = 0;
+	map->diry = 0;
+	map->planex = 0;
+	map->planey = 0;
 	map->time = 0;
 	map->oldtime = 0;
-	map->cameraX = 0;
-	map->rayDirX = 0;
-	map->rayDirY = 0;
-	map->olddirX = 0.0;
-	map->oldplaneX = 0.0;
+	map->camerax = 0;
+	map->raydirx = 0;
+	map->raydiry = 0;
+	map->olddirx = 0.0;
+	map->oldplanex = 0.0;
 	map->wcol = 16711680;
 	ft_initmlxb(map);
 }
 
 void			ft_initmlxb(t_map *map)
 {
-	map->sideDistX = 0;
-	map->sideDistY = 0;
-	map->mapX = 0;
-	map->mapY = 0;
-	map->deltaDistX = 0;
-	map->deltaDistY = 0;
-	map->perpWallDist = 0;
-	map->stepX = 0;
-	map->stepY = 0;
+	map->sidedistx = 0;
+	map->sidedisty = 0;
+	map->mapx = 0;
+	map->mapy = 0;
+	map->deltadistx = 0;
+	map->deltadisty = 0;
+	map->perpwalldist = 0;
+	map->stepx = 0;
+	map->stepy = 0;
 	map->hit = 0;
 	map->side = 0;
-	map->lineHeight = 0;
-	map->drawStart = 0;
-	map->drawEnd = 0;
-	map->keyW = 0;
-	map->keyS = 0;
-	map->keyA = 0;
-	map->keyD = 0;
-	map->keyESC = 0;
-	map->keyLFT = 0;
-	map->keyRGH = 0;
+	map->lineheight = 0;
+	map->drawstart = 0;
+	map->drawend = 0;
+	map->keyw = 0;
+	map->keys = 0;
+	map->keya = 0;
+	map->keyd = 0;
+	map->keyesc = 0;
+	map->keylft = 0;
+	map->keyrgh = 0;
 }
 
 void			ft_initex(t_tex *tex)
