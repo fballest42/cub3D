@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/15 12:36:57 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/16 12:07:04 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void			ft_getdefres(t_map *map, t_tex *tex)
 
 void			ft_getinfo(t_map *map)
 {
-	map->posx = map->px;
-	map->posy = map->py;
+	map->posx = map->px + 0.5;
+	map->posy = map->py + 0.5;
 	if (map->por == 'N')
 	{
 		map->dirx = -1;
@@ -67,6 +67,7 @@ void			ft_getinfo(t_map *map)
 		map->diry = 1;
 		map->planex = 0.66;
 	}
+	
 }
 
 void			ft_mlx_pixel_put(t_map *map, int x, int y, int color)
@@ -188,9 +189,9 @@ void			ft_verline(int x, t_map *map)
 	{
 		if (y < map->drawstart)
 			ft_mlx_pixel_put(map, x, y, cc);
-		else if (y >= map->drawstart && y <= map->drawend)
+		else if (y >= map->drawstart && y < map->drawend)
 			ft_mlx_pixel_put(map, x, y, map->wcol);
-		else if (y > map->drawend)
+		else if (y >= map->drawend)
 			ft_mlx_pixel_put(map, x, y, fc);
 		y++;
 	}
