@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/15 12:36:00 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/17 14:34:16 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void			ft_initmlx(t_map *map)
 	map->olddirx = 0.0;
 	map->oldplanex = 0.0;
 	map->wcol = 16711680;
+	map->tex_id = 0;
 	ft_initmlxb(map);
 }
 
@@ -94,6 +95,10 @@ void			ft_initmlxb(t_map *map)
 	map->keyesc = 0;
 	map->keylft = 0;
 	map->keyrgh = 0;
+	map->wallx = 0.0;
+	map->texx = 0.0;
+	map->texy = 0.0;
+	ft_initmlxc(map);
 }
 
 void			ft_initex(t_tex *tex)
@@ -120,6 +125,47 @@ void			ft_initex(t_tex *tex)
 	tex->cei[3] = 0;
 	tex->ce = 0;
 	tex->rutace = NULL;
+}
+
+void			ft_initmlxc(t_map *map)
+{
+	map->texrc[0].img = NULL;
+	map->texrc[1].img = NULL;
+	map->texrc[2].img = NULL;
+	map->texrc[3].img = NULL;
+	map->texrc[4].img = NULL;
+	map->texrc[0].addr = NULL;
+	map->texrc[1].addr = NULL;
+	map->texrc[2].addr = NULL;
+	map->texrc[3].addr = NULL;
+	map->texrc[4].addr = NULL;
+	map->texrc[0].sizeli = 0;
+	map->texrc[1].sizeli = 0;
+	map->texrc[2].sizeli = 0;
+	map->texrc[3].sizeli = 0;
+	map->texrc[4].sizeli = 0;
+	map->texrc[0].bpptex = 0;
+	map->texrc[1].bpptex = 0;
+	map->texrc[2].bpptex = 0;
+	map->texrc[3].bpptex = 0;
+	map->texrc[4].bpptex = 0;
+	ft_initmlxd(map);
+}
+
+void			ft_initmlxd(t_map *map)
+{
+	map->texrc[0].endian = 0;
+	map->texrc[1].endian = 0;
+	map->texrc[2].endian = 0;
+	map->texrc[3].endian = 0;
+	map->texrc[4].endian = 0;
+	map->texrc[0].ruttex = NULL;
+	map->texrc[1].ruttex = NULL;
+	map->texrc[2].ruttex = NULL;
+	map->texrc[3].ruttex = NULL;
+	map->texrc[4].ruttex = NULL;
+	map->texheight = 0;
+	map->texwidth = 0;
 }
 
 void			ft_inierr(t_err *err)

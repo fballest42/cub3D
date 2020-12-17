@@ -6,15 +6,14 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/16 12:07:04 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/17 14:38:06 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				ft_cubemain(t_map *map, t_err *err, t_tex *tex)
+int				ft_cubemain(t_map *map, t_tex *tex)
 {
-	tex->rutano = err->err6; /*OJO ELIMINAR SOLO HABILITADO PARA PASAR ERR*/
 	ft_getdefres(map, tex);
 	map->mlx_ptr = mlx_init();
 	map->mlx_win = mlx_new_window(map->mlx_ptr, map->rx, map->ry, map->name);
@@ -40,6 +39,11 @@ void			ft_getdefres(t_map *map, t_tex *tex)
 	}
 	map->cei = ft_rgbtoint(tex->cei);
 	map->flo = ft_rgbtoint(tex->flo);
+	map->texrc[0].ruttex = tex->rutano;
+	map->texrc[1].ruttex = tex->rutaso;
+	map->texrc[2].ruttex = tex->rutawe;
+	map->texrc[3].ruttex = tex->rutaea;
+	map->texrc[4].ruttex = tex->rutasp;
 	ft_getinfo(map);
 }
 
@@ -313,6 +317,65 @@ void			ft_key_hook3(t_map *map)
 		map->oldplanex = map->planex;
 		map->planex = map->planex * cos(RSPD) - map->planey * sin(RSPD);
 		map->planey = map->oldplanex * sin(RSPD) + map->planey * cos(RSPD);
+	}
+}
+
+void			ft_loadtex(t_map *map)
+{
+	map->texrc[0].img = mlx_xpm_file_to_image(map->mlx_ptr,
+		map->texrc[0].ruttex, &map->texwidth, &map->texheight);
+	map->texrc[0].addr = mlx_get_data_addr(map->texrc[0].img,
+		&map->texrc[0].bpptex, &map->texrc[0].sizeli, &map->texrc[0].endian);
+	map->texrc[1].img = mlx_xpm_file_to_image(map->mlx_ptr,
+		map->texrc[1].ruttex, &map->texwidth, &map->texheight);
+	map->texrc[1].addr = mlx_get_data_addr(map->texrc[1].img,
+		&map->texrc[1].bpptex, &map->texrc[1].sizeli, &map->texrc[1].endian);
+	map->texrc[2].img = mlx_xpm_file_to_image(map->mlx_ptr,
+		map->texrc[2].ruttex, &map->texwidth, &map->texheight);
+	map->texrc[2].addr = mlx_get_data_addr(map->texrc[2].img,
+		&map->texrc[2].bpptex, &map->texrc[2].sizeli, &map->texrc[2].endian);
+	map->texrc[3].img = mlx_xpm_file_to_image(map->mlx_ptr,
+		map->texrc[3].ruttex, &map->texwidth, &map->texheight);
+	map->texrc[3].addr = mlx_get_data_addr(map->texrc[3].img,
+		&map->texrc[3].bpptex, &map->texrc[3].sizeli, &map->texrc[3].endian);
+	map->texrc[4].img = mlx_xpm_file_to_image(map->mlx_ptr,
+		map->texrc[4].ruttex, &map->texwidth, &map->texheight);
+	map->texrc[4].addr = mlx_get_data_addr(map->texrc[4].img,
+		&map->texrc[4].bpptex, &map->texrc[4].sizeli, &map->texrc[4].endian);
+}
+
+void			ft_painttex(t_map *map)
+{
+	map->tex_id = map->mapa[map->mapx][map->mapy] + map->side;
+	if (map->side == 0)
+		map->wallx = map->posy + map->perpwalldist * map->raydiry;
+	else
+		map->wallx = map->posx + map->perpwalldist * map->raydirx;
+	map->wallx -= floor(map->wallx);
+	map->texx = abs((int)(map->wallx * (double)(64)));
+	if (map->side == 0 && map->raydirx > 0)
+		map->side = 1;
+	else if (map->side == 0 && map->raydirx < 0)
+		map->side = 0;
+	else if (map->side == 1 && map->raydiry > 0)
+		map->side = 2;
+	else
+		map->side = 3;
+	if (map->drawend < 0)
+		map->drawend = map->ry;
+}
+
+void			ft_drawtex(t_map *map, int x)
+{
+	while (map->drawstart <= map->drawend)
+	{
+		map->texy = abs((((map->drawstart * 256 - map->ry * 128
+			+ map->lineheight * 128) * 64) / map->lineheight) / 256);
+		ft_memcpy(map->mlx_imgaddr + 4 * map->rx * map->drawstart + x * 4,
+			&map->texrc[map->tex_id].addr[map->texy
+			% map->texheight * map->texrc[map->tex_id].sizeli + map->texx
+			% map->texwidth * map->texrc[map->tex_id].bpptex / 8], sizeof(int));
+		map->drawstart++;
 	}
 }
 

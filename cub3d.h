@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/15 11:59:18 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/17 14:35:16 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 #  define MSPD 0.05
 #  define RSPD 0.04363325
 
-# elif defined __unix__
+# elif defined __UNIX__
 #  include "mlx_linux/mlx.h"
 #  define A_KEY 97
 #  define W_KEY 119
@@ -58,11 +58,15 @@
 
 /*WORK STRUCTS: T_MAP = MAP DATA, T_TEXT = TEXTURE DATA, T_VAR = VARIABLES*, T_ERROR = ERRORS*/
 
-typedef struct	s_raycast
+typedef struct	s_texrc
 {
-	int					i;
-	int					res;
-}				t_raycast;
+	void				*img;
+	char				*addr;
+	char				*ruttex;
+	int					sizeli;
+	int					bpptex;
+	int					endian;
+}				t_texrc;
 
 typedef struct	s_map
 {
@@ -129,6 +133,13 @@ typedef struct	s_map
 	double				olddirx;
 	double				oldplanex;
 	int					wcol;
+	int					tex_id;
+	int					texheight;
+	int					texwidth;
+	double				wallx;
+	double				texx;
+	double				texy;
+	t_texrc				texrc[5];
 }				t_map;
 
 typedef struct	s_tex
@@ -242,6 +253,8 @@ int				ft_init(t_map *map, t_tex *tex, t_err *err);
 void			ft_inierr(t_err *err);
 void			ft_initmlx(t_map *map);
 void			ft_initmlxb(t_map *map);
+void			ft_initmlxc(t_map *map);
+void			ft_initmlxd(t_map *map);
 
 /*FILES IN FT_UTILSA.C*/
 int				ft_strncmpb(const char *s1, const char *s2, size_t n);
@@ -262,7 +275,7 @@ int         	ft_rgbtoint(int *hex);
 void			ft_printerr(char *str);
 
 /*FILES IN FT_CUBEMAIN.C*/
-int				ft_cubemain(t_map *map, t_err *err, t_tex *tex);
+int				ft_cubemain(t_map *map, t_tex *tex);
 void			ft_getdefres(t_map *map, t_tex *tex);
 void			ft_getinfo(t_map *map);
 void			ft_setinfo(int x, t_map *map);
@@ -278,6 +291,9 @@ int				ft_keyrelease(int key, t_map *map);
 int				ft_key_hook(t_map *map);
 void			ft_key_hook2(t_map *map);
 void			ft_key_hook3(t_map *map);
+void			ft_loadtex(t_map *map);
+void			ft_painttex(t_map *map);
+void			ft_drawtex(t_map *map, int x);
 int				ft_exit_game(t_map *map);
 
 #endif
