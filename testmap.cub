@@ -1,11 +1,11 @@
 
-R 1200 750
-NO ./textures/bluestone.xpm
-SO ./textures/colorstone.xpm
+R 600 400
+NO ./textures/wood.xpm
+SO ./textures/mossy.xpm
 
-WE ./textures/greystone.xpm
+WE ./textures/colorstone.xpm
 
-EA ./textures/purplestone.xpm
+EA ./textures/redbrick.xpm
 S ./textures/pillar.xpm
 F 0,153,76
 C 102,178,255

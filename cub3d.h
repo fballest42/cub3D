@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/17 14:35:16 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/21 14:07:35 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,11 @@ typedef struct	s_map
 	int					texheight;
 	int					texwidth;
 	double				wallx;
-	double				texx;
-	double				texy;
+	int					texx;
+	int					texy;
+	int					texside;
+	double				step;
+	double				texpos;
 	t_texrc				texrc[5];
 }				t_map;
 
@@ -285,7 +288,7 @@ void			ft_initialstep(t_map *map);
 void			ft_hitwall(t_map *map);
 void			ft_heightdraw(t_map *map);
 void			ft_verline(int x, t_map *map);
-int				ft_wallident(t_map *map);
+void			ft_wallident(t_map *map);
 int				ft_keypress(int key, t_map *map);
 int				ft_keyrelease(int key, t_map *map);
 int				ft_key_hook(t_map *map);
@@ -293,7 +296,9 @@ void			ft_key_hook2(t_map *map);
 void			ft_key_hook3(t_map *map);
 void			ft_loadtex(t_map *map);
 void			ft_painttex(t_map *map);
-void			ft_drawtex(t_map *map, int x);
+void			ft_painttexb(t_map *map, int x, int y);
+int				ft_getpixel(t_map *map, int x, int y);
+int				ft_drawtex(t_map *map, int x, int y);
 int				ft_exit_game(t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/17 14:38:06 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/21 14:20:33 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int				ft_cubemain(t_map *map, t_tex *tex)
 {
 	ft_getdefres(map, tex);
 	map->mlx_ptr = mlx_init();
+	ft_loadtex(map);
 	map->mlx_win = mlx_new_window(map->mlx_ptr, map->rx, map->ry, map->name);
 	//ft_paint_cei_flo(map, 0, 0);
 	//mlx_loop_hook(map->mlx_ptr, ft_paint_cei_flo, map);
@@ -71,15 +72,6 @@ void			ft_getinfo(t_map *map)
 		map->diry = 1;
 		map->planex = 0.66;
 	}
-	
-}
-
-void			ft_mlx_pixel_put(t_map *map, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = map->mlx_imgaddr + (y * map->mlx_sili + x * (map->mlx_bxp / 8));
-	*(unsigned int *)dst = color;
 }
 
 int				ft_raycasting(t_map *map)
@@ -97,6 +89,7 @@ int				ft_raycasting(t_map *map)
 		ft_initialstep(map);
 		ft_hitwall(map);
 		ft_heightdraw(map);
+		ft_painttex(map);
 		ft_verline(x, map);
 		x++;
 	}
@@ -167,9 +160,11 @@ void			ft_hitwall(t_map *map)
 void			ft_heightdraw(t_map *map)
 {
 	if (map->side == 0)
-		map->perpwalldist = (map->mapx - map->posx + (1 - map->stepx) / 2) / map->raydirx;
+		map->perpwalldist = (map->mapx - map->posx +
+		(1 - map->stepx) / 2) / map->raydirx;
 	else
-		map->perpwalldist = (map->mapy - map->posy + (1 - map->stepy) / 2) / map->raydiry;
+		map->perpwalldist = (map->mapy - map->posy +
+		(1 - map->stepy) / 2) / map->raydiry;
 	map->lineheight = (int)(map->ry / map->perpwalldist);
 	map->drawstart = -map->lineheight / 2 + map->ry / 2;
 	if (map->drawstart < 0)
@@ -188,34 +183,33 @@ void			ft_verline(int x, t_map *map)
 	y = 0;
 	cc = map->cei;
 	fc = map->flo;
-	map->wcol = ft_wallident(map);
 	while (y < map->ry)
 	{
 		if (y < map->drawstart)
 			ft_mlx_pixel_put(map, x, y, cc);
-		else if (y >= map->drawstart && y < map->drawend)
-			ft_mlx_pixel_put(map, x, y, map->wcol);
-		else if (y >= map->drawend)
+		else if (y >= map->drawstart && y <= map->drawend)
+			ft_mlx_pixel_put(map, x,y, cc+fc);
+		else if (y > map->drawend)
 			ft_mlx_pixel_put(map, x, y, fc);
 		y++;
 	}
+	y = map->drawstart;
+	ft_painttexb(map, x, y);
 }
 
-int				ft_wallident(t_map *map)
+void			ft_wallident(t_map *map)
 {
 	if (map->side == 0 && map->raydirx > 0)//NO Texture
-		return (16776960); //AMARILLO
-		//mlx_xpm_file_to_image(map->mlx_ptr, map->texno, 64, 64);
+		map->tex_id = 0;
 	if (map->side == 0 && map->raydirx <= 0)//SO Texture
-		return (16777215); //BLANCO
+		map->tex_id = 1;
 	if (map->side == 1 && map->raydiry > 0)//WE Texture
-		return (16757504); //NARANJA
+		map->tex_id = 2;
 	if (map->side == 1 && map->raydiry <= 0)//EA Texture
-		return (16719080); //ROSA
-	return (0);
+		map->tex_id = 3;
 }
 
-int				ft_keypress(int	key, t_map *map)
+int				ft_keypress(int key, t_map *map)
 {
 	if (key == W_KEY)
 		map->keyw = 1;
@@ -234,7 +228,7 @@ int				ft_keypress(int	key, t_map *map)
 	return (0);
 }
 
-int				ft_keyrelease(int	key, t_map *map)
+int				ft_keyrelease(int key, t_map *map)
 {
 	if (key == W_KEY)
 		map->keyw = 0;
@@ -344,38 +338,50 @@ void			ft_loadtex(t_map *map)
 		&map->texrc[4].bpptex, &map->texrc[4].sizeli, &map->texrc[4].endian);
 }
 
+void			ft_mlx_pixel_put(t_map *map, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = map->mlx_imgaddr + (y * map->mlx_sili + x * (map->mlx_bxp / 8));
+	*(unsigned int *)dst = color;
+}
+
+int				ft_getpixel(t_map *map, int x, int y)
+{
+	char	*dst;
+
+	dst = map->texrc[map->tex_id].addr + (y * map->texrc[map->tex_id].sizeli
+		+ x * (map->texrc[map->tex_id].bpptex / 8));
+	return (*(unsigned int*)dst);
+}
+
 void			ft_painttex(t_map *map)
 {
-	map->tex_id = map->mapa[map->mapx][map->mapy] + map->side;
+	ft_wallident(map);
 	if (map->side == 0)
 		map->wallx = map->posy + map->perpwalldist * map->raydiry;
 	else
 		map->wallx = map->posx + map->perpwalldist * map->raydirx;
-	map->wallx -= floor(map->wallx);
-	map->texx = abs((int)(map->wallx * (double)(64)));
+	map->wallx = map->wallx - floor(map->wallx);
+	map->texx = (int)(map->wallx * (double)map->texwidth);
 	if (map->side == 0 && map->raydirx > 0)
-		map->side = 1;
-	else if (map->side == 0 && map->raydirx < 0)
-		map->side = 0;
-	else if (map->side == 1 && map->raydiry > 0)
-		map->side = 2;
-	else
-		map->side = 3;
-	if (map->drawend < 0)
-		map->drawend = map->ry;
+		map->texx = map->texwidth - map->texx - 1;
+	if (map->side == 1 && map->raydiry < 0)
+		map->texx = map->texwidth - map->texx - 1;
 }
 
-void			ft_drawtex(t_map *map, int x)
+void			ft_painttexb(t_map *map, int x, int y)
 {
-	while (map->drawstart <= map->drawend)
+	map->step = 1.0 * map->texheight / map->lineheight;
+	map->texpos = (map->drawstart - map->ry / 2 + map->lineheight / 2)
+		* map->step;
+	while (y <= map->drawend)
 	{
-		map->texy = abs((((map->drawstart * 256 - map->ry * 128
-			+ map->lineheight * 128) * 64) / map->lineheight) / 256);
-		ft_memcpy(map->mlx_imgaddr + 4 * map->rx * map->drawstart + x * 4,
-			&map->texrc[map->tex_id].addr[map->texy
-			% map->texheight * map->texrc[map->tex_id].sizeli + map->texx
-			% map->texwidth * map->texrc[map->tex_id].bpptex / 8], sizeof(int));
-		map->drawstart++;
+		map->texy = (int)map->texpos & (map->texheight - 1);
+		map->texpos = map->texpos + map->step;
+		ft_mlx_pixel_put(map, x, y, ft_getpixel(map, map->texx, map->texy));
+
+		y++;
 	}
 }
 

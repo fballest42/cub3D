@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/17 14:34:16 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/18 11:13:20 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ void			ft_initmlxc(t_map *map)
 	map->texrc[2].bpptex = 0;
 	map->texrc[3].bpptex = 0;
 	map->texrc[4].bpptex = 0;
+	map->texx = 0;
+	map->texy = 0;
 	ft_initmlxd(map);
 }
 
@@ -166,6 +168,7 @@ void			ft_initmlxd(t_map *map)
 	map->texrc[4].ruttex = NULL;
 	map->texheight = 0;
 	map->texwidth = 0;
+	map->texside = 0;
 }
 
 void			ft_inierr(t_err *err)
