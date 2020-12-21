@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/21 14:20:33 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/21 15:35:41 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void			ft_getdefres(t_map *map, t_tex *tex)
 	map->texrc[2].ruttex = tex->rutawe;
 	map->texrc[3].ruttex = tex->rutaea;
 	map->texrc[4].ruttex = tex->rutasp;
+	map->sprite = malloc(sizeof(double) * map->rx + 1);
 	ft_getinfo(map);
 }
 
@@ -93,10 +94,10 @@ int				ft_raycasting(t_map *map)
 		ft_verline(x, map);
 		x++;
 	}
+	//ft_raycastingb(map);
 	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
-	mlx_destroy_image(map->mlx_ptr, map->mlx_img);
-	map->save = map->save + 1;
 	//ft_copyimage(map);
+	mlx_destroy_image(map->mlx_ptr, map->mlx_img);
 	return (0);
 }
 
@@ -183,12 +184,13 @@ void			ft_verline(int x, t_map *map)
 	y = 0;
 	cc = map->cei;
 	fc = map->flo;
+	map->sprite[x] = map->perpwalldist;
 	while (y < map->ry)
 	{
 		if (y < map->drawstart)
 			ft_mlx_pixel_put(map, x, y, cc);
 		else if (y >= map->drawstart && y <= map->drawend)
-			ft_mlx_pixel_put(map, x,y, cc+fc);
+			ft_mlx_pixel_put(map, x, y, 1711276032);
 		else if (y > map->drawend)
 			ft_mlx_pixel_put(map, x, y, fc);
 		y++;

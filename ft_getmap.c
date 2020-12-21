@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/26 09:25:00 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/21 16:34:07 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,39 @@ int				ft_checkmap(t_map *map, t_err *err)
 	}
 	x = map->px;
 	ft_checkmap2(x, y, val, err);
+	ft_spritearray(map);
 	ft_freearray(val);
 	map->okmap = 1;
 	return (0);
+}
+
+void			ft_spritearray(t_map *map)
+{
+	int		i;
+	int		x;
+	int		y;
+
+	i = 0;
+	x = 0;
+	y = 0;
+	map->sprpos = (int **)malloc(sizeof(int *) * map->sprnum + 1);
+	while (i <= map->sprnum)
+		map->sprpos[i++] = (int *)malloc(sizeof(int) * 3);
+	i = 0;
+	while (map->mapa[x])
+	{
+		y = 0;
+		while (map->mapa[x][y])
+		{
+			if (map->mapa[x][y] == '2')
+			{
+				map->sprpos[i][0] = x;
+				map->sprpos[i++][1] = y;
+			}
+			y++;
+		}
+		x++;
+	}
 }
 
 void			ft_checkmap2(int x, int y, char **str, t_err *err)

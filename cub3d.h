@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/21 14:07:35 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/21 16:28:31 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,9 @@ typedef struct	s_map
 	int					texside;
 	double				step;
 	double				texpos;
+	int					sprnum;
+	int					**sprpos;
+	double				*sprite;
 	t_texrc				texrc[5];
 }				t_map;
 
@@ -235,6 +238,7 @@ void			ft_checknumbers(t_map *map, t_err *err);
 void			ft_countcomas(t_map *map, t_err *err);
 void			ft_countlines(char *argv, t_map *map, t_err *err);
 int				ft_checkplayer(int x, t_map *map, t_err *err);
+void			ft_checkplayerb(t_map *map, int x, int y);
 int				ft_checktexture(char *str, t_err *err);
 
 /*FILES IN FT_GETMAP.C*/
@@ -243,6 +247,7 @@ int				ft_openfileb(char *str, t_err *err);
 int				ft_getmap(t_map *map, t_err *err);
 int				ft_checkmap(t_map *map, t_err *err);
 void			ft_checkmap2(int x, int y, char **str, t_err *err);
+void			ft_spritearray(t_map *map);
 
 /*FILES IN FT_FREEDOM.C*/
 void			ft_freemap(t_map *map);

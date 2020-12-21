@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 13:01:08 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/14 10:37:43 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/21 16:02:43 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,7 @@ int				ft_checkplayer(int x, t_map *map, t_err *err)
 	x = map->im;
 	while (map->mapa[x][y] != '\0')
 	{
-		if (map->mapa[x][y] == ' ')
-			map->mapa[x][y] = '0';
-		if (map->mapa[x][y] == 'N' || map->mapa[x][y] == 'S'
-			|| map->mapa[x][y] == 'W' || map->mapa[x][y] == 'E')
-		{
-			map->px = map->im;
-			map->py = y;
-			map->por = map->mapa[x][y];
-			map->mapa[x][y] = '0';
-			map->pla = map->pla + 1;
-		}
+		ft_checkplayerb(map, x, y);
 		y++;
 	}
 	if (map->pla > 1)
@@ -96,6 +86,23 @@ int				ft_checkplayer(int x, t_map *map, t_err *err)
 		exit(-16);
 	}
 	return (0);
+}
+
+void			ft_checkplayerb(t_map *map, int x, int y)
+{
+	if (map->mapa[x][y] == ' ')
+		map->mapa[x][y] = '0';
+	if (map->mapa[x][y] == 'N' || map->mapa[x][y] == 'S'
+		|| map->mapa[x][y] == 'W' || map->mapa[x][y] == 'E')
+	{
+		map->px = map->im;
+		map->py = y;
+		map->por = map->mapa[x][y];
+		map->mapa[x][y] = '0';
+		map->pla = map->pla + 1;
+	}
+	if (map->mapa[x][y] == '2')
+		map->sprnum = map->sprnum + 1;
 }
 
 int				ft_checktexture(char *str, t_err *err)
