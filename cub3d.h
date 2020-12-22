@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/21 16:28:31 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/22 14:10:30 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,16 @@ typedef struct	s_map
 	int					sprnum;
 	int					**sprpos;
 	double				*sprite;
+	int					*sprord;
+	double				*sprdist;
+	float				raydirx0;
+	float				raydiry0;
+	float				raydirx1;
+	float				raydiry1;
+	int					p;
+	float				posz;
+	float				rowdist;
+	int					*neword;
 	t_texrc				texrc[5];
 }				t_map;
 
@@ -305,5 +315,8 @@ void			ft_painttexb(t_map *map, int x, int y);
 int				ft_getpixel(t_map *map, int x, int y);
 int				ft_drawtex(t_map *map, int x, int y);
 int				ft_exit_game(t_map *map);
+void			ft_raycastingb(t_map *map);
+void			ft_sortsprites(t_map * map);
+void			ft_sortspritesb(t_map *map);
 
 #endif

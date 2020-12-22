@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/21 15:35:41 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/22 14:28:24 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int				ft_cubemain(t_map *map, t_tex *tex)
 	mlx_hook(map->mlx_win, 3, 1L << 1, ft_keyrelease, map);
 	mlx_loop_hook(map->mlx_ptr, ft_raycasting, map);
 	//mlx_key_hook(map->mlx_win, ft_key_hook, map);
-	
 	mlx_loop(map->mlx_ptr);
 	return (0);
 }
@@ -46,6 +45,8 @@ void			ft_getdefres(t_map *map, t_tex *tex)
 	map->texrc[3].ruttex = tex->rutaea;
 	map->texrc[4].ruttex = tex->rutasp;
 	map->sprite = malloc(sizeof(double) * map->rx + 1);
+	map->sprord = malloc(sizeof(int) * map->sprnum + 1);
+	map->sprdist = malloc(sizeof(double) * map->sprnum + 1);
 	ft_getinfo(map);
 }
 
@@ -94,11 +95,91 @@ int				ft_raycasting(t_map *map)
 		ft_verline(x, map);
 		x++;
 	}
-	//ft_raycastingb(map);
+	ft_raycastingb(map);
 	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
 	//ft_copyimage(map);
 	mlx_destroy_image(map->mlx_ptr, map->mlx_img);
 	return (0);
+}
+
+void			ft_raycastingb(t_map *map)
+{
+	ft_sortsprites(map);
+}
+
+  /*int vNumeros[tamano]; 
+  int j, i, temp; 
+  clrscr ();
+  printf ("Introduce los %d números a ordenar:\n", tamano); 
+  Obtenemos los 10 números y los guardamos en vNumeros
+  for (i = 0; i < tamano; i++) 
+  { 
+    printf ("%d: ", i + 1); 
+    scanf ("%d", &vNumeros[i]); 
+    printf ("\n"); 
+  } 
+  Ordenamos los números del vector vNumeros por el método de burbuja 
+  for (i = 0; i < (tamano - 1); i++) 
+  { 
+    for (j = i + 1; j < tamano; j++) 
+    { 
+      if (vNumeros[j] < vNumeros[i]) 
+      { 
+        temp = vNumeros[j]; 
+        vNumeros[j] = vNumeros[i]; 
+        vNumeros[i] = temp; 
+      } 
+    } 
+  } 
+  Mostramos los números ordenados
+  printf ("Los números ordenados son:\n"); 
+  for (i = 0; i < tamano; i++) 
+  { 
+    printf("%d, ", vNumeros[i]); 
+  } 
+  printf("\n\n\n"); 
+  system("PAUSE");  
+}*/
+
+void			ft_sortsprites(t_map * map)
+{
+	int		y;
+
+	y = 0;
+	while (y < map->sprnum)
+	{
+		map->sprord[y] = y;
+		map->sprdist[y] = ((map->posx - map->sprpos[y][0]) *
+			(map->posx - map->sprpos[y][0]) + (map->posy - map->sprpos[y][1])
+			* (map->posy - map->sprpos[y][1]));
+		y++;
+	}
+	ft_sortspritesb(map);
+}
+
+void			ft_sortspritesb(t_map *map)
+{
+	int		i;
+	int		j;
+	int		minor;
+
+	i = 0;
+	j = 0;
+	while (i < map->sprnum)
+	{
+		j = i;
+		while (j < map->sprnum)
+		{
+			if (map->sprdist[i] < map->sprdist[j])
+			{
+				minor = map->sprord[i];
+				map->sprord[i] = map->sprord[j];
+				map->sprord[j] = minor;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 void			ft_setinfo(int x, t_map *map)
@@ -392,6 +473,12 @@ int				ft_exit_game(t_map *map)
 	mlx_destroy_window(map->mlx_ptr, map->mlx_win);
 	map->mlx_ptr = NULL;
 	free(map->mlx_ptr);
+	map->sprite = 0;
+	map->sprord = 0;
+	map->sprdist = 0;
+	free(map->sprite);
+	free(map->sprord);
+	free(map->sprdist);
 	exit(0);
 	return (0);
 }

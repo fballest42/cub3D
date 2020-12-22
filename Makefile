@@ -6,7 +6,7 @@
 #    By: fballest <fballest@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/21 12:11:55 by fballest          #+#    #+#              #
-#    Updated: 2020/12/11 13:46:28 by fballest         ###   ########.fr        #
+#    Updated: 2020/12/22 13:06:31 by fballest         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ endif
 
 # FILE NAME #
 
-NAME = Cub3D
+NAME = cub3D
 
 # SOURCES #
 
