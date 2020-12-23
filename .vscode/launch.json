@@ -9,7 +9,7 @@
 			"name": "(lldb) Adjuntar",
 			"type": "cppdbg",
 			"request": "attach",
-			"program": "${workspaceFolder}/Cub3D",
+			"program": "${workspaceFolder}/cub3D",
 			"processId": "${command:pickProcess}",
 			"MIMode": "lldb"
 		},
@@ -18,7 +18,7 @@
 			"name": "(lldb) Iniciar",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/Cub3D",
+			"program": "${workspaceFolder}/cub3D",
 			"args": ["testmap.cub", "--save"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",

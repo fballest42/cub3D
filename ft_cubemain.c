@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/22 14:28:24 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/23 12:49:12 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,8 @@ void			ft_sortspritesb(t_map *map)
 	j = 0;
 	while (i < map->sprnum)
 	{
-		j = i;
-		while (j < map->sprnum)
+		j = 0;
+		while (map->sprdist[j])
 		{
 			if (map->sprdist[i] < map->sprdist[j])
 			{

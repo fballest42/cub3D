@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/22 14:10:30 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/23 09:32:45 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 #  define ESC_KEY 53
 #  define LEFT_SHIFT 257
 #  define X_BTN 17
-#  define MSPD 0.05
+#  define MSPD 0.07
 #  define RSPD 0.04363325
 
 # elif defined __UNIX__
