@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/23 12:49:12 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/28 17:00:10 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void			ft_sortsprites(t_map * map)
 	while (y < map->sprnum)
 	{
 		map->sprord[y] = y;
-		map->sprdist[y] = ((map->posx - map->sprpos[y][0]) *
+		map->sprdist[y] = (int)((map->posx - map->sprpos[y][0]) *
 			(map->posx - map->sprpos[y][0]) + (map->posy - map->sprpos[y][1])
 			* (map->posy - map->sprpos[y][1]));
 		y++;
@@ -161,20 +161,22 @@ void			ft_sortspritesb(t_map *map)
 {
 	int		i;
 	int		j;
-	int		minor;
+	int		temp;
 
 	i = 0;
 	j = 0;
+
+	i = 0;
 	while (i < map->sprnum)
 	{
-		j = 0;
-		while (map->sprdist[j])
+		j = i + 1;
+		while (j < map->sprnum)
 		{
-			if (map->sprdist[i] < map->sprdist[j])
+			if (map->sprdist[map->sprord[i]] < map->sprdist[map->sprord[j]])
 			{
-				minor = map->sprord[i];
+				temp = map->sprord[i];
 				map->sprord[i] = map->sprord[j];
-				map->sprord[j] = minor;
+				map->sprord[j] = temp;
 			}
 			j++;
 		}

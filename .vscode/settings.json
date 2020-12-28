@@ -3,7 +3,8 @@
 	"files.associations": {
 		"__functional_03": "c",
 		"functional": "c",
-		"locale": "c"
+		"locale": "c",
+		"MAIN.C": "cpp"
 	},
 	"C_Cpp.errorSquiggles": "Disabled"
 }
