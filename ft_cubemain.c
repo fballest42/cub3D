@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/30 14:19:11 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/30 14:58:40 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,29 @@ void			ft_raycastingb(t_map *map)
 			map->texx = (int)(256 * (map->stripe - (-map->sprwidth / 2
 				 + map->sprscreenx)) * map->texwidth / map->sprwidth) / 256;
 			if (map->transformy > 0 && map->stripe > 0 && map->stripe < map->rx
-				&& map->transformy < )
+				&& map->transformy < map->sprite[map->stripe])
+				ft_paintspr(map, i);
+			map->stripe++;
 		}
 	}
-	
+}
+
+void			ft_paintspr(t_map *map, int i)
+{
+	int					y;
+	int					d;
+	unsigned int		color;
+
+	y = map->drawstarty;
+	while(y < map->drawendy)
+	{
+		d = (y) * 256 - map->ry * 128 + map->sprheight * 128;
+		map->texy = ((d * map->texheight) / map->sprheight) / 256;
+		color = *(unsigned int*)(map->texrc[4].addr + (y * map->texrc[4].sizeli
+			+ map->stripe * (map->texrc[4].bpptex / 8)));
+		if ((color & 0x00FFFFFF) != 0)
+			ft_mlx_pixel_put(map, map->stripe, y, color);
+	}
 }
 
 void			ft_calculatespr(t_map *map, int i)
