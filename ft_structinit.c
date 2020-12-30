@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/22 11:17:10 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/30 13:53:10 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,21 @@ void			ft_initmlxd(t_map *map)
 	map->sprnum = 0;
 	map->sprord = 0;
 	map->sprdist = 0;
+	map->spritex = 0;
+	map->spritey = 0;
+	map->invdet = 0;
+	map->transformx = 0;
+	map->transformy = 0;
+	map->sprscreenx = 0;
+	map->sprheight = 0;
+	map->drawstarty = 0;
+	map->drawendy = 0;
+	map->sprwidth = 0;
+	map->drawstartx = 0;
+	map->drawendx = 0;
+	map->stripe = 0;
+	map->texx = 0;
+	map->texy = 0;
 }
 
 void			ft_inierr(t_err *err)

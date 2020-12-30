@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/28 17:00:10 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/30 14:19:11 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,10 @@ int				ft_cubemain(t_map *map, t_tex *tex)
 	map->mlx_ptr = mlx_init();
 	ft_loadtex(map);
 	map->mlx_win = mlx_new_window(map->mlx_ptr, map->rx, map->ry, map->name);
-	//ft_paint_cei_flo(map, 0, 0);
-	//mlx_loop_hook(map->mlx_ptr, ft_paint_cei_flo, map);
 	mlx_hook(map->mlx_win, 17, 1L << 17, ft_exit_game, map);
 	mlx_hook(map->mlx_win, 2, 1L << 0, ft_keypress, map);
 	mlx_hook(map->mlx_win, 3, 1L << 1, ft_keyrelease, map);
 	mlx_loop_hook(map->mlx_ptr, ft_raycasting, map);
-	//mlx_key_hook(map->mlx_win, ft_key_hook, map);
 	mlx_loop(map->mlx_ptr);
 	return (0);
 }
@@ -104,42 +101,48 @@ int				ft_raycasting(t_map *map)
 
 void			ft_raycastingb(t_map *map)
 {
+	int		i;
+
+	i = 0;
 	ft_sortsprites(map);
+	while (i < map->sprnum)
+	{
+		ft_calculatespr(map, i);
+		while (map->stripe < map->drawendx)
+		{
+			map->texx = (int)(256 * (map->stripe - (-map->sprwidth / 2
+				 + map->sprscreenx)) * map->texwidth / map->sprwidth) / 256;
+			if (map->transformy > 0 && map->stripe > 0 && map->stripe < map->rx
+				&& map->transformy < )
+		}
+	}
+	
 }
 
-  /*int vNumeros[tamano]; 
-  int j, i, temp; 
-  clrscr ();
-  printf ("Introduce los %d números a ordenar:\n", tamano); 
-  Obtenemos los 10 números y los guardamos en vNumeros
-  for (i = 0; i < tamano; i++) 
-  { 
-    printf ("%d: ", i + 1); 
-    scanf ("%d", &vNumeros[i]); 
-    printf ("\n"); 
-  } 
-  Ordenamos los números del vector vNumeros por el método de burbuja 
-  for (i = 0; i < (tamano - 1); i++) 
-  { 
-    for (j = i + 1; j < tamano; j++) 
-    { 
-      if (vNumeros[j] < vNumeros[i]) 
-      { 
-        temp = vNumeros[j]; 
-        vNumeros[j] = vNumeros[i]; 
-        vNumeros[i] = temp; 
-      } 
-    } 
-  } 
-  Mostramos los números ordenados
-  printf ("Los números ordenados son:\n"); 
-  for (i = 0; i < tamano; i++) 
-  { 
-    printf("%d, ", vNumeros[i]); 
-  } 
-  printf("\n\n\n"); 
-  system("PAUSE");  
-}*/
+void			ft_calculatespr(t_map *map, int i)
+{
+	map->spritex = map->sprpos[map->sprord[i]].0 - map->posx;
+	map->spritey = map->sprpos[map->sprord[i]].1 - map->posy;
+	map->invdet = 1.0 / (map->planex * map->diry - map->dirx * map->planey);
+	map->transformx = map->invdet * (map->diry + map->spritex - map->dirx * map->spritey);
+	map->transformy = map->invdet * (-map->planey * map->spritex + map->planex * map->spritey);
+	map->sprscreenx = (int)((map->rx / 2) * (1 + map->transforx / map->transformy));
+	map->sprheight = abs(int(map->ry / (map->transformy)));
+	map->drawstarty = -map->sprheight / 2 + map->ry / 2;
+	if (map->drawstarty < 0)
+		map->drawstarty = 0;
+	map->drawendy = map->sprheight / 2 + map->ry / 2;
+	if (map->drawendy >= map->ry)
+		map->drawendy = map->ry - 1;
+	map->sprwidth = abs((int)(map->ry / (map->transformy)));
+	map->drawstartx = -map->sprwidth / 2 + map->sprscreenx;
+	if (map->drawstartx < 0)
+		map->drawstartx = 0;
+	map->drawendx = map->sprwidth / 2 + map->sprscreenx;
+	if (map->drawendx >= map->rx)
+		map->drawendx = map->rx - 1;
+	map->stripe = map->drawstartx;
+}
 
 void			ft_sortsprites(t_map * map)
 {
