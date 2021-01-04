@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/30 15:00:48 by fballest         ###   ########.fr       */
+/*   Updated: 2020/12/30 16:41:16 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,7 +332,7 @@ int				ft_drawtex(t_map *map, int x, int y);
 int				ft_exit_game(t_map *map);
 void			ft_raycastingb(t_map *map);
 void			ft_calculatespr(t_map *map, int i);
-void			ft_paintspr(t_map *map, int i);
+void			ft_paintspr(t_map *map);
 void			ft_sortsprites(t_map * map);
 void			ft_sortspritesb(t_map *map);
 

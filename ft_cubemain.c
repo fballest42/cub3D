@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/30 14:58:40 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/04 09:13:11 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,14 @@ void			ft_raycastingb(t_map *map)
 				 + map->sprscreenx)) * map->texwidth / map->sprwidth) / 256;
 			if (map->transformy > 0 && map->stripe > 0 && map->stripe < map->rx
 				&& map->transformy < map->sprite[map->stripe])
-				ft_paintspr(map, i);
+				ft_paintspr(map);
 			map->stripe++;
 		}
+		i++;
 	}
 }
 
-void			ft_paintspr(t_map *map, int i)
+void			ft_paintspr(t_map *map)
 {
 	int					y;
 	int					d;
@@ -135,18 +136,19 @@ void			ft_paintspr(t_map *map, int i)
 			+ map->stripe * (map->texrc[4].bpptex / 8)));
 		if ((color & 0x00FFFFFF) != 0)
 			ft_mlx_pixel_put(map, map->stripe, y, color);
+		y++;
 	}
 }
 
 void			ft_calculatespr(t_map *map, int i)
 {
-	map->spritex = map->sprpos[map->sprord[i]].0 - map->posx;
-	map->spritey = map->sprpos[map->sprord[i]].1 - map->posy;
+	map->spritex = (map->sprpos[map->sprord[i]][0] - map->posx);
+	map->spritey = (map->sprpos[map->sprord[i]][1] - map->posy);
 	map->invdet = 1.0 / (map->planex * map->diry - map->dirx * map->planey);
-	map->transformx = map->invdet * (map->diry + map->spritex - map->dirx * map->spritey);
+	map->transformx = map->invdet * (map->diry * map->spritex - map->dirx * map->spritey);
 	map->transformy = map->invdet * (-map->planey * map->spritex + map->planex * map->spritey);
-	map->sprscreenx = (int)((map->rx / 2) * (1 + map->transforx / map->transformy));
-	map->sprheight = abs(int(map->ry / (map->transformy)));
+	map->sprscreenx = (int)((map->rx / 2) * (1 + map->transformx / map->transformy));
+	map->sprheight = abs((int)(map->ry / (map->transformy)));
 	map->drawstarty = -map->sprheight / 2 + map->ry / 2;
 	if (map->drawstarty < 0)
 		map->drawstarty = 0;
@@ -171,7 +173,7 @@ void			ft_sortsprites(t_map * map)
 	while (y < map->sprnum)
 	{
 		map->sprord[y] = y;
-		map->sprdist[y] = (int)((map->posx - map->sprpos[y][0]) *
+		map->sprdist[y] = ((map->posx - map->sprpos[y][0]) *
 			(map->posx - map->sprpos[y][0]) + (map->posy - map->sprpos[y][1])
 			* (map->posy - map->sprpos[y][1]));
 		y++;
@@ -187,8 +189,6 @@ void			ft_sortspritesb(t_map *map)
 
 	i = 0;
 	j = 0;
-
-	i = 0;
 	while (i < map->sprnum)
 	{
 		j = i + 1;
