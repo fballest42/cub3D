@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:13:21 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/30 13:53:10 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:59:31 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void			ft_initmlx(t_map *map)
 	map->diry = 0;
 	map->planex = 0;
 	map->planey = 0;
-	map->time = 0;
-	map->oldtime = 0;
+	// map->time = 0;
+	// map->oldtime = 0;
 	map->camerax = 0;
 	map->raydirx = 0;
 	map->raydiry = 0;

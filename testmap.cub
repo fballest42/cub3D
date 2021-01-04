@@ -6,7 +6,7 @@ SO ./textures/mossy.xpm
 WE ./textures/colorstone.xpm
 
 EA ./textures/redbrick.xpm
-S ./textures/pillar.xpm
+S ./textures/barrel.xpm
 F 0,153,76
 C 102,178,255
 

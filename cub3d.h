@@ -6,14 +6,16 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/04 11:43:55 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:58:36 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _CUB3D_H
 # define _CUB3D_H
 
-/*LIBRERIAS DE TRABJO*/
+/*
+**LIBRERIAS DE TRABAJO
+*/
 
 # include <stdlib.h>
 # include <string.h>
@@ -27,7 +29,9 @@
 # include "gnl/get_next_line.h"
 # include "libft/libft.h"
 
-/*KEY DEFINITION AND LIBRARY ACCORDING TO OPERATIVE SYSTEM*/
+/*
+**KEY DEFINITION AND LIBRARY ACCORDING TO OPERATIVE SYSTEM
+*/
 
 # ifdef __APPLE__
 #  include "mlx_ios/mlx.h"
@@ -56,7 +60,10 @@
 #  define X_BTN 33
 # endif
 
-/*WORK STRUCTS: T_MAP = MAP DATA, T_TEXT = TEXTURE DATA, T_VAR = VARIABLES*, T_ERROR = ERRORS*/
+/*
+**WORK STRUCTS: T_MAP = MAP DATA, T_TEXT = TEXTURE DATA,
+**T_VAR = VARIABLES*, T_ERROR = ERRORS
+*/
 
 typedef struct	s_texrc
 {
@@ -90,7 +97,6 @@ typedef struct	s_map
 	char				**mapa;
 	int					okmap;
 	int					save;
-	char				**savmap;
 	void				*mlx_ptr;
 	void				*mlx_win;
 	void				**mlx_img;
@@ -104,8 +110,6 @@ typedef struct	s_map
 	double				diry;
 	double				planex;
 	double				planey;
-	double				time;
-	double				oldtime;
 	double				camerax;
 	double				raydirx;
 	double				raydiry;
@@ -223,42 +227,56 @@ typedef struct	s_err
 	int			ok;
 }				t_err;
 
-/*LIST OF FUNTIONS AND FILES WHERE YOU CAN FIND EACH FUNTION*/
+/*
+**LIST OF FUNTIONS AND FILES WHERE YOU CAN FIND EACH FUNTION
+*/
 
-/* FILES IN CUB3D.c*/
+/*
+**FILES IN CUB3D.c
+*/
 int				ft_checkarg(int argc, char **argv, t_map *map, t_err *err);
 int				ft_checkarg2(char **argv, t_map *map, t_err *err);
 int				ft_checkarg3(char **argv, t_map *map, t_err *err);
 char			*ft_extfile(char *str);
 
-/*FILES IN FT_READFILE.C*/
+/*
+**FILES IN FT_READFILE.C
+*/
 int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv);
 int				ft_getdatafile(t_map *map, t_err *err, t_tex *tex);
 int				ft_getres(t_map *map, t_err *err);
 int				ft_checkres(t_map *map, t_err *err);
 int				ft_checkall(t_map *map, t_err *err);
 
-/*FILES IN FT_READFILEB.C*/
+/*
+**FILES IN FT_READFILEB.C
+*/
 int				ft_outemptylines(t_map *map);
 int				ft_getdatafileb(t_map *map, t_tex *tex, t_err *err);
 void			ft_checkduplicates(t_map *map, t_tex *tex, t_err *err);
 int				ft_checkokmap(t_map *map, t_tex *tex, t_err *err);
 
-/*FILES IN FT_GETTEXTURE.C*/
+/*
+**FILES IN FT_GETTEXTURE.C
+*/
 int				ft_gettex(t_tex *tex, t_err *err, t_map *map);
 int				ft_gettexno(t_tex *tex, t_err *err, t_map *map);
 int				ft_gettexso(t_tex *tex, t_err *err, t_map *map);
-int 			ft_gettexwe(t_tex *tex, t_err *err, t_map *map);
+int				ft_gettexwe(t_tex *tex, t_err *err, t_map *map);
 int				ft_gettexea(t_tex *tex, t_err *err, t_map *map);
 
-/*FILES IN FT_GETTEXTUREB.C*/
+/*
+**FILES IN FT_GETTEXTUREB.C
+*/
 int				ft_getsprite(t_tex *tex, t_err *err, t_map *map);
 int				ft_getceilb(t_map *map, t_err *err);
 int				ft_getceil(t_tex *tex, t_err *err, t_map *map);
 int				ft_getflo(t_tex *tex, t_err *err, t_map *map);
 void			ft_checknull(char *str, t_err *err);
 
-/*FILES IN FT_GETTEXTUREC.C*/
+/*
+**FILES IN FT_GETTEXTUREC.C
+*/
 void			ft_checknumbers(t_map *map, t_err *err);
 void			ft_countcomas(t_map *map, t_err *err);
 void			ft_countlines(char *argv, t_map *map, t_err *err);
@@ -266,7 +284,9 @@ int				ft_checkplayer(int x, t_map *map, t_err *err);
 void			ft_checkplayerb(t_map *map, int x, int y);
 int				ft_checktexture(char *str, t_err *err);
 
-/*FILES IN FT_GETMAP.C*/
+/*
+**FILES IN FT_GETMAP.C
+*/
 int				ft_openfile(char *str, t_err *err);
 int				ft_openfileb(char *str, t_err *err);
 int				ft_getmap(t_map *map, t_err *err);
@@ -274,12 +294,16 @@ int				ft_checkmap(t_map *map, t_err *err);
 void			ft_checkmap2(int x, int y, char **str, t_err *err);
 void			ft_spritearray(t_map *map);
 
-/*FILES IN FT_FREEDOM.C*/
+/*
+**FILES IN FT_FREEDOM.C
+*/
 void			ft_freemap(t_map *map);
 void			ft_delerr(t_err *err);
 void			ft_freearray(char **fra);
 
-/*FILES IN FT_STRUTINIT.C*/
+/*
+**FILES IN FT_STRUTINIT.C
+*/
 void			ft_inimap(t_map *map);
 void			ft_initex(t_tex *tex);
 int				ft_init(t_map *map, t_tex *tex, t_err *err);
@@ -289,25 +313,33 @@ void			ft_initmlxb(t_map *map);
 void			ft_initmlxc(t_map *map);
 void			ft_initmlxd(t_map *map);
 
-/*FILES IN FT_UTILSA.C*/
+/*
+**FILES IN FT_UTILSA.C
+*/
 int				ft_strncmpb(const char *s1, const char *s2, size_t n);
 int				ft_strlenb(char *str);
 char			*ft_strjoinb(char *str, char *s2);
 char			*ft_strdupb(char *str);
 int				ft_freestruct(t_map *map, t_tex *tex);
 
-/*FILES IN FT_UTILSB.C*/
+/*
+**FILES IN FT_UTILSB.C
+*/
 char			*ft_substrb(char *s, unsigned int start, size_t len);
 char			*ft_strchrb(char *s, int c);
 int				ft_outspace(int i, char *str);
 int				ft_checkspace(t_map *map);
 void			ft_freemem(t_map *map, t_tex *tex, t_err *err);
 
-/*FILES IN FT_UTILSB.C*/
-int         	ft_rgbtoint(int *hex);
+/*
+**FILES IN FT_UTILSB.C
+*/
+int				ft_rgbtoint(int *hex);
 void			ft_printerr(char *str);
 
-/*FILES IN FT_CUBEMAIN.C*/
+/*
+**FILES IN FT_CUBEMAIN.C
+*/
 int				ft_cubemain(t_map *map, t_tex *tex);
 void			ft_getdefres(t_map *map, t_tex *tex);
 void			ft_getinfo(t_map *map);
@@ -333,7 +365,7 @@ int				ft_exit_game(t_map *map);
 void			ft_raycastingb(t_map *map);
 void			ft_calculatespr(t_map *map, int i);
 void			ft_paintspr(t_map *map);
-void			ft_sortsprites(t_map * map);
+void			ft_sortsprites(t_map *map);
 void			ft_sortspritesb(t_map *map);
 void			ft_copyimage(t_map *map);
 

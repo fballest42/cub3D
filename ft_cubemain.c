@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/04 12:29:22 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/04 15:06:00 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,10 @@ int				ft_raycasting(t_map *map)
 
 void			ft_copyimage(t_map *map)
 {
-	//AQUI VA LA FUNCION PARA GRABAR EL BMP
-	int		i = 0;
-	i = map->tex_id;
+	if (map->save == 1)
+	{
+		map->save++;
+	}
 }
 
 void			ft_raycastingb(t_map *map)
@@ -140,7 +141,8 @@ void			ft_paintspr(t_map *map)
 	{
 		d = (y) * 256 - map->ry * 128 + map->sprheight * 128;
 		map->texy = ((d * map->texheight) / map->sprheight) / 256;
-		color = *(unsigned int*)(map->texrc[map->tex_id].addr + (map->texy * map->texrc[map->tex_id].sizeli
+		color = *(unsigned int*)(map->texrc[map->tex_id].addr +
+			(map->texy * map->texrc[map->tex_id].sizeli
 			+ map->texx * (map->texrc[map->tex_id].bpptex / 8)));
 		if ((color & 0x00FFFFFF) != 0)
 			ft_mlx_pixel_put(map, map->stripe, y, color);
@@ -317,13 +319,13 @@ void			ft_verline(int x, t_map *map)
 
 void			ft_wallident(t_map *map)
 {
-	if (map->side == 0 && map->raydirx > 0)//NO Texture
+	if (map->side == 0 && map->raydirx > 0)
 		map->tex_id = 0;
-	if (map->side == 0 && map->raydirx <= 0)//SO Texture
+	if (map->side == 0 && map->raydirx <= 0)
 		map->tex_id = 1;
-	if (map->side == 1 && map->raydiry > 0)//WE Texture
+	if (map->side == 1 && map->raydiry > 0)
 		map->tex_id = 2;
-	if (map->side == 1 && map->raydiry <= 0)//EA Texture
+	if (map->side == 1 && map->raydiry <= 0)
 		map->tex_id = 3;
 }
 
