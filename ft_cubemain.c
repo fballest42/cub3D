@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/04 09:13:11 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/04 12:29:22 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,16 @@ int				ft_raycasting(t_map *map)
 	}
 	ft_raycastingb(map);
 	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
-	//ft_copyimage(map);
+	ft_copyimage(map);
 	mlx_destroy_image(map->mlx_ptr, map->mlx_img);
 	return (0);
+}
+
+void			ft_copyimage(t_map *map)
+{
+	//AQUI VA LA FUNCION PARA GRABAR EL BMP
+	int		i = 0;
+	i = map->tex_id;
 }
 
 void			ft_raycastingb(t_map *map)
@@ -111,7 +118,7 @@ void			ft_raycastingb(t_map *map)
 		while (map->stripe < map->drawendx)
 		{
 			map->texx = (int)(256 * (map->stripe - (-map->sprwidth / 2
-				 + map->sprscreenx)) * map->texwidth / map->sprwidth) / 256;
+				+ map->sprscreenx)) * map->texwidth / map->sprwidth) / 256;
 			if (map->transformy > 0 && map->stripe > 0 && map->stripe < map->rx
 				&& map->transformy < map->sprite[map->stripe])
 				ft_paintspr(map);
@@ -128,12 +135,13 @@ void			ft_paintspr(t_map *map)
 	unsigned int		color;
 
 	y = map->drawstarty;
-	while(y < map->drawendy)
+	map->tex_id = 4;
+	while (y < map->drawendy)
 	{
 		d = (y) * 256 - map->ry * 128 + map->sprheight * 128;
 		map->texy = ((d * map->texheight) / map->sprheight) / 256;
-		color = *(unsigned int*)(map->texrc[4].addr + (y * map->texrc[4].sizeli
-			+ map->stripe * (map->texrc[4].bpptex / 8)));
+		color = *(unsigned int*)(map->texrc[map->tex_id].addr + (map->texy * map->texrc[map->tex_id].sizeli
+			+ map->texx * (map->texrc[map->tex_id].bpptex / 8)));
 		if ((color & 0x00FFFFFF) != 0)
 			ft_mlx_pixel_put(map, map->stripe, y, color);
 		y++;
@@ -142,12 +150,15 @@ void			ft_paintspr(t_map *map)
 
 void			ft_calculatespr(t_map *map, int i)
 {
-	map->spritex = (map->sprpos[map->sprord[i]][0] - map->posx);
-	map->spritey = (map->sprpos[map->sprord[i]][1] - map->posy);
+	map->spritex = (map->sprpos[map->sprord[i]][0] - (map->posx - 0.5));
+	map->spritey = (map->sprpos[map->sprord[i]][1] - (map->posy - 0.5));
 	map->invdet = 1.0 / (map->planex * map->diry - map->dirx * map->planey);
-	map->transformx = map->invdet * (map->diry * map->spritex - map->dirx * map->spritey);
-	map->transformy = map->invdet * (-map->planey * map->spritex + map->planex * map->spritey);
-	map->sprscreenx = (int)((map->rx / 2) * (1 + map->transformx / map->transformy));
+	map->transformx = map->invdet * (map->diry * map->spritex -
+		map->dirx * map->spritey);
+	map->transformy = map->invdet * (-map->planey * map->spritex +
+		map->planex * map->spritey);
+	map->sprscreenx = (int)((map->rx / 2) * (1 + map->transformx /
+		map->transformy));
 	map->sprheight = abs((int)(map->ry / (map->transformy)));
 	map->drawstarty = -map->sprheight / 2 + map->ry / 2;
 	if (map->drawstarty < 0)
@@ -165,7 +176,7 @@ void			ft_calculatespr(t_map *map, int i)
 	map->stripe = map->drawstartx;
 }
 
-void			ft_sortsprites(t_map * map)
+void			ft_sortsprites(t_map *map)
 {
 	int		y;
 
@@ -258,7 +269,7 @@ void			ft_hitwall(t_map *map)
 			map->mapy = map->mapy + map->stepy;
 			map->side = 1;
 		}
-		if (map->mapa[map->mapx][map->mapy] > 48)
+		if (map->mapa[map->mapx][map->mapy] == 49)
 			map->hit = 1;
 	}
 }
@@ -487,7 +498,6 @@ void			ft_painttexb(t_map *map, int x, int y)
 		map->texy = (int)map->texpos & (map->texheight - 1);
 		map->texpos = map->texpos + map->step;
 		ft_mlx_pixel_put(map, x, y, ft_getpixel(map, map->texx, map->texy));
-
 		y++;
 	}
 }
