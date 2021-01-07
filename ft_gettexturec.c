@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 13:01:08 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/21 16:02:43 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/07 10:22:36 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,21 +103,4 @@ void			ft_checkplayerb(t_map *map, int x, int y)
 	}
 	if (map->mapa[x][y] == '2')
 		map->sprnum = map->sprnum + 1;
-}
-
-int				ft_checktexture(char *str, t_err *err)
-{
-	char		*ext;
-	int			y;
-
-	y = 0;
-	ext = ft_extfile(str);
-	y = ft_strlenb(ext);
-	if (ft_strncmpb(ext, ".xpm", y) == 0)
-		return (0);
-	else
-	{
-		ft_printerr(err->err6);
-		exit(-6);
-	}
 }

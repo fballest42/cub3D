@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errors.c                                        :+:      :+:    :+:   */
+/*   ft_freedom.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 12:15:12 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/20 13:11:54 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/07 11:06:17 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,26 @@ void		ft_delerr(t_err *err)
 	err->err23 = NULL;
 	err->x = 0;
 	err->ok = 0;
+}
+
+int			ft_checktexture(char *str, t_err *err)
+{
+	char		*ext;
+	int			y;
+
+	y = 0;
+	ext = ft_extfile(str);
+	y = ft_strlenb(ext);
+	if (ft_strncmpb(ext, ".xpm", y) == 0)
+		return (0);
+	else
+	{
+		ft_printerr(err->err6);
+		exit(-6);
+	}
+}
+
+void		ft_printerr(char *str)
+{
+	write(1, str, ft_strlenb(str));
 }

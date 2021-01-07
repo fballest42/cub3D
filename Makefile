@@ -6,7 +6,7 @@
 #    By: fballest <fballest@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/21 12:11:55 by fballest          #+#    #+#              #
-#    Updated: 2020/12/23 13:41:56 by fballest         ###   ########.fr        #
+#    Updated: 2021/01/07 11:22:33 by fballest         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ NAME = cub3D
 
 SRC = 	ft_cub3d ft_structinit ft_cubemain ft_freedom ft_getmap ft_utilsa \
 		ft_gettexture ft_gettextureb ft_gettexturec ft_readfile ft_readfileb \
-		ft_utilsb ft_utilsc\
+		ft_utilsb ft_structinitb ft_raycasting ft_raycastingb ft_raycastingc \
+		ft_raycastingd ft_raycastinge\
 
 SRCCUB = $(addsuffix .c, $(SRC))
 OBJS = $(SRCCUB:.c=.o)

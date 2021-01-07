@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2020/12/22 12:15:57 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/07 10:27:05 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,19 +111,6 @@ int				ft_openfile(char *str, t_err *err)
 		close(fd);
 		ft_printerr(err->err4);
 		exit(-4);
-	}
-	return (fd);
-}
-
-int				ft_openfileb(char *str, t_err *err)
-{
-	int		fd;
-
-	if ((fd = open(str, O_RDONLY)) <= 0)
-	{
-		close(fd);
-		ft_printerr(err->err19);
-		exit(-19);
 	}
 	return (fd);
 }

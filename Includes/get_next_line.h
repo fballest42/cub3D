@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 09:13:23 by fballest          #+#    #+#             */
-/*   Updated: 2020/10/06 08:56:48 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/07 12:06:21 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <string.h>
 # include <fcntl.h>
 
-#define BUFFER_SIZE 1024
+# define BUFFER_SIZE 25
 
 char			*ft_strchr(const char *s, int c);
 size_t			ft_strlen(const char *str);
