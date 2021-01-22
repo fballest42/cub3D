@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:23:36 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/07 11:57:31 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/10 00:10:57 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ void			ft_inierr(t_err *err)
 	err->err19 = "Error\n19.- Could not open a texture file.\n";
 	err->err20 = "Error\n20.- Not valid texture extension.\n";
 	err->err21 = "Error\n21.- Not a coma between colours.\n";
-	err->err22 = "Error\n22.- .\n";
-	err->err23 = "Error\n23.- .\n";
 	err->x = 0;
 	err->ok = 0;
 }
