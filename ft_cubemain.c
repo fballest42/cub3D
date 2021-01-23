@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/22 13:49:55 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/23 13:01:01 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,36 +52,6 @@ int				ft_raycasting(t_map *map)
 	return (0);
 }
 
-void			ft_copyimage(t_map *map)
-{
-	if (map->save == 1)
-	{
-		ft_exportbmp(map);
-	}
-}
-
-void			ft_fillbmp(char **data, t_map *map)
-{
-	int i;
-	int j;
-	int x;
-	int y;
-
-	i = HEADER_SIZE;
-	y = map->ry;
-	while (y--)
-	{
-		x = -1;
-		while (++x < map->rx)
-		{
-			j = (x * (map->mlx_bxp / 8)) + (y * map->mlx_sili);
-			*(*data + i++) = *(map->mlx_imgaddr + j++);
-			*(*data + i++) = *(map->mlx_imgaddr + j++);
-			*(*data + i++) = *(map->mlx_imgaddr + j);
-		}
-	}
-}
-
 /*
 ** Initialize the header of bmp (char *data)
 **
@@ -105,7 +75,7 @@ void			ft_fillbmp(char **data, t_map *map)
 ** 42		| 2A	| RES Y PX PER METER
 ** 46		| 2E	| NB OF USED COLOR (0 = MAX)
 ** 50		| 32	| NB OF INDEX OF COLOR (0 = ALL)
-*/
+
 
 void			ft_headerbmp(char **data, t_map *map)
 {
@@ -129,10 +99,10 @@ void			ft_headerbmp(char **data, t_map *map)
 	*(int *)(*data + 50) = 0;
 }
 
-/*
+
 ** Create bmp (char *data), put header and fill it, then put result into
 ** filename (*.bmp).
-*/
+
 
 void			ft_exportbmp(t_map *map)
 {
@@ -168,22 +138,18 @@ char			*ft_bmpfile(char *file, int i)
 	*(unsigned int *)(filename + n) =
 	*(const unsigned int *)(unsigned long)"bmp\0";
 	return (filename);
-}
+}*/
 
-/*void			ft_copyimage(t_map *map)
+void			ft_copyimage(t_map *map)
 {
 	t_bmp	*bmp;
-
 
 	if (map->save == 1)
 	{
 		map->save++;
 		if (!(bmp = malloc(sizeof(t_bmp))))
 			exit(-23);
-		ft_initsave(map, bmp);
 		ft_writeheader(map, bmp);
-		ft_writebmp(map, bmp);
-		close(bmp->fdsave);
 		free(bmp);
 		exit(0);
 	}
@@ -191,33 +157,37 @@ char			*ft_bmpfile(char *file, int i)
 
 void			ft_writeheader(t_map *map, t_bmp *bmp)
 {
+	ft_initsave(map, bmp);
 	write(bmp->fdsave, "BM", 2);
-	write(bmp->fdsave, &bmp->filesize, sizeof(int));
-	write(bmp->fdsave, &bmp->unused, sizeof(int));
+	write(bmp->fdsave, &bmp->filesize, sizeof(unsigned int));
+	write(bmp->fdsave, &bmp->unused, sizeof(unsigned short int));
+	write(bmp->fdsave, &bmp->unused, sizeof(unsigned short int));
 	write(bmp->fdsave, &bmp->offset_begin, sizeof(int));
 	write(bmp->fdsave, &bmp->header_bytes, sizeof(int));
 	write(bmp->fdsave, &map->rx, sizeof(int));
 	write(bmp->fdsave, &map->ry, sizeof(int));
-	write(bmp->fdsave, &bmp->bmpplane, sizeof(short int));
-	write(bmp->fdsave, &bmp->bmpbxp, sizeof(short int));
-	write(bmp->fdsave, &bmp->unused, sizeof(int));
-	write(bmp->fdsave, &bmp->unused, sizeof(int));
-	write(bmp->fdsave, &bmp->unused, sizeof(int));
-	write(bmp->fdsave, &bmp->unused, sizeof(int));
-	write(bmp->fdsave, &bmp->unused, sizeof(int));
-	write(bmp->fdsave, &bmp->unused, sizeof(int));
-
+	write(bmp->fdsave, &bmp->bmpplane, sizeof(unsigned short int));
+	write(bmp->fdsave, &bmp->bmpbxp, sizeof(unsigned short int));
+	write(bmp->fdsave, &bmp->unused, sizeof(unsigned int));
+	write(bmp->fdsave, &bmp->unused, sizeof(unsigned int));
+	write(bmp->fdsave, &bmp->unused, sizeof(unsigned int));
+	write(bmp->fdsave, &bmp->unused, sizeof(unsigned int));
+	write(bmp->fdsave, &bmp->unused, sizeof(unsigned int));
+	write(bmp->fdsave, &bmp->unused, sizeof(unsigned int));
+	write(bmp->fdsave, &bmp->unused, sizeof(unsigned int));
+	ft_writebmp(map, bmp);
+	close(bmp->fdsave);
 }
 
 void			ft_initsave(t_map *map, t_bmp *bmp)
 {
-	bmp->bmpbxp = map->mlx_bxp / 8;
-	bmp->filesize = (map->ry * map->rx * bmp->bmpbxp) + 48;
-	bmp->pixelsize = (map->ry * map->rx * bmp->bmpbxp);
+	bmp->filesize = 54 + 4 * map->ry * map->rx;
+	bmp->pixelsize = (map->ry * map->rx);
 	bmp->unused = 0;
-	bmp->offset_begin = 48;
+	bmp->offset_begin = 54;
 	bmp->header_bytes = 40;
 	bmp->bmpplane = 1;
+	bmp->bmpbxp = map->mlx_bxp;
 	bmp->fdsave = open("screenshot.bmp", O_RDWR | O_CREAT, S_IRWXU | O_TRUNC);
 	if (bmp->fdsave < 0)
 	{
@@ -233,20 +203,24 @@ void			ft_writebmp(t_map *map, t_bmp *bmp)
 	int		line;
 
 	y = 0;
+	line = 0;
 	while (y < map->ry)
 	{
 		x = 0;
-		line = map->rx * (map->ry - y);
+		//line = (map->rx * (map->ry - (y))) - (map->rx - 1);
 		while (x < map->rx)
 		{
-			write(bmp->fdsave, &map->mlx_imgaddr[line * bmp->bmpbxp], bmp->bmpbxp);
+			write(bmp->fdsave, &map->mlx_imgaddr, (map->rx * map->ry * (bmp->bmpbxp / 8)));
 			line++;
 			x++;
 		}
 		y++;
 	}
-}*/
-void				screenshot(t_mlx *mlx)
+}
+
+
+
+/*void				screenshot(t_mlx *mlx)
 {
 	mlx->img = mlx_new_image(mlx->mlx, mlx->config->resolutionwidth,
 							mlx->config->resolutionheight);
@@ -279,7 +253,7 @@ void				write_data_header(t_mlx *mlx, int size, int fd)
 	header[18] = (unsigned char)(map->rx);
 	header[19] = (unsigned char)(map->rx >> 8);
 	header[20] = (unsigned char)(map->rx >> 16);
-	header[21] = (unsigned char)(mlx->config->resolutionwidth >> 24);
+	header[21] = (unsigned char)(map->rx >> 24);
 	header[22] = (unsigned char)(-mlx->config->resolutionheight);
 	header[23] = (unsigned char)(-mlx->config->resolutionheight >> 8);
 	header[24] = (unsigned char)(-mlx->config->resolutionheight >> 16);
@@ -305,4 +279,4 @@ void				take_screenshot(t_mlx *mlx)
 	write(fd, tmp, (width * mlx->config->resolutionheight * 4));
 	close(fd);
 	exit(EXIT_SUCCESS);
-}
+}*/

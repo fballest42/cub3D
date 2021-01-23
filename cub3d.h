@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/22 13:24:28 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/23 11:18:08 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@
 #  define X_BTN 17
 #  define MSPD 0.07
 #  define RSPD 0.04363325
-#  define HEADER_SIZE 50
 # elif defined __UNIX__
 #  include "mlx_linux/mlx.h"
 #  define A_KEY 97
@@ -172,14 +171,14 @@ typedef struct	s_map
 
 typedef struct		s_bmp
 {
-	int			fdsave;
-	int			filesize;
-	int			pixelsize;
-	int			unused;
-	int			offset_begin;
-	int			header_bytes;
-	short int	bmpplane;
-	short int	bmpbxp;
+	int					fdsave;
+	int					filesize;
+	int					pixelsize;
+	int					unused;
+	int					offset_begin;
+	int					header_bytes;
+	short int			bmpplane;
+	short int			bmpbxp;
 }					t_bmp;
 
 typedef struct	s_tex
@@ -394,8 +393,8 @@ void			ft_getinfo(t_map *map);
 int				ft_cubemain(t_map *map, t_tex *tex);
 int				ft_raycasting(t_map *map);
 void			ft_copyimage(t_map *map);
-void			ft_fillbmp(char **data, t_map *map);
-void			ft_headerbmp(char **data, t_map *map);
-void			ft_exportbmp(t_map *map);
+void			ft_writebmp(t_map *map, t_bmp *bmp);
+void			ft_initsave(t_map *map, t_bmp *bmp);
+void			ft_writeheader(t_map *map, t_bmp *bmp);
 
 #endif
