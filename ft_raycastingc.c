@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 19:26:27 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/07 11:24:20 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/29 12:49:08 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int				ft_exit_game(t_map *map)
 	free(map->sprite);
 	free(map->sprord);
 	free(map->sprdist);
+	free(map);
 	exit(0);
 	return (0);
 }

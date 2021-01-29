@@ -1,5 +1,5 @@
 
-R 700 400
+R 5000 4000
 NO ./textures/wood.xpm
 SO ./textures/mossy.xpm
 

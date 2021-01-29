@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 09:23:01 by fballest          #+#    #+#             */
-/*   Updated: 2020/11/12 23:30:53 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/29 12:37:20 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int			ft_freestruct(t_map *map, t_tex *tex)
 {
 	ft_initex(tex);
 	ft_inimap(map);
+	map->name = NULL;
 	free(tex);
 	free(map);
 	return (-1);

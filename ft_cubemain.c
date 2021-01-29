@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/27 22:40:21 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/29 12:56:54 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int				ft_cubemain(t_map *map, t_tex *tex)
 	ft_getdefres(map, tex);
 	map->mlx_ptr = mlx_init();
 	ft_loadtex(map);
+	if (map->save == 1)
+		ft_raycasting(map);
 	map->mlx_win = mlx_new_window(map->mlx_ptr, map->rx, map->ry, map->name);
 	mlx_hook(map->mlx_win, 17, 1L << 17, ft_exit_game, map);
 	mlx_hook(map->mlx_win, 2, 1L << 0, ft_keypress, map);
@@ -46,11 +48,13 @@ int				ft_raycasting(t_map *map)
 		x++;
 	}
 	ft_raycastingb(map);
-	ft_copyimage(map);
+	if (map->save == 1)
+		ft_copyimage(map);
 	mlx_put_image_to_window(map->mlx_ptr, map->mlx_win, map->mlx_img, 0, 0);
 	mlx_destroy_image(map->mlx_ptr, map->mlx_img);
 	return (0);
 }
+
 void			ft_copyimage(t_map *map)
 {
 	t_bmp	*bmp;
@@ -59,9 +63,13 @@ void			ft_copyimage(t_map *map)
 	{
 		map->save++;
 		if (!(bmp = malloc(sizeof(t_bmp))))
+		{
+			ft_printerr("Error\n23.- Failed while allocating memory");
+			ft_freecopy(map, bmp);
 			exit(-23);
+		}
 		ft_writeheader(map, bmp);
-		free(bmp);
+		ft_freecopy(map, bmp);
 		exit(0);
 	}
 }
@@ -103,33 +111,12 @@ void			ft_initsave(t_map *map, t_bmp *bmp)
 	if (bmp->fdsave < 0)
 	{
 		ft_printerr("Error\n22.- Screenshot file not created");
+		ft_freecopy(map, bmp);
 		exit(-22);
 	}
 }
 
-// void			ft_writebmp(t_map *map, t_bmp *bmp)
-// {
-// 	int		y;
-// 	int		x;
-// 	int		line;
-
-// 	y = 0;
-// 	line = 0;
-// 	while (y < map->ry)
-// 	{
-// 		x = 0;
-// 		line = (map->rx * (map->ry - (y))) - (map->rx - 1);
-// 		while (x < map->rx)
-// 		{
-// 			write(bmp->fdsave, &map->mlx_imgaddr, (map->rx * map->ry * (bmp->bmpbxp / 8)));
-// 			line++;
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
-
-void		ft_writebmp(t_map *map, t_bmp *bmp)
+void			ft_writebmp(t_map *map, t_bmp *bmp)
 {
 	int		y;
 	int		x;
@@ -148,4 +135,19 @@ void		ft_writebmp(t_map *map, t_bmp *bmp)
 		}
 		y++;
 	}
+}
+
+void			ft_freecopy(t_map *map, t_bmp *bmp)
+{
+	free(bmp);
+	ft_inimap(map);
+	map->name = NULL;
+	ft_initmlx(map);
+	free(map->sprite);
+	free(map->sprord);
+	free(map->sprdist);
+	free(map);
+	map->mlx_ptr = NULL;
+	map->mlx_img = NULL;
+	free(map->mlx_ptr);
 }

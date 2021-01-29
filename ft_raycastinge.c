@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 19:26:27 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/09 23:03:03 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/29 12:35:42 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void			ft_getdefres(t_map *map, t_tex *tex)
 	map->sprite = malloc(sizeof(double) * map->rx + 1);
 	map->sprord = malloc(sizeof(int) * map->sprnum + 1);
 	map->sprdist = malloc(sizeof(double) * map->sprnum + 1);
+	free(tex);
 	ft_getinfo(map);
 }
 
