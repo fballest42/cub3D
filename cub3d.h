@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:34:48 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/29 12:53:47 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/30 10:42:15 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,6 +395,10 @@ int				ft_raycasting(t_map *map);
 void			ft_copyimage(t_map *map);
 void			ft_writebmp(t_map *map, t_bmp *bmp);
 void			ft_initsave(t_map *map, t_bmp *bmp);
+
+/*
+**FILES IN FT_UTILSC.C
+*/
 void			ft_writeheader(t_map *map, t_bmp *bmp);
 void			ft_freecopy(t_map *map, t_bmp *bmp);
 

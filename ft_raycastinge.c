@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 19:26:27 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/29 12:35:42 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/30 11:33:05 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void			ft_getdefres(t_map *map, t_tex *tex)
 {
 	mlx_get_screen_size(map->mlx_ptr, &map->grx, &map->gry);
-	if (map->rx == 2560 && map->ry == 1440)
+	if (map->rx == 2560 && map->ry == 1440 && map->save == 0)
 	{
 		map->rx = map->grx;
 		map->ry = map->gry;

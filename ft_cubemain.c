@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 09:21:00 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/29 12:56:54 by fballest         ###   ########.fr       */
+/*   Updated: 2021/01/30 11:39:06 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int				ft_raycasting(t_map *map)
 	map->mlx_img = mlx_new_image(map->mlx_ptr, map->rx, map->ry);
 	map->mlx_imgaddr = mlx_get_data_addr(map->mlx_img, &map->mlx_bxp,
 		&map->mlx_sili, &map->mlx_endian);
+	if (map->save == 1)
+		map->mlx_sili = map->rx * 4;
 	while (x < map->rx)
 	{
 		ft_setinfo(x, map);
@@ -114,40 +116,4 @@ void			ft_initsave(t_map *map, t_bmp *bmp)
 		ft_freecopy(map, bmp);
 		exit(-22);
 	}
-}
-
-void			ft_writebmp(t_map *map, t_bmp *bmp)
-{
-	int		y;
-	int		x;
-	int		line;
-
-	y = 0;
-	while (y <= map->ry)
-	{
-		x = 0;
-		line = (map->mlx_sili / 4) * (map->ry - y);
-		while (x < map->rx)
-		{
-			write(bmp->fdsave, &map->mlx_imgaddr[line * 4], 4);
-			line++;
-			x++;
-		}
-		y++;
-	}
-}
-
-void			ft_freecopy(t_map *map, t_bmp *bmp)
-{
-	free(bmp);
-	ft_inimap(map);
-	map->name = NULL;
-	ft_initmlx(map);
-	free(map->sprite);
-	free(map->sprord);
-	free(map->sprdist);
-	free(map);
-	map->mlx_ptr = NULL;
-	map->mlx_img = NULL;
-	free(map->mlx_ptr);
 }
