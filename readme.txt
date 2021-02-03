@@ -1,1 +1,3 @@
-My own Wolfstein, currently working on it
+My own Wolfstein.
+
+A raycasting project form 42 Network.
