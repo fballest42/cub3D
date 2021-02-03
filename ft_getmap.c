@@ -6,7 +6,7 @@
 /*   By: fballest <fballest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 08:54:48 by fballest          #+#    #+#             */
-/*   Updated: 2021/01/07 10:27:05 by fballest         ###   ########.fr       */
+/*   Updated: 2021/02/02 11:47:32 by fballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void			ft_spritearray(t_map *map)
 
 void			ft_checkmap2(int x, int y, char **str, t_err *err)
 {
-	if (x == 0 || y == 0 || y == (ft_strlenb(str[x])) || x == err->x - 1
+	if (x == 0 || y == 0 || y == (ft_strlenb(str[x]) - 1) || x == err->x - 1
 		|| y >= ft_strlenb(str[x + 1]) || y >= ft_strlenb(str[x - 1]))
 	{
 		ft_freearray(str);
