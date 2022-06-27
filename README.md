@@ -20,4 +20,6 @@
 #### Example of a capture of 6000x480 resolution.
 ![](images/cub3d_ss.png)
 
+#### You can change the texture files for each element, you can find more valid texture files in the folder [textures](textures/). If you want you can include your own texture file, to do it take care that must be xpm files, and with a size of 64 bits.
+
 ## Graded: [![fballest's 42 cub3d Score](https://badge42.vercel.app/api/v2/cl45d74de005409l9l5r3ozl6/project/1926249)](https://github.com/JaeSeoKim/badge42)
