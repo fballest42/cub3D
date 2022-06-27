@@ -1,6 +1,6 @@
 # CUB3D
 
-### Firts graphics project in 3D. It is a raycasting algotithm to create a basic Wolfstein game. It manage sprites objects and diferent textures for each wall orientation. This is the old cub3D project currently it is a project for pairs (before was an individual project), and they do not manage sprites and they do not need to capture the first image if execute with flag --save, this changes makes the new project easier tht this one.
+### Firts graphics project in 3D. It is a raycasting algotithm to create a basic Wolfstein game. It manage sprites objects and diferent textures for each wall orientation. This is the old cub3D project currently it is a project to do by two students (before was an individual project), and they do not manage sprites and they do not need to capture the first image if execute with flag --save, this changes makes the new project easier than this one.
 
 ![](images/cub3d_1.png)
 
