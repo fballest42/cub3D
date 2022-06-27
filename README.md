@@ -1,8 +1,8 @@
-# CUB3d
+# CUB3D
 
-### Firts graphics project in 3D. It is a raycasting algotithm to create a basic Wolfstein game. It manage sprites objects and diferent textures for each wall orientation.
+### Firts graphics project in 3D. It is a raycasting algotithm to create a basic Wolfstein game. It manage sprites objects and diferent textures for each wall orientation. This is the old cub3D project currently it is a project for pairs (before was an individual project), and they do not manage sprites and they do not need to capture the first image if execute with flag --save, this changes makes the new project easier tht this one.
 
-[image1][https://drive.google.com/file/d/1oidqlKXSfj3kUgYUU7meCFv2U53-3r3Y/view?usp=sharing]
+![](images/cub3d_1.png)
 
 ### How to play it?
 #### Open your shell terminal and compile it with "make".
@@ -17,4 +17,6 @@
 #### - RIGHT ARROW: Turn the point of view to the right.
 #### As option you can capture the first image of the game executing "./cub3d testmap.cub --save" it is create an screenshot.bmp with the image, but you can not play it (that is the mandatory way to do it acording to the [subject](Subject/en.subject.pdf).
 
-[image2][https://drive.google.com/file/d/1PpPbNj1LWChgXW6GRjIlN-TjAw5H1YgC/view?usp=sharing]
+![](images/cub3d_ss.png)
+
+### Graded: [![fballest's 42 cub3d Score](https://badge42.vercel.app/api/v2/cl45d74de005409l9l5r3ozl6/project/1926249)](https://github.com/JaeSeoKim/badge42)
