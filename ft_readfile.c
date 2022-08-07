@@ -15,11 +15,9 @@
 int				ft_checker(t_map *map, t_err *err, t_tex *tex, char **argv)
 {
 	int		fd;
-	int		y;
 	char	*line;
 
 	line = NULL;
-	y = 0;
 	ft_countlines(argv[1], map, err);
 	fd = ft_openfile(argv[1], err);
 	while ((get_next_line(fd, &line)) > 0)

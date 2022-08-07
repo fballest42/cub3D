@@ -14,13 +14,11 @@
 
 void			ft_countlines(char *argv, t_map *map, t_err *err)
 {
-	int		y;
 	int		fd;
 	char	*cont;
 
 	cont = NULL;
 	fd = ft_openfile(argv, err);
-	y = 0;
 	while ((get_next_line(fd, &cont)) > 0)
 	{
 		map->fm++;

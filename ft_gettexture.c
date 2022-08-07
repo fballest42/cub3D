@@ -35,7 +35,7 @@ int				ft_gettex(t_tex *tex, t_err *err, t_map *map)
 		|| (tex->rutawe && (ft_checktexture(tex->rutawe, err) != 0))
 		|| (tex->rutaea && (ft_checktexture(tex->rutaea, err) != 0)))
 		return (-1);
-	return (0);
+	return (i);
 }
 
 int				ft_gettexno(t_tex *tex, t_err *err, t_map *map)
